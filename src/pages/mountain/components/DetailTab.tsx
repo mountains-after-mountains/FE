@@ -1,9 +1,7 @@
 import CourseCard from './CourseCard'
 import Flag from '@/assets/icons/flag.svg?react'
 
-type Props = {}
-
-const DetailTab = (props: Props) => {
+const DetailTab = () => {
   return (
     <>
       <div className="p-5">

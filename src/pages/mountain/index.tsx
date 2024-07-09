@@ -2,6 +2,7 @@ import CommonTabs from '@/components/common/CommonTabs'
 import { useParams } from 'react-router-dom'
 import DetailMountainInfo from './components/DetailMountainInfo'
 import DetailTab from './components/DetailTab'
+import ReviewTab from './components/ReviewTab'
 
 const Mountain = () => {
   const { mountainId } = useParams()
@@ -13,7 +14,7 @@ const Mountain = () => {
   const tab2 = {
     text: '후기',
     value: 'review',
-    content: <div>abcjd</div>,
+    content: <ReviewTab />,
   }
 
   return (
