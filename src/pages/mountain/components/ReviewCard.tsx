@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Flag from '@/assets/icons/flag.svg?react'
 
 interface Props {
@@ -12,10 +12,19 @@ interface Props {
 }
 
 const ReviewCard = ({ writer, title, date, time, difficulty, contents, img }: Props) => {
-  const [open, setOpen] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isOverflowed, setIsOverflowed] = useState(false)
   const contentsRef = useRef<HTMLDivElement>(null)
 
-  console.log(contentsRef.current?.clientHeight)
+  useEffect(() => {
+    if (contentsRef.current) {
+      const contentHeight = contentsRef.current.offsetHeight
+      const maxHeight = contentsRef.current.style.maxHeight
+      setIsOverflowed(contentHeight > parseInt(maxHeight))
+
+      console.log(contentHeight, contentsRef.current.style)
+    }
+  }, [])
 
   return (
     <div className="mb-5 w-full rounded-[20px] bg-gray-100 p-5">
@@ -43,9 +52,19 @@ const ReviewCard = ({ writer, title, date, time, difficulty, contents, img }: Pr
         </div>
       </div>
       <div className="my-3 inline-flex h-[1px] w-full bg-gray-300" />
-      <div className="line-clamp-4 text-c1 text-gray-900" ref={contentsRef}>
+      <div className="line-clamp-4 max-h-[62px] text-c1 text-gray-900" ref={contentsRef}>
         {contents}
       </div>
+      {!isExpanded && isOverflowed && (
+        <div onClick={() => setIsExpanded(true)} className="mt-2">
+          Unfold
+        </div>
+      )}
+      {isExpanded && (
+        <div onClick={() => setIsExpanded(false)} className="mt-2">
+          Fold
+        </div>
+      )}
     </div>
   )
 }
