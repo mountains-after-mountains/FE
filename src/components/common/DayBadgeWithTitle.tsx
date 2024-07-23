@@ -8,7 +8,7 @@ interface DayBadgeWithTitleType {
 }
 const DayBadgeWithTitle = ({ title, text, rightAction }: DayBadgeWithTitleType) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between">
       <div className="flex gap-1">
         <DayBadge text={text} />
         <div className="text-h5">{title}</div>
