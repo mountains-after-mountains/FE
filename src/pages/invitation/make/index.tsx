@@ -41,14 +41,20 @@ const OPTIONS: EmblaOptionsType = { loop: false }
 const MakeInvitation = () => {
   const [emblaRef] = useEmblaCarousel(OPTIONS)
   const [selectedImage, setSelectedImage] = useState(data[0].img)
+  const [text, setText] = useState('')
+  const maxLength = 100
 
   const handleImageClick = (img: string) => {
     setSelectedImage(img)
   }
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value)
+  }
+
   return (
     <>
-      <Header title="초대장 만들기" rightAction="삭제" />
+      <Header title="초대장 만들기" rightAction={<div className="text-b2 text-main">삭제</div>} />
       <div className="px-5 py-4">
         <img src={selectedImage} className="mb-4 aspect-square rounded-xl" alt="Selected" />
         <div className="mb-8 overflow-hidden" ref={emblaRef}>
@@ -69,11 +75,19 @@ const MakeInvitation = () => {
           <div className="text-b2 font-semibold">북한산</div>
           <div className="text-b2">백운대코스</div>
         </div>
-        <textarea
-          className="w-full rounded-xl bg-gray-100 px-3 py-4 placeholder:text-b2 placeholder:text-border focus:outline-none"
-          placeholder="초대장을 자유롭게 작성해주세요."
-          rows={4}
-        />
+        <div className="relative">
+          <textarea
+            className="w-full rounded-xl bg-gray-100 px-3 py-4 placeholder:text-b2 placeholder:text-border focus:outline-none"
+            placeholder="초대장을 자유롭게 작성해주세요."
+            rows={4}
+            value={text}
+            onChange={handleTextChange}
+            maxLength={100}
+          />
+          <div className="absolute bottom-2 right-3 text-b2 text-border">
+            {text.length}/{maxLength}
+          </div>
+        </div>
         <FooterButton>초대장 완성하기</FooterButton>
       </div>
     </>
