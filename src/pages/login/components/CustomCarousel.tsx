@@ -1,4 +1,3 @@
-import React from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import OnboardingContent from '@/pages/login/components/OnboardingContent.tsx'
@@ -14,7 +13,7 @@ type PropType = {
   options?: EmblaOptionsType
 }
 
-const CustomCarousel: React.FC<PropType> = props => {
+const CustomCarousel = (props: PropType) => {
   const { data, options } = props
   const [emblaRef] = useEmblaCarousel(options)
 
