@@ -6,38 +6,13 @@ interface KakaoShareButtonProps {
   description: string
   imageUrl: string
   webUrl: string
-  mobileWebUrl: string
-  profileText?: string
-  profileImageUrl?: string
-  titleImageUrl?: string
-  titleImageText?: string
-  titleImageCategory?: string
-  items?: { item: string; itemOp: string }[]
-  sum?: string
-  sumOp?: string
-  likeCount?: number
-  commentCount?: number
-  sharedCount?: number
 }
-
-const KakaoShareButton: React.FC<KakaoShareButtonProps> = ({
-  title,
-  description,
-  imageUrl,
-  webUrl,
-  mobileWebUrl,
-  profileText = '',
-  profileImageUrl = '',
-  titleImageUrl = '',
-  titleImageText = '',
-  titleImageCategory = '',
-  items = [],
-  sum = '',
-  sumOp = '',
-  likeCount = 0,
-  commentCount = 0,
-  sharedCount = 0,
-}) => {
+declare global {
+  interface Window {
+    Kakao: any
+  }
+}
+const KakaoShareButton: React.FC<KakaoShareButtonProps> = ({ title, description, imageUrl, webUrl }) => {
   const JavaScript_Key = import.meta.env.VITE_JAVASCRIPT_KEY
 
   useEffect(() => {
@@ -67,74 +42,22 @@ const KakaoShareButton: React.FC<KakaoShareButtonProps> = ({
     loadKakaoSDK()
       .then(() => {
         if (window.Kakao.isInitialized()) {
-          window.Kakao.Share.createDefaultButton({
+          window.Kakao.Share.createCustomButton({
             container: '#kakaotalk-sharing-btn',
-            objectType: 'feed',
-            content: {
+            templateId: 110356,
+            templateArgs: {
               title: title,
               description: description,
               imageUrl: imageUrl,
-              link: {
-                mobileWebUrl: mobileWebUrl,
-                webUrl: webUrl,
-              },
+              webUrl: webUrl,
             },
-            itemContent: {
-              profileText: profileText,
-              profileImageUrl: profileImageUrl,
-              titleImageUrl: titleImageUrl,
-              titleImageText: titleImageText,
-              titleImageCategory: titleImageCategory,
-              items: items,
-              sum: sum,
-              sumOp: sumOp,
-            },
-            social: {
-              likeCount: likeCount,
-              commentCount: commentCount,
-              sharedCount: sharedCount,
-            },
-            buttons: [
-              {
-                title: '웹으로 이동',
-                link: {
-                  mobileWebUrl: mobileWebUrl,
-                  webUrl: webUrl,
-                },
-              },
-              {
-                title: '앱으로 이동',
-                link: {
-                  mobileWebUrl: mobileWebUrl,
-                  webUrl: webUrl,
-                },
-              },
-            ],
           })
         }
       })
       .catch(error => {
         console.error(error)
       })
-  }, [
-    title,
-    description,
-    imageUrl,
-    webUrl,
-    mobileWebUrl,
-    profileText,
-    profileImageUrl,
-    titleImageUrl,
-    titleImageText,
-    titleImageCategory,
-    items,
-    sum,
-    sumOp,
-    likeCount,
-    commentCount,
-    sharedCount,
-    JavaScript_Key,
-  ])
+  }, [title, imageUrl, description, webUrl, JavaScript_Key])
 
   return (
     <div id="kakaotalk-sharing-btn" className="flex cursor-pointer flex-col items-center justify-center gap-1">
