@@ -1,6 +1,8 @@
 import Header from '@/components/layouts/header'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import { EditIcon } from '@/icons'
+import KakaoShareButton from '@/pages/invitation/components/KakaoShareButton.tsx'
+import UrlShareButton from '@/pages/invitation/components/UrlShareButton.tsx'
 
 const Invitation = () => {
   return (
@@ -25,6 +27,33 @@ const Invitation = () => {
               산행중 잡담없이 각자 등산 기록용으로 다녀올 겁니다 인원 4명, 입산 시간은 12시 10분 예상하고 있습니다 추가
               질문은 010.0000.0000으로 연락주세요
             </div>
+          </div>
+          <div className="flex justify-center gap-6 pt-[18px]">
+            <KakaoShareButton
+              title="오늘의 디저트"
+              description="아메리카노, 빵, 케익"
+              imageUrl="https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"
+              webUrl="https://developers.kakao.com"
+              mobileWebUrl="https://developers.kakao.com"
+              profileText="Kakao"
+              profileImageUrl="https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png"
+              titleImageUrl="https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png"
+              titleImageText="Cheese cake"
+              titleImageCategory="Cake"
+              items={[
+                { item: 'Cake1', itemOp: '1000원' },
+                { item: 'Cake2', itemOp: '2000원' },
+                { item: 'Cake3', itemOp: '3000원' },
+                { item: 'Cake4', itemOp: '4000원' },
+                { item: 'Cake5', itemOp: '5000원' },
+              ]}
+              sum="Total"
+              sumOp="15000원"
+              likeCount={10}
+              commentCount={20}
+              sharedCount={30}
+            />
+            <UrlShareButton />
           </div>
         </div>
       </div>
