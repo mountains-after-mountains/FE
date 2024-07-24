@@ -10,6 +10,7 @@ import Login from '@/pages/login'
 import Invitation from '@/pages/invitation'
 import useAuthStore from '@/store/useAuthStore.ts'
 import MakeInvitation from '@/pages/invitation/make'
+import AcceptInvitation from '@/pages/invitation/accept'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -28,6 +29,7 @@ const AppRoutes = () => {
         <Route path="/auth" element={<KakaoRedirect />} />
         <Route path="/invitation" element={<Invitation />} />
         <Route path="/invitation/make" element={<MakeInvitation />} />
+        <Route path="/invitation/accept" element={<AcceptInvitation />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
