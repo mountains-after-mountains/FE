@@ -1,3 +1,10 @@
 {
-  "routes": [{ "handle": "filesystem" }, { "src": "/.*", "dest": "/index.html" }]
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/api/(.*)",
+      "dest": "http://223.130.162.119:3010/$1"
+    },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
 }
