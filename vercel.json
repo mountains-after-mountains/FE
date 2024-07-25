@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://over-the-mountain.site/api/$1"
+    }
+  ]
+}
