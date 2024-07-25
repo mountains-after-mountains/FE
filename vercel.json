@@ -1,8 +1,10 @@
 {
-  "rewrites": [
+  "routes": [
+    { "handle": "filesystem" },
     {
-      "source": "/api/(.*)",
-      "destination": "https://over-the-mountain.site/api/$1"
-    }
+      "src": "/api/(.*)",
+      "dest": "https://over-the-mountain.site/api/$1"
+    },
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }
