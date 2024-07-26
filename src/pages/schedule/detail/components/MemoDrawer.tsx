@@ -1,15 +1,5 @@
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer'
-import { Button } from '@/components/ui/button.tsx'
-import { EditIcon } from '@/icons'
+import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import { EditIcon, WasteBasket } from '@/icons'
 
 const MemoDrawer = () => {
   return (
@@ -17,17 +7,22 @@ const MemoDrawer = () => {
       <DrawerTrigger>
         <EditIcon />
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="bg-white">
         <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
+          <DrawerTitle className="flex justify-between">
+            <div className="text-h5">메모장</div>
+            <div className="text-b1 text-main">확인</div>
+          </DrawerTitle>
         </DrawerHeader>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
+        <div className="px-4">
+          <div className="flex gap-1">
+            <input className="w-full rounded border-2 px-4 py-[13.5px] focus:outline-none" />
+            <button className="rounded border-2 border-green-400 p-[14px]">
+              <WasteBasket />
+            </button>
+          </div>
+        </div>
+        <DrawerFooter></DrawerFooter>
       </DrawerContent>
     </Drawer>
   )

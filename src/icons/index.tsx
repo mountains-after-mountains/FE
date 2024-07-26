@@ -54,3 +54,18 @@ export const UrlShareIcon = () => (
     </defs>
   </svg>
 )
+export const WasteBasket = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1232_7744)">
+      <path
+        d="M4.99935 15.8333C4.99935 16.7542 5.74518 17.5 6.66602 17.5H13.3327C14.2535 17.5 14.9993 16.7542 14.9993 15.8333V5.83333H4.99935V15.8333ZM15.8327 3.33333H12.916L12.0827 2.5H7.91602L7.08268 3.33333H4.16602V5H15.8327V3.33333Z"
+        fill="#0E9F59"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_1232_7744">
+        <rect width="20" height="20" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+)
