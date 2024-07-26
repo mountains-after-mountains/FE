@@ -14,7 +14,7 @@ const AcceptInvitation = () => {
           <img
             src="https://cdn.travie.com/news/photo/first/201710/img_19975_1.jpg"
             alt="Onboarding image"
-            className="h-full w-full rounded-t-2xl object-cover"
+            className="h-full w-full rounded-t-2xl"
           />
         </div>
         <div className="flex-grow-[3] rounded-b-2xl px-5 py-4 shadow-md">
