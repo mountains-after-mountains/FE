@@ -31,12 +31,9 @@ const Home = () => {
         <MountainCard mountain={mountain} />
         <MountainCard mountain={mountain} />
       </main>
-      <FooterButton
-        onClick={() => navigate('/schedule/register')}
-        className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]"
-      >
-        일정 추가하기
-      </FooterButton>
+      <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
+        <FooterButton>일정 추가하기</FooterButton>
+      </div>
     </section>
   )
 }

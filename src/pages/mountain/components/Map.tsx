@@ -60,7 +60,7 @@ const Map = ({ lat, lng, markers }: Props) => {
   }, [apiKey, lat, lng])
 
   return (
-    <div className="pl-5 pr-5">
+    <div className="w-full">
       <div id="map" className="h-[170px] w-full rounded-[20px]" />
     </div>
   )
