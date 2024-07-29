@@ -21,7 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "embla-carousel": "^8.1.6",
+    "embla-carousel": "^8.1.7",
     "embla-carousel-react": "^8.1.6",
     "lodash": "^4.17.21",
     "lucide-react": "^0.396.0",
