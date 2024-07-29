@@ -1,6 +1,7 @@
 import MountainInfo from '@/components/common/MountainInfo'
 import Top100Badge from '@/components/common/Top100Badge'
 import { useNavigate } from 'react-router-dom'
+import Clip from '@/assets/icons/clip.svg?react'
 
 const mountain = {
   name: '북한산',
@@ -26,10 +27,13 @@ const DetailMountainInfo = () => {
         {mountain.isTop100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
         <a
-          className="text-b3 text-gray-700 underline"
+          className="flex items-center gap-0.5 text-b3 text-gray-700 underline"
           href={mountain.park.link}
           target="_blank"
-        >{`${mountain.park.name} >`}</a>
+        >
+          {mountain.park.name}
+          <Clip />
+        </a>
       </div>
     </div>
   )
