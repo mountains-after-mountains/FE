@@ -4,6 +4,7 @@ import { Calendar } from '@/components/ui/calendar.tsx'
 import { useState } from 'react'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { format } from 'date-fns'
+import { AsteriskIcon } from '@/icons'
 
 interface DatePickerProps {
   title: string
@@ -25,7 +26,9 @@ const DatePicker = ({ title, date, setDate }: DatePickerProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full rounded-xl bg-white">
-        <Button variant="outline">{buttonText}</Button>
+        <Button variant="outline">
+          {buttonText} <AsteriskIcon />
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-auto rounded-[20px]">
         <Calendar mode="single" selected={date} onSelect={setDate} />

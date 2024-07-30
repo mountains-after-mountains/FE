@@ -10,7 +10,7 @@ import { format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 
 const RegisterSchedule = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date())
+  const [date, setDate] = useState<Date | undefined>()
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
   const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
@@ -43,6 +43,7 @@ const RegisterSchedule = () => {
 
     registerScheduleMutation.mutate(scheduleData)
   }
+  const isSubmitDisabled = !(mountainsValue.value && date)
 
   return (
     <div className="flex h-full flex-col">
@@ -65,7 +66,9 @@ const RegisterSchedule = () => {
         />
         <div>
           <div className="text-subtext flex justify-center pb-[10px] text-b2">일정은 나중에 수정할 수 있어요.</div>
-          <FooterButton onClick={handleSubmit}>일정 등록하기</FooterButton>
+          <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
+            일정 등록하기
+          </FooterButton>
         </div>
       </div>
     </div>
