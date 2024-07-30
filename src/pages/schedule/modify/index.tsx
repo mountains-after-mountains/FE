@@ -5,8 +5,12 @@ import { useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
 import DeleteDialog from '@/components/common/DeleteDialog.tsx'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
+import { useQuery } from '@tanstack/react-query'
+import { getDetailSchedule } from '@/services/api/schedule'
+import { useParams } from 'react-router-dom'
 
 const ModifySchedule = () => {
+  const { scheduleId } = useParams<{ scheduleId: string }>()
   const [date, setDate] = useState<Date | undefined>(new Date())
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
@@ -17,8 +21,12 @@ const ModifySchedule = () => {
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
     mountainsValue.value ? mountainsValue.value : null,
   )
-  console.log('Selected Time:', { hour, minute })
-  console.log(mountainCourseValue, PersonnelValue)
+  const { data, isError } = useQuery({
+    queryKey: ['detailSchedule', scheduleId],
+    queryFn: () => getDetailSchedule(scheduleId),
+    refetchOnWindowFocus: false,
+    enabled: !!scheduleId,
+  })
   return (
     <div className="flex h-full flex-col">
       <Header title="등산일정 수정" rightAction={<DeleteDialog />} />
