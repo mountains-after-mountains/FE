@@ -23,9 +23,8 @@ interface ChecklistItem {
   checked: boolean
 }
 const DetailSchedule = () => {
-  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([])
-
   const navigate = useNavigate()
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([])
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const { data, isError } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
@@ -66,7 +65,7 @@ const DetailSchedule = () => {
         </div>
       </div>
       <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
-        <FooterButton onClick={() => console.log(checklistItems)}>초대장 만들기</FooterButton>
+        <FooterButton onClick={() => navigate(`/invitation/make/${scheduleId}`)}>초대장 만들기</FooterButton>
       </div>
     </div>
   )

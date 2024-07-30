@@ -6,14 +6,15 @@ interface Props {
   courseName: string
   distance: number
   time: number
+  mountainLevel: string
 }
 
-const CourseCard = ({ courseName, distance, time }: Props) => {
+const CourseCard = ({ courseName, distance, time, mountainLevel }: Props) => {
   return (
     <div className="mb-[10px] rounded-[20px] bg-gray-100 p-[14px]">
       <div className="mb-[10px] flex gap-1">
         <div className="text-b1">{courseName}</div>
-        <StarRate difficulty={2} textNone />
+        <StarRate difficulty={mountainLevel} textNone />
       </div>
       <div className="flex gap-[15px]">
         <div className="mb-1 flex w-[92px] items-center gap-1 text-b3 text-gray-900">
