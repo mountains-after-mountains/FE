@@ -3,7 +3,7 @@
     { "handle": "filesystem" },
     {
       "src": "/api/(.*)",
-      "dest": "http://223.130.162.119:3010/$1"
+      "dest": "https://over-the-mountain.site/api/$1"
     },
     { "src": "/.*", "dest": "/index.html" }
   ]
