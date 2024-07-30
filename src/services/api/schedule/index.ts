@@ -57,3 +57,16 @@ export const getDetailSchedule = async (scheduleId: string | undefined) => {
     }
   }
 }
+
+export const getScheduleList = async () => {
+  try {
+    const response = await axiosInstance.get('/schedule/mySchedule')
+    return response.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message || 'Error fetching feature A data')
+    } else {
+      throw new Error('An unexpected error occurred')
+    }
+  }
+}

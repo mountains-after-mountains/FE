@@ -1,9 +1,16 @@
 import Header from '@/components/layouts/header'
 import { useNavigate } from 'react-router-dom'
 import ListCard from '@/pages/schedule/components/ListCard.tsx'
+import { useQuery } from '@tanstack/react-query'
+import { getScheduleList } from '@/services/api/schedule'
 
 const ListSchedule = () => {
   const navigate = useNavigate()
+  const { data, isError } = useQuery({
+    queryKey: ['scheduleList'],
+    queryFn: getScheduleList,
+    refetchOnWindowFocus: false,
+  })
   return (
     <div className="flex h-full flex-col">
       <Header title="등산 일정" rightAction={<button className="text-b2 text-primary">추가</button>} />
