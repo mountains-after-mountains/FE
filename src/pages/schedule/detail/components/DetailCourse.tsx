@@ -17,7 +17,7 @@ const DetailCourse = ({ data }) => {
       <CourseCard
         courseName={data?.course?.courseName}
         distance={Number(data?.course?.mntiDist) * 1000}
-        time={data?.course?.mntiTime * 60}
+        time={data?.course?.mntiTime}
         mountainLevel={data?.mountainLevel}
         mou
       />

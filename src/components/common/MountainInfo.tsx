@@ -5,7 +5,7 @@ type Props = {
   mountain: {
     mountainName: string
     mountainLevel: number | undefined
-    address: string
+    mountainAddress: string
     mountainHigh: number
   }
 }
@@ -18,7 +18,7 @@ const MountainInfo = ({ mountain }: Props) => {
           <div className="text-h3 text-gray-900">{mountain?.mountainName}</div>
           <StarRate difficulty={mountain?.mountainLevel} />
         </div>
-        <div className="text-b3 text-gray-700">주소 들어갈 부분</div>
+        <div className="text-b3 text-gray-700">{mountain?.mountainAddress}</div>
       </div>
       <div className="flex items-center gap-1">
         <Altitude />

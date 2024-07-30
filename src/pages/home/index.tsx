@@ -32,7 +32,7 @@ const Home = () => {
         <MountainCard mountain={mountain} />
       </main>
       <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
-        <FooterButton>일정 추가하기</FooterButton>
+        <FooterButton onClick={() => navigate('/schedule/register')}>일정 추가하기</FooterButton>
       </div>
     </section>
   )

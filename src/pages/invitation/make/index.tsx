@@ -4,8 +4,12 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaOptionsType } from 'embla-carousel'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
+import { useQuery } from '@tanstack/react-query'
+import { getDetailSchedule } from '@/services/api/schedule'
+import { useNavigate, useParams } from 'react-router-dom'
+import useDateInfo from '@/hooks/useDateInfo.ts'
 
-const data = [
+const mockData = [
   {
     id: 1,
     img: 'https://cdn.pixabay.com/photo/2024/04/19/04/39/kingfisher-8705377_1280.jpg',
@@ -39,10 +43,21 @@ const data = [
 const OPTIONS: EmblaOptionsType = { loop: false }
 
 const MakeInvitation = () => {
+  const navigate = useNavigate()
   const [emblaRef] = useEmblaCarousel(OPTIONS)
-  const [selectedImage, setSelectedImage] = useState(data[0].img)
+  const [selectedImage, setSelectedImage] = useState(mockData[0].img)
   const [text, setText] = useState('')
+  const { scheduleId } = useParams<{ scheduleId: string }>()
   const maxLength = 100
+
+  const { data, isError } = useQuery({
+    queryKey: ['detailSchedule', scheduleId],
+    queryFn: () => getDetailSchedule(scheduleId),
+    refetchOnWindowFocus: false,
+    enabled: !!scheduleId,
+  })
+  const scheduleDate = data?.scheduleDate ?? ''
+  const dateInfo = useDateInfo(scheduleDate)
 
   const handleImageClick = (img: string) => {
     setSelectedImage(img)
@@ -51,7 +66,9 @@ const MakeInvitation = () => {
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
   }
-
+  const completeInvitation = () => {
+    navigate(`/invitation/${scheduleId}`)
+  }
   return (
     <>
       <Header title="초대장 만들기" rightAction={<div className="text-b2 text-main">삭제</div>} />
@@ -59,7 +76,7 @@ const MakeInvitation = () => {
         <img src={selectedImage} className="mb-4 aspect-square rounded-xl" alt="Selected" />
         <div className="mb-8 overflow-hidden" ref={emblaRef}>
           <div className="flex gap-5">
-            {data.map(item => (
+            {mockData.map(item => (
               <img
                 key={item.id}
                 src={item.img}
@@ -70,12 +87,12 @@ const MakeInvitation = () => {
             ))}
           </div>
         </div>
-        <DayBadgeWithTitle text="D-day " title="5월 26일 (수)" />
+        <DayBadgeWithTitle text={dateInfo.dDayText} title={dateInfo.formattedDate} />
         <div className="mb-2 mt-1 flex gap-1">
-          <div className="text-b2 font-semibold">북한산</div>
-          <div className="text-b2">백운대코스</div>
+          <div className="text-b2 font-semibold">{data?.mountainName}</div>
+          <div className="text-b2">{data?.courseName}</div>
         </div>
-        <div className="relative">
+        <div className="relative pb-2">
           <textarea
             className="w-full rounded-xl bg-gray-100 px-3 py-4 placeholder:text-b2 placeholder:text-border focus:outline-none"
             placeholder="초대장을 자유롭게 작성해주세요."
@@ -84,11 +101,11 @@ const MakeInvitation = () => {
             onChange={handleTextChange}
             maxLength={100}
           />
-          <div className="absolute bottom-2 right-3 text-b2 text-border">
+          <div className="absolute bottom-4 right-3 text-b2 text-border">
             {text.length}/{maxLength}
           </div>
         </div>
-        <FooterButton>초대장 완성하기</FooterButton>
+        <FooterButton onClick={completeInvitation}>초대장 완성하기</FooterButton>
       </div>
     </>
   )
