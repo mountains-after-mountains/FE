@@ -44,3 +44,16 @@ export const registerSchedule = async (scheduleData: ScheduleDataPayload) => {
     }
   }
 }
+
+export const getDetailSchedule = async (scheduleId: string | undefined) => {
+  try {
+    const response = await axiosInstance.get(`/schedule/mySchedule/${scheduleId}`)
+    return response.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message || 'Error fetching feature A data')
+    } else {
+      throw new Error('An unexpected error occurred')
+    }
+  }
+}
