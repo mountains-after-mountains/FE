@@ -1,17 +1,19 @@
-import { useState } from 'react'
-import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import { EditIcon, WasteBasket } from '@/icons'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
+import { v4 as uuidv4 } from 'uuid'
 
-interface ChecklistItem {
-  id: number
-  text: string
-}
-const MemoDrawer = () => {
-  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([{ id: 1, text: '' }])
-
+const MemoDrawer = ({ checklistItems, setChecklistItems }) => {
   const addChecklistItem = () => {
-    setChecklistItems([...checklistItems, { id: checklistItems.length + 1, text: '' }])
+    setChecklistItems([...checklistItems, { id: uuidv4(), text: '', checked: false }])
   }
 
   const removeChecklistItem = (id: number) => {
@@ -31,7 +33,7 @@ const MemoDrawer = () => {
         <DrawerHeader>
           <DrawerTitle className="flex justify-between">
             <div className="text-h5">메모장</div>
-            <div className="text-b1 text-main">확인</div>
+            <DrawerClose className="text-b1 text-main">확인</DrawerClose>
           </DrawerTitle>
         </DrawerHeader>
         <div className="px-4">

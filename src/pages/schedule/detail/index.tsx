@@ -6,20 +6,25 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { WeatherGroup, WeatherProps } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
 import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
+import { useState } from 'react'
+import FooterButton from '@/components/common/button/FooterButton.tsx'
 
-const mountain = {
-  name: '북한산',
-  address: '서울시 성북구 정릉동',
-  altitude: 338,
-  rates: 2,
-  img: 'https://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56531&fileTy=MEDIA&fileNo=1',
-  isTop100: true,
-  park: {
-    name: '북한산국립공원',
-    link: 'https://www.knps.or.kr/',
-  },
+const weathers: WeatherProps[] = [
+  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
+  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
+  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
+  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
+  { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
+  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
+]
+interface ChecklistItem {
+  id: number
+  text: string
+  checked: boolean
 }
 const DetailSchedule = () => {
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([])
+
   const navigate = useNavigate()
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const { data, isError } = useQuery({
@@ -29,18 +34,13 @@ const DetailSchedule = () => {
     enabled: !!scheduleId,
   })
 
-  const weathers: WeatherProps[] = [
-    { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-    { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-    { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-    { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-    { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
-    { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  ]
+  const handleCheckboxChange = (id: number) => {
+    setChecklistItems(prevItems => prevItems.map(item => (item.id === id ? { ...item, checked: !item.checked } : item)))
+  }
   return (
     <div className="flex flex-col gap-2 bg-background">
-      <DetailTop mountain={mountain} />
-      <DetailCourse mountain={mountain} />
+      <DetailTop data={data} />
+      <DetailCourse data={data} />
       <div className="bg-white p-5">
         <span className="text-h5 text-gray-900">날씨</span>
         <WeatherGroup weathers={weathers} className="mt-[10px]" />
@@ -48,11 +48,25 @@ const DetailSchedule = () => {
       <div className="bg-white p-5">
         <div className="flex items-center justify-between">
           <div className="text-h5">메모장</div>
-          <MemoDrawer />
+          <MemoDrawer checklistItems={checklistItems} setChecklistItems={setChecklistItems} />
         </div>
-        <div className="pt-8">
-          <MemoDescription />
+        <div className="pb-24 pt-8">
+          {checklistItems.length > 0 ? (
+            <div>
+              {checklistItems.map(item => (
+                <div key={item.id} className="flex items-center gap-2">
+                  <input type="checkbox" checked={item.checked} onChange={() => handleCheckboxChange(item.id)} />
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <MemoDescription />
+          )}
         </div>
+      </div>
+      <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
+        <FooterButton onClick={() => console.log(checklistItems)}>초대장 만들기</FooterButton>
       </div>
     </div>
   )
