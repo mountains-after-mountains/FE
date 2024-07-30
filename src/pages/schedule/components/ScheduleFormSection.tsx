@@ -45,11 +45,7 @@ const ScheduleFormSection = ({
           isError={mountainsListError}
         />
       </TextWithSubtext>
-      <TextWithSubtext
-        title="언제 입산하시나요?"
-        subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!"
-        asteriskIcon={true}
-      >
+      <TextWithSubtext title="언제 입산하시나요?" subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!">
         <div className="flex gap-2">
           <DatePicker date={date} setDate={setDate} title="날짜" />
           <TimePicker title="시간" hour={hour} minute={minute} setHour={setHour} setMinute={setMinute} />
