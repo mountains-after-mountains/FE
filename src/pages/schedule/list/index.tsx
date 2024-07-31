@@ -11,9 +11,9 @@ const ListSchedule = () => {
     refetchOnWindowFocus: false,
   })
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col">
       <Header title="등산 일정" rightAction={<button className="text-b2 text-primary">추가</button>} />
-      <div className="flex h-full flex-col gap-3 bg-background p-5">
+      <div className="flex flex-col gap-3 bg-background p-5">
         {data && data.length > 0 ? (
           data.map((schedule, index) => <ListCard key={index} schedule={schedule} />)
         ) : (

@@ -4,7 +4,7 @@ const SuggestionPrompt = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       <img alt="등산 일정 이미지" src="src/assets/images/mountainListImg.png" />
       <div className="mb-2 mt-5 text-h5 text-green-950">일정을 정하고 친구와 공유해요</div>
       <div className="mb-4 text-center text-b2 text-gray-600">

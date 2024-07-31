@@ -1,4 +1,3 @@
-import FooterButton from '@/components/common/button/FooterButton'
 import Header from '@/components/layouts/header'
 import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
@@ -8,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getDetailSchedule } from '@/services/api/schedule'
 import { useParams } from 'react-router-dom'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
+import FooterButton from '@/components/common/button/FooterButton.tsx'
 
 const ModifySchedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
@@ -34,8 +34,8 @@ const ModifySchedule = () => {
   }, [data])
   return (
     <div className="flex h-full flex-col">
-      <Header title="등산일정 수정" rightAction={<DeleteDialog />} />
-      <div className="flex h-full flex-col justify-between p-5">
+      <Header title="등산일정 수정" rightAction={<DeleteDialog scheduleId={scheduleId} />} />
+      <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           modifyData={data}
           date={date}
@@ -52,6 +52,8 @@ const ModifySchedule = () => {
           hour={minute}
           minute={minute}
         />
+      </div>
+      <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
         <FooterButton>일정 수정하기</FooterButton>
       </div>
     </div>
