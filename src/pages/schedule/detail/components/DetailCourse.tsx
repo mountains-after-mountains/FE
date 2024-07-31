@@ -19,7 +19,6 @@ const DetailCourse = ({ data }) => {
         distance={Number(data?.course?.mntiDist) * 1000}
         time={data?.course?.mntiTime}
         mountainLevel={data?.mountainLevel}
-        mou
       />
     </div>
   )

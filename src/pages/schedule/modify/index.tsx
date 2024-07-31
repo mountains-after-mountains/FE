@@ -1,37 +1,43 @@
 import FooterButton from '@/components/common/button/FooterButton'
 import Header from '@/components/layouts/header'
 import useMountainsList from '@/hooks/useMountainsList.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
 import DeleteDialog from '@/components/common/DeleteDialog.tsx'
-import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import { useQuery } from '@tanstack/react-query'
 import { getDetailSchedule } from '@/services/api/schedule'
 import { useParams } from 'react-router-dom'
+import useMountainCourse from '@/hooks/useMountainCourse.ts'
 
 const ModifySchedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
-  const [date, setDate] = useState<Date | undefined>(new Date())
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
   const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
-  const [hour, setHour] = useState<number | null>(null)
-  const [minute, setMinute] = useState<number | null>(null)
   const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
-  const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
-    mountainsValue.value ? mountainsValue.value : null,
-  )
   const { data, isError } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId),
     refetchOnWindowFocus: false,
     enabled: !!scheduleId,
   })
+  const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
+    mountainsValue.value ? mountainsValue.value : data?.mountainId,
+  )
+  const [hour, setHour] = useState<number | null>(null)
+  const [minute, setMinute] = useState<number | null>(null)
+  const [date, setDate] = useState<Date | undefined>()
+  useEffect(() => {
+    if (data) {
+      setDate(data.scheduleDate)
+    }
+  }, [data])
   return (
     <div className="flex h-full flex-col">
       <Header title="등산일정 수정" rightAction={<DeleteDialog />} />
       <div className="flex h-full flex-col justify-between p-5">
         <ScheduleFormSection
+          modifyData={data}
           date={date}
           setDate={setDate}
           mountainsListOption={mountainsListOption}

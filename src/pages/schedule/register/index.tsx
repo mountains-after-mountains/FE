@@ -24,10 +24,14 @@ const RegisterSchedule = () => {
   const registerScheduleMutation = useMutation({
     mutationFn: registerSchedule,
     onSuccess: response => {
-      console.log(response)
-      // navigate(`/home/${response}`)
+      if (response && response.id) {
+        navigate(`/schedule/detail/${response.id}`)
+      } else {
+        console.error('No ID found in response')
+      }
     },
   })
+  console.log(date)
 
   const handleSubmit = () => {
     const formattedDate = date ? format(date, 'yyyyMMdd') : ''
@@ -65,7 +69,7 @@ const RegisterSchedule = () => {
           minute={minute}
         />
         <div>
-          <div className="text-subtext flex justify-center pb-[10px] text-b2">일정은 나중에 수정할 수 있어요.</div>
+          <div className="flex justify-center pb-[10px] text-b2 text-subtext">일정은 나중에 수정할 수 있어요.</div>
           <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
             일정 등록하기
           </FooterButton>

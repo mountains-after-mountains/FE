@@ -4,15 +4,15 @@ import { Calendar } from '@/components/ui/calendar.tsx'
 import { useState } from 'react'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { format } from 'date-fns'
-import { AsteriskIcon } from '@/icons'
 
 interface DatePickerProps {
   title: string
-  date: Date | undefined
+  date: Date | string
   setDate: (date: Date | undefined) => void
+  modify?: boolean
 }
 
-const DatePicker = ({ title, date, setDate }: DatePickerProps) => {
+const DatePicker = ({ title, date, setDate, modify }: DatePickerProps) => {
   const [open, setOpen] = useState(false)
   const [isDateSelected, setIsDateSelected] = useState(false)
 
@@ -27,7 +27,8 @@ const DatePicker = ({ title, date, setDate }: DatePickerProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full rounded-xl bg-white">
         <Button variant="outline">
-          {buttonText} <AsteriskIcon />
+          {/*{modify ? date : buttonText} <AsteriskIcon />*/}
+          {date}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-auto rounded-[20px]">
