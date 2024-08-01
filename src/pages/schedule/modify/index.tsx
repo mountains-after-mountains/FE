@@ -1,13 +1,12 @@
-import Header from '@/components/layouts/header'
 import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
-import DeleteDialog from '@/components/common/DeleteDialog.tsx'
 import { useQuery } from '@tanstack/react-query'
 import { getDetailSchedule } from '@/services/api/schedule'
 import { useParams } from 'react-router-dom'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
+import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
 
 const ModifySchedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
@@ -34,7 +33,7 @@ const ModifySchedule = () => {
   }, [data])
   return (
     <div className="flex h-full flex-col">
-      <Header title="등산일정 수정" rightAction={<DeleteDialog scheduleId={scheduleId} />} />
+      <HeaderWithDrawer scheduleId={scheduleId} />
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           modifyData={data}
