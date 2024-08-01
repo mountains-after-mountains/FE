@@ -1,11 +1,6 @@
 import axiosInstance from '@/services/instance/axiosInstance.ts'
 import { AxiosError } from 'axios'
-import {
-  courseListType,
-  MountainListResponse,
-  registerScheduleResponse,
-  ScheduleDataPayload,
-} from '@/types/schedule/index.ts'
+import { courseListType, MountainListResponse, ScheduleDataPayload } from '@/types/schedule/index.ts'
 
 export const getMountainsList = async () => {
   try {
@@ -34,7 +29,7 @@ export const getMountainCourse = async (mountainId: string) => {
 
 export const registerSchedule = async (scheduleData: ScheduleDataPayload) => {
   try {
-    const response = await axiosInstance.post<registerScheduleResponse>('/schedule/create', scheduleData)
+    const response = await axiosInstance.post('/schedule/create', scheduleData)
     return response.data
   } catch (error) {
     if (error instanceof AxiosError) {

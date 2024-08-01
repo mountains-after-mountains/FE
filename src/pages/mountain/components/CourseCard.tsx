@@ -3,10 +3,10 @@ import Climb from '@/assets/icons/climb.svg?react'
 import Timer from '@/assets/icons/timer.svg?react'
 
 interface Props {
-  courseName: string
+  courseName: string | null
   distance: number
-  time: number
-  mountainLevel: string
+  time: number | null
+  mountainLevel: string | null
 }
 
 const CourseCard = ({ courseName, distance, time, mountainLevel }: Props) => {

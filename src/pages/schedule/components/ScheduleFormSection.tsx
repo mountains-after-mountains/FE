@@ -5,7 +5,7 @@ import TimePicker from '@/components/common/TimePicker.tsx'
 import { PersonnelOption } from '@/constants/SelectOptions.ts'
 
 interface ScheduleFormSectionProps {
-  date: Date | string
+  date: Date | undefined
   setDate: (date: Date | undefined) => void
   setMountainsValue: (value: { key: string; value: string }) => void
   mountainsListOption: Array<{ key: string; value: string }>
@@ -50,7 +50,7 @@ const ScheduleFormSection = ({
       </TextWithSubtext>
       <TextWithSubtext title="언제 입산하시나요?" subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!">
         <div className="flex gap-2">
-          <DatePicker date={date} setDate={setDate} title="날짜" modify={true} />
+          <DatePicker date={date} setDate={setDate} title="날짜" />
           <TimePicker title="시간" hour={hour} minute={minute} setHour={setHour} setMinute={setMinute} />
         </div>
       </TextWithSubtext>

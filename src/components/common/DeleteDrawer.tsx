@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/drawer.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 
-const DeleteDrawer = ({ scheduleId }: string) => {
+const DeleteDrawer = ({ scheduleId }: { scheduleId: string }) => {
   const navigate = useNavigate()
   const mutation = useMutation({
     mutationFn: () => deleteSchedule(scheduleId),

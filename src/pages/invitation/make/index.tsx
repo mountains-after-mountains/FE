@@ -50,7 +50,7 @@ const MakeInvitation = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const maxLength = 100
 
-  const { data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId),
     refetchOnWindowFocus: false,

@@ -2,8 +2,13 @@ import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import { BackIcon } from '@/icons'
+import { Schedule } from '@/types/schedule'
 
-const DetailTop = ({ data }) => {
+interface DetailTopProps {
+  data: Schedule
+}
+
+const DetailTop = ({ data }: DetailTopProps) => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const navigate = useNavigate()
   const scheduleDate = data?.scheduleDate ?? ''

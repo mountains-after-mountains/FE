@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { differenceInDays, format, parseISO } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
-const useDateInfo = dateString => {
+const useDateInfo = (dateString: string) => {
   const dateInfo = useMemo(() => {
     if (!dateString) {
       return { formattedDate: '', formattedTime: '', dDayText: '' }

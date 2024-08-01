@@ -1,8 +1,13 @@
 import MountainInfo from '@/components/common/MountainInfo.tsx'
 import CourseCard from '@/pages/mountain/components/CourseCard.tsx'
 import Top100Badge from '@/components/common/Top100Badge.tsx'
+import { Schedule } from '@/types/schedule'
 
-const DetailCourse = ({ data }) => {
+interface DetailCourseProps {
+  data: Schedule
+}
+
+const DetailCourse = ({ data }: DetailCourseProps) => {
   return (
     <div className="bg-white p-5">
       <div className="pb-[14px] text-h5">코스 상세</div>

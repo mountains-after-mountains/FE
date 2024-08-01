@@ -17,8 +17,8 @@ const weathers: WeatherProps[] = [
   { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
 ]
-interface ChecklistItem {
-  id: number
+export interface ChecklistItem {
+  id: string
   text: string
   checked: boolean
 }
@@ -26,14 +26,14 @@ const DetailSchedule = () => {
   const navigate = useNavigate()
   const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([])
   const { scheduleId } = useParams<{ scheduleId: string }>()
-  const { data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId),
     refetchOnWindowFocus: false,
     enabled: !!scheduleId,
   })
 
-  const handleCheckboxChange = (id: number) => {
+  const handleCheckboxChange = (id: string) => {
     setChecklistItems(prevItems => prevItems.map(item => (item.id === id ? { ...item, checked: !item.checked } : item)))
   }
   return (

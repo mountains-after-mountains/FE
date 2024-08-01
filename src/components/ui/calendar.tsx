@@ -10,7 +10,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
   const customFormatters: Partial<DateFormatter> = {
-    formatCaption: date => format(date, 'yyyy년 MM월', { locale: ko }),
+    formatCaption: (date: Date) => format(date, 'yyyy년 MM월', { locale: ko }),
   }
   return (
     <DayPicker

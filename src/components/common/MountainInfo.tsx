@@ -4,7 +4,7 @@ import Altitude from '@/assets/icons/altitude.svg?react'
 type Props = {
   mountain: {
     mountainName: string
-    mountainLevel: number | undefined
+    mountainLevel: string
     mountainAddress: string
     mountainHigh: number
   }

@@ -11,10 +11,10 @@ import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawe
 const ModifySchedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
-  const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
-  const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
+  const [, setMountainCourseValue] = useState({ key: '', value: '' })
+  const [, setPersonnelValue] = useState({ key: '', value: '' })
   const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
-  const { data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId),
     refetchOnWindowFocus: false,
@@ -23,7 +23,7 @@ const ModifySchedule = () => {
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
     mountainsValue.value ? mountainsValue.value : data?.mountainId,
   )
-  const [hour, setHour] = useState<number | null>(null)
+  const [, setHour] = useState<number | null>(null)
   const [minute, setMinute] = useState<number | null>(null)
   const [date, setDate] = useState<Date | undefined>()
   useEffect(() => {
@@ -33,7 +33,7 @@ const ModifySchedule = () => {
   }, [data])
   return (
     <div className="flex h-full flex-col">
-      <HeaderWithDrawer scheduleId={scheduleId} />
+      {scheduleId && <HeaderWithDrawer scheduleId={scheduleId} />}
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           modifyData={data}

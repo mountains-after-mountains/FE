@@ -4,6 +4,7 @@ import { NextIcon } from '@/icons'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import { WeatherGroup, WeatherProps } from '@/components/common/Weather.tsx'
 import { useNavigate } from 'react-router-dom'
+import { ScheduleListResponse } from '@/types/schedule'
 
 const weathers: WeatherProps[] = [
   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
@@ -13,7 +14,11 @@ const weathers: WeatherProps[] = [
   { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
 ]
-const ListCard = ({ schedule }) => {
+interface ListCardProps {
+  schedule: ScheduleListResponse
+}
+
+const ListCard = ({ schedule }: ListCardProps) => {
   const navigate = useNavigate()
   const { formattedDate, dDayText } = useDateInfo(schedule?.scheduleDate)
   return (

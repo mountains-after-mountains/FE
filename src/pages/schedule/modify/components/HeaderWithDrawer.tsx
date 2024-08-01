@@ -1,7 +1,7 @@
 import DeleteDrawer from '@/components/common/DeleteDrawer.tsx'
 import BackDrawer from '@/pages/schedule/modify/components/BackDrawer.tsx'
 
-const HeaderWithDrawer = ({ scheduleId }: string) => {
+const HeaderWithDrawer = ({ scheduleId }: { scheduleId: string }) => {
   return (
     <div className="flex items-center px-4 py-3">
       <button className="w-1/3 p-2">

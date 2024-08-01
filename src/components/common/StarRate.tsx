@@ -1,7 +1,7 @@
 import Star from '@/assets/icons/star.svg?react'
 
 type Props = {
-  difficulty: number | undefined
+  difficulty: string
   textNone?: boolean
 }
 
