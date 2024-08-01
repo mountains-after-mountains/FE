@@ -5,17 +5,22 @@ import CustomCarousel from '@/pages/login/components/CustomCarousel.tsx'
 const data = [
   {
     id: 1,
-    img: 'https://cdn.pixabay.com/photo/2024/04/19/04/39/kingfisher-8705377_1280.jpg',
+    img: 'src/assets/images/login_img_1.png',
     text: '서울엔 어떤 산이 있을까요?\n' + '난이도별, 콘텐츠별로 둘러봐요',
   },
   {
     id: 2,
-    img: 'https://cdn.pixabay.com/photo/2024/04/19/04/39/kingfisher-8705377_1280.jpg',
-    text: '등산 일정을 정했다면?\n' + '초대장 보내고 일정과 준비물 한 곳에서 관리해요',
+    img: 'src/assets/images/login_img_2.png',
+    text: '언제 어떤 코스로 갈까요?\n' + '설레는 등산을 준비해요',
   },
   {
     id: 3,
-    img: 'https://cdn.pixabay.com/photo/2024/04/19/04/39/kingfisher-8705377_1280.jpg',
+    img: 'src/assets/images/login_img_3.png',
+    text: '친구에게 초대장을 보내고\n' + '준비물도 한 곳에서 관리해',
+  },
+  {
+    id: 4,
+    img: 'src/assets/images/login_img_4.png',
     text: '지금부터 산너머산 시작 하겠습니다 ~~',
   },
 ]

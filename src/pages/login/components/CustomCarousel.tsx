@@ -22,7 +22,7 @@ const CustomCarousel = (props: PropType) => {
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {data.map(item => (
-            <div className="w-2/3 flex-shrink-0 pl-5" key={item.id}>
+            <div className="w-3/4 flex-shrink-0 pl-5" key={item.id}>
               <OnboardingContent key={item.id} img={item.img} text={item.text} />
             </div>
           ))}
