@@ -20,7 +20,7 @@ const CommonSelect = ({ modifyData, items, placeholder, setSelectedValue, isErro
 
   useEffect(() => {
     if (modifyData) {
-      setSelectedValueState(modifyData)
+      setSelectedValueState(modifyData.toString())
     }
   }, [modifyData])
 
