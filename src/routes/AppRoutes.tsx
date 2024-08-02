@@ -12,6 +12,7 @@ import useAuthStore from '@/store/useAuthStore.ts'
 import MakeInvitation from '@/pages/invitation/make'
 import AcceptInvitation from '@/pages/invitation/accept'
 import DetailSchedule from '@/pages/schedule/detail'
+import WelcomePage from '@/pages/login/WelcomePage.tsx'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -20,6 +21,7 @@ const AppRoutes = () => {
     <Router>
       {!isAuthenticated && <Login />}
       <Routes>
+        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/" element={<Home />} />
         <Route path="/mountain/:mountainId" element={<Mountain />} />
         <Route path="/test" element={<Test />} />
