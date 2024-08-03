@@ -16,7 +16,7 @@ const AppRoutes = () => {
 
   return (
     <Router>
-      {/* {!isAuthenticated && <Login />} */}
+      {!isAuthenticated && <Login />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="mountain/:mountainId" element={<Mountain />} />
