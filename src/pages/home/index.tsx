@@ -3,6 +3,7 @@ import HomeBanner from '@/components/home/HomeBanner'
 import HomeToggleList from '@/components/home/HomeToggleList'
 import MountainCard from '@/components/home/MountainCard'
 import SearchInput from '@/components/home/SearchInput'
+import useMountainsList from '@/hooks/useMountainsList'
 import { useNavigate } from 'react-router-dom'
 
 const mountain = {
@@ -16,6 +17,9 @@ const mountain = {
 
 const Home = () => {
   const navigate = useNavigate()
+  const { data } = useMountainsList()
+
+  console.log(data)
 
   return (
     <section>
@@ -25,11 +29,9 @@ const Home = () => {
         <HomeToggleList />
       </div>
       <main className="pb-[100px]">
-        <MountainCard mountain={mountain} />
-        <MountainCard mountain={mountain} />
-        <MountainCard mountain={mountain} />
-        <MountainCard mountain={mountain} />
-        <MountainCard mountain={mountain} />
+        {data.map(mountain => (
+          <MountainCard key={mountain.value} mountain={{ name: mountain.key, id: mountain.value }} />
+        ))}
       </main>
       <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
         <FooterButton>일정 추가하기</FooterButton>

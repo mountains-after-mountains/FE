@@ -2,36 +2,25 @@ import MountainInfo from '@/components/common/MountainInfo'
 import Top100Badge from '@/components/common/Top100Badge'
 import { useNavigate } from 'react-router-dom'
 import Clip from '@/assets/icons/clip.svg?react'
+import { MountainResponse } from '@/types/mountain'
+import clsx from 'clsx'
 
-const mountain = {
-  name: '북한산',
-  address: '서울시 성북구 정릉동',
-  altitude: 338,
-  rates: 2,
-  img: 'https://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56531&fileTy=MEDIA&fileNo=1',
-  isTop100: true,
-  park: {
-    name: '북한산국립공원',
-    link: 'https://www.knps.or.kr/',
-  },
-}
-
-const DetailMountainInfo = () => {
+const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainResponse; className?: string }) => {
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 
   return (
-    <div>
-      <img src={mountain.img} className="mb-5 h-[246px] w-full" onClick={goBack} />
+    <div className={clsx(className)}>
+      <img
+        src={`${import.meta.env.VITE_APP_API_URL}/${mountain?.photoFile}`}
+        className="mb-5 h-[246px] w-full"
+        onClick={goBack}
+      />
       <div className="px-5">
-        {mountain.isTop100 && <Top100Badge className="inline-flex" />}
+        {mountain?.famous100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
-        <a
-          className="flex items-center gap-0.5 text-b3 text-gray-700 underline"
-          href={mountain.park.link}
-          target="_blank"
-        >
-          {mountain.park.name}
+        <a className="flex items-center gap-0.5 text-b3 text-gray-700 underline" href="" target="_blank">
+          산 공원 이름{/* {mountain.park.name} */}
           <Clip />
         </a>
       </div>

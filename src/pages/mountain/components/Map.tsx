@@ -7,9 +7,9 @@ declare global {
 }
 
 type Props = {
-  lat: number
-  lng: number
-  markers: { title: string; lat: number; lng: number }[]
+  lat?: number
+  lng?: number
+  markers?: { title: string; lat: number; lng: number }[]
 }
 
 const Map = ({ lat, lng, markers }: Props) => {
@@ -35,7 +35,7 @@ const Map = ({ lat, lng, markers }: Props) => {
             return { title: marker.title, latlng: new window.kakao.maps.LatLng(marker.lat, marker.lng) }
           })
 
-          positions.forEach(position => {
+          positions?.forEach(position => {
             const content = `<div style="display: flex; flex-direction: column; align-items: center;">
             <div style="display: flex; height: 16px; width: 16px; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid white; background-color: #16a34a;">
               <div style="height: 6px; width: 6px; border-radius: 50%; background-color: white;"></div>
