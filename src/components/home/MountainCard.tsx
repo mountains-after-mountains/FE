@@ -11,7 +11,7 @@ const MountainCard = ({ mountain }: { mountain?: MountainResponse }) => {
     <div className="my-[14px] box-border cursor-pointer px-5" onClick={onClick}>
       <div className="relative h-[200px]">
         {mountain?.famous100 && <Top100Badge className="absolute right-3 top-[12px]" />}
-        <img src={mountain?.photoFile} className="h-full w-full rounded-[20px]" />
+        <img src={`data:image/jpeg;base64,${mountain?.photoFile}`} className="h-full w-full rounded-[20px]" />
       </div>
       <MountainInfo mountain={mountain} />
     </div>

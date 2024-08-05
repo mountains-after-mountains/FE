@@ -11,11 +11,7 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
 
   return (
     <div className={clsx(className)}>
-      <img
-        src={`${import.meta.env.VITE_APP_API_URL}/${mountain?.photoFile}`}
-        className="mb-5 h-[246px] w-full"
-        onClick={goBack}
-      />
+      <img src={`data:image/jpeg;base64,${mountain?.photoFile}`} className="mb-5 h-[246px] w-full" onClick={goBack} />
       <div className="px-5">
         {mountain?.famous100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
