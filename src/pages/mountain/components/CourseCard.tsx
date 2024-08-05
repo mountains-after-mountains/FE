@@ -33,14 +33,14 @@ const CourseCard = ({ courseName, distance, time, level }: Props) => {
           <Climb />
           거리
         </div>
-        <div className="text-b3 text-gray-900">{`${distance}m`}</div>
+        <div className="text-b3 text-gray-900">{`${distance}km`}</div>
       </div>
       <div className="flex gap-[15px]">
         <div className="flex w-[92px] items-center gap-1 text-b3 text-gray-900">
           <Timer />
           예상소요시간
         </div>
-        <div className="text-b3 text-gray-900">{`${time}분`}</div>
+        <div className="text-b3 text-gray-900">{`${time}시간`}</div>
       </div>
     </div>
   )
