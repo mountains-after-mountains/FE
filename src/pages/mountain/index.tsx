@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import DetailMountainInfo from './components/DetailMountainInfo'
 import DetailTab from './components/DetailTab'
 import Divider from '@/components/common/Divider'
@@ -8,6 +8,8 @@ import useMountainDetails from '@/hooks/useMoutainDetails'
 
 const Mountain = () => {
   const { mountainId } = useParams()
+  const navigate = useNavigate()
+  const onClick = () => navigate('/schedule/register')
 
   const { data } = useMountainDetails({ mountainId: mountainId })
 
@@ -22,7 +24,7 @@ const Mountain = () => {
         <WeatherGroup weathers={data?.weatherList} className="mt-[10px]" />
       </div>
       <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
-        <FooterButton>일정 등록하기</FooterButton>
+        <FooterButton onClick={onClick}>일정 등록하기</FooterButton>
       </div>
     </div>
   )
