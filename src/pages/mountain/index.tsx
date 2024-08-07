@@ -8,14 +8,6 @@ import useMountainDetails from '@/hooks/useMoutainDetails'
 
 const Mountain = () => {
   const { mountainId } = useParams()
-  // const weathers: WeatherProps[] = [
-  //   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  //   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  //   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  //   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  //   { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
-  //   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  // ]
 
   const { data } = useMountainDetails({ mountainId: mountainId })
 
