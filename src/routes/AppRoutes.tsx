@@ -9,7 +9,6 @@ import ListSchedule from '@/pages/schedule/list'
 import Login from '@/pages/login'
 import Invitation from '@/pages/invitation'
 import useAuthStore from '@/store/useAuthStore.ts'
-import ScheduleDetail from '@/pages/schedule/detail'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -25,7 +24,6 @@ const AppRoutes = () => {
         <Route path="/schedule" element={<ListSchedule />} />
         <Route path="/schedule/register" element={<RegisterSchedule />} />
         <Route path="/schedule/modify" element={<ModifySchedule />} />
-        <Route path="/schedule/detail/:scheduleId" element={<ScheduleDetail />} />
         <Route path="/auth" element={<KakaoRedirect />} />
         <Route path="invitation" element={<Invitation />} />
         <Route path="*" element={<Navigate to="/" />} />
