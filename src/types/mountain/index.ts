@@ -1,7 +1,9 @@
+import { WeatherType } from '@/components/common/Weather'
+
 export interface WeatherResponse {
   date: string
   rainPercent: string
-  skystate: string
+  skyState: WeatherType
   temperature: string
 }
 

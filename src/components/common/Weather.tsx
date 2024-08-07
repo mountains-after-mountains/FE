@@ -52,11 +52,11 @@ export type WeatherProps = {
   isToday?: boolean
 }
 
-type WeatherType =
+export type WeatherType =
   | 'blizzard'
   | 'blowing_snow'
-  | 'cloudy_clear'
-  | 'cloudy'
+  | '흐림'
+  | '구름많음'
   | 'drizzle'
   | 'drizzle_sun'
   | 'fog'
@@ -71,7 +71,7 @@ type WeatherType =
   | 'scattered_thunderstorm'
   | 'sleet'
   | 'snow'
-  | 'sunny'
+  | '맑음'
   | 'thunderstorm'
   | 'wind'
 
@@ -84,11 +84,11 @@ const weatherIcons = {
     on: blowingSnowOn,
     off: blowingSnowOff,
   },
-  cloudy_clear: {
+  흐림: {
     on: cloudyClearOn,
     off: cloudyClearOff,
   },
-  cloudy: {
+  구름많음: {
     on: cloudyOn,
     off: cloudyOff,
   },
@@ -148,7 +148,7 @@ const weatherIcons = {
     on: snowOn,
     off: snowOff,
   },
-  sunny: {
+  맑음: {
     on: sunnyOn,
     off: sunnyOff,
   },
@@ -182,26 +182,28 @@ const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boo
   return IconComponent ? <IconComponent width={32} height={32} /> : null
 }
 
-const Weather = ({ date, skystate, temperature, isToday }: WeatherResponse & { isToday: boolean }) => {
+const Weather = ({ date, skyState, temperature, isToday }: WeatherResponse & { isToday: boolean }) => {
+  console.log(skyState)
   return (
     <div className="flex h-[79px] w-8 flex-col items-center justify-between gap-1">
       <span className={clsx('text-b3 text-gray-400', { 'text-gray-900': isToday })}>{formatTimestampToMMDD(date)}</span>
-      <WeatherIcon weather={skystate} isToday={isToday} />
+      <WeatherIcon weather={skyState} isToday={isToday} />
       <span className={clsx('text-b2 text-gray-400', { 'text-gray-900': isToday })}>{`${temperature}˚C`}</span>
     </div>
   )
 }
 
 const WeatherGroup = ({ weathers, className }: { weathers?: WeatherResponse[]; className?: string }) => {
+  console.log(weathers)
   return (
     <>
       <div className={clsx('flex w-full justify-between', className)}>
-        {weathers?.map(({ skystate, date, temperature, rainPercent }) => {
+        {weathers?.map(({ skyState, date, temperature, rainPercent }) => {
           const isTodayResult = isTodayFn(date)
           return (
             <Weather
               key={date}
-              skystate={skystate}
+              skyState={skyState}
               date={isTodayResult.formattedDate}
               isToday={isTodayResult.isToday}
               temperature={temperature}
