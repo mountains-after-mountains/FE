@@ -166,13 +166,11 @@ const isTodayFn = (date: string) => {
   const inputDate = new Date(`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`)
 
   const today = new Date()
-  today.setHours(0, 0, 0, 0)
-
-  const isSameDate = inputDate.getTime() === today.getTime()
 
   const formattedDate = `${String(inputDate.getMonth() + 1).padStart(2, '0')}.${String(inputDate.getDate()).padStart(2, '0')}`
+  const formattedToday = `${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
 
-  return { isToday: isSameDate, formattedDate }
+  return { isToday: formattedDate === formattedToday, formattedDate }
 }
 
 const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boolean }) => {
@@ -183,7 +181,6 @@ const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boo
 }
 
 const Weather = ({ date, skyState, temperature, isToday }: WeatherResponse & { isToday: boolean }) => {
-  console.log(skyState)
   return (
     <div className="flex h-[79px] w-8 flex-col items-center justify-between gap-1">
       <span className={clsx('text-b3 text-gray-400', { 'text-gray-900': isToday })}>{formatTimestampToMMDD(date)}</span>
@@ -194,7 +191,6 @@ const Weather = ({ date, skyState, temperature, isToday }: WeatherResponse & { i
 }
 
 const WeatherGroup = ({ weathers, className }: { weathers?: WeatherResponse[]; className?: string }) => {
-  console.log(weathers)
   return (
     <>
       <div className={clsx('flex w-full justify-between', className)}>
