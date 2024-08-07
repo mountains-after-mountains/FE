@@ -1,4 +1,6 @@
+import { CourseType } from '@/types/mountain'
 import { useEffect } from 'react'
+import proj4 from 'proj4'
 
 declare global {
   interface Window {
@@ -6,14 +8,34 @@ declare global {
   }
 }
 
-type Props = {
-  lat?: number
-  lng?: number
-  markers?: { title: string; lat: number; lng: number }[]
+interface Props {
+  x?: number
+  y?: number
+  markers?: CourseType[]
 }
 
-const Map = ({ lat, lng, markers }: Props) => {
+interface UTMCoordinate {
+  x: number
+  y: number
+}
+
+const Map = ({ x, y, markers }: Props) => {
   const apiKey = import.meta.env.VITE_KAKAO_MAP_KEY
+
+  function utmToLatLng(coordinates: UTMCoordinate): { latitude: number; longitude: number } {
+    const utmProjection = '+proj=utm +zone=52 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
+    const wgs84Projection = 'EPSG:4326'
+
+    const [longitude, latitude] = proj4(utmProjection, wgs84Projection, [coordinates.x, coordinates.y])
+    return { latitude, longitude }
+  }
+
+  const convertedMarkers = markers?.map(marker => {
+    const { latitude, longitude } = utmToLatLng({ x: marker.paths[0][0].x, y: marker.paths[0][0].y })
+    return { ...marker, lat: latitude, lng: longitude }
+  })
+
+  console.log(convertedMarkers)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -22,17 +44,17 @@ const Map = ({ lat, lng, markers }: Props) => {
     document.head.appendChild(script)
 
     script.onload = () => {
-      if (window.kakao && window.kakao.maps) {
+      if (window.kakao && window.kakao.maps && convertedMarkers) {
         window.kakao.maps.load(() => {
           const container = document.getElementById('map')
           const options = {
-            center: new window.kakao.maps.LatLng(lat, lng),
+            center: new window.kakao.maps.LatLng(convertedMarkers[0].lat, convertedMarkers[0].lng),
             level: 3,
           }
           const map = new window.kakao.maps.Map(container, options)
 
-          const positions = markers?.map(marker => {
-            return { title: marker.title, latlng: new window.kakao.maps.LatLng(marker.lat, marker.lng) }
+          const positions = convertedMarkers?.map(marker => {
+            return { title: marker.courseName, latlng: new window.kakao.maps.LatLng(marker.lat, marker.lng) }
           })
 
           positions?.forEach(position => {
@@ -57,7 +79,7 @@ const Map = ({ lat, lng, markers }: Props) => {
     return () => {
       document.head.removeChild(script)
     }
-  }, [apiKey, lat, lng])
+  }, [apiKey, markers])
 
   return (
     <div className="w-full">
