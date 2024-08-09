@@ -9,24 +9,49 @@ import {
 } from '@/components/ui/drawer'
 import { EditIcon, WasteBasket } from '@/icons'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
-import { v4 as uuidv4 } from 'uuid'
-import { ChecklistItem } from '@/pages/schedule/detail'
+import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteMemo, modifyMemo } from '@/services/api/schedule'
+import { MemoDrawerProps } from '@/types/schedule'
 
-interface MemoDrawerProps {
-  checklistItems: ChecklistItem[]
-  setChecklistItems: (items: ChecklistItem[]) => void
-}
-const MemoDrawer = ({ checklistItems, setChecklistItems }: MemoDrawerProps) => {
-  const addChecklistItem = () => {
-    setChecklistItems([...checklistItems, { id: uuidv4(), text: '', checked: false }])
+const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerProps) => {
+  const [editingMemoId, setEditingMemoId] = useState<string | null>(null)
+  const [editingContent, setEditingContent] = useState('')
+
+  const queryClient = useQueryClient()
+
+  const modifyMemoMutation = useMutation({
+    mutationFn: modifyMemo,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['memoList'] })
+    },
+  })
+  const deleteMemoMutation = useMutation({
+    mutationFn: deleteMemo,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['memoList'] })
+    },
+  })
+
+  const handleModifyMemo = () => {
+    if (!editingMemoId) return
+
+    const payload = {
+      memoId: editingMemoId,
+      memoContent: editingContent,
+    }
+    modifyMemoMutation.mutate(payload)
+    setEditingMemoId(null)
+    setEditingContent('')
   }
 
-  const removeChecklistItem = (id: string) => {
-    setChecklistItems(checklistItems.filter((item: ChecklistItem) => item.id !== id))
+  const handleDeleteMemo = (memoId: string) => {
+    deleteMemoMutation.mutate(memoId)
   }
 
-  const handleInputChange = (id: string, value: string) => {
-    setChecklistItems(checklistItems.map((item: ChecklistItem) => (item.id === id ? { ...item, text: value } : item)))
+  const startEditingMemo = (memoId: string, content: string) => {
+    setEditingMemoId(memoId)
+    setEditingContent(content)
   }
 
   return (
@@ -42,25 +67,43 @@ const MemoDrawer = ({ checklistItems, setChecklistItems }: MemoDrawerProps) => {
           </DrawerTitle>
         </DrawerHeader>
         <div className="px-4">
-          {checklistItems.map((item: ChecklistItem) => (
-            <div key={item.id} className="mb-2 flex gap-1">
-              <input
-                className="w-full rounded border-2 px-4 py-[13.5px] focus:outline-none"
-                value={item.text}
-                onChange={e => handleInputChange(item.id, e.target.value)}
-              />
-              <button
-                className="rounded border-2 border-green-400 p-[14px]"
-                onClick={() => removeChecklistItem(item.id)}
-              >
-                <WasteBasket />
-              </button>
+          {memoList.map(item => (
+            <div key={item.memoId} className="mb-2 flex">
+              {editingMemoId === item.memoId ? (
+                <input
+                  className="w-full rounded border-2 border-primary p-3 focus:outline-none"
+                  value={editingContent}
+                  onChange={e => setEditingContent(e.target.value)}
+                />
+              ) : (
+                <div className="w-full rounded bg-gray-100 px-3 py-2 text-b2">{item.content}</div>
+              )}
+              {editingMemoId === item.memoId ? (
+                <button className="px-3" onClick={handleModifyMemo}>
+                  <span className="text-blue-600">확인</span>
+                </button>
+              ) : (
+                <div className="flex gap-2 rounded bg-gray-100 px-3 py-2">
+                  <button onClick={() => startEditingMemo(item.memoId, item.content)}>
+                    <EditIcon className="text-green-600" />
+                  </button>
+                  <button onClick={() => handleDeleteMemo(item.memoId)}>
+                    <WasteBasket />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
+          <input
+            className="w-full rounded border-2 border-primary p-3 placeholder:text-border focus:outline-none"
+            value={memo}
+            onChange={e => setMemo(e.target.value)}
+            placeholder="메모를 입력하세요"
+          />
         </div>
         <DrawerFooter className="pt-20">
-          <FooterButton variant="bright" onClick={addChecklistItem}>
-            체크리스트({checklistItems.length}/50) 추가하기 +
+          <FooterButton variant="bright" onClick={handleRegisterMemo}>
+            체크리스트({memoList.length}/50) 추가하기 +
           </FooterButton>
         </DrawerFooter>
       </DrawerContent>

@@ -1,13 +1,14 @@
 import MemoDescription from '@/pages/schedule/detail/components/MemoDescription.tsx'
 import MemoDrawer from '@/pages/schedule/detail/components/MemoDrawer.tsx'
-import { useQuery } from '@tanstack/react-query'
-import { getDetailSchedule } from '@/services/api/schedule'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { checkMemo, getDetailSchedule, getMemoList, registerMemo } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import { WeatherGroup, WeatherProps } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
 import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
-import { useState } from 'react'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
+import { useState } from 'react'
+import { MemoItem } from '@/types/schedule'
 
 const weathers: WeatherProps[] = [
   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
@@ -17,15 +18,26 @@ const weathers: WeatherProps[] = [
   { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
   { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
 ]
-export interface ChecklistItem {
-  id: string
-  text: string
-  checked: boolean
-}
+
 const DetailSchedule = () => {
   const navigate = useNavigate()
-  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([])
+  const queryClient = useQueryClient()
   const { scheduleId } = useParams<{ scheduleId: string }>()
+  const [memo, setMemo] = useState('')
+  const memoRegisterMutaion = useMutation({
+    mutationFn: registerMemo,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['memoList'] })
+    },
+  })
+
+  const memoCheckMutaion = useMutation({
+    mutationFn: checkMemo,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['memoList'] })
+    },
+  })
+
   const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId),
@@ -33,9 +45,33 @@ const DetailSchedule = () => {
     enabled: !!scheduleId,
   })
 
-  const handleCheckboxChange = (id: string) => {
-    setChecklistItems(prevItems => prevItems.map(item => (item.id === id ? { ...item, checked: !item.checked } : item)))
+  const { data: memoListData } = useQuery({
+    queryKey: ['memoList', scheduleId],
+    queryFn: () => getMemoList(scheduleId),
+    refetchOnWindowFocus: false,
+    enabled: !!scheduleId,
+  })
+
+  const handleRegisterMemo = () => {
+    if (!memo.trim()) return
+
+    const payload = {
+      scheduleId,
+      memoRequest: [
+        {
+          text: memo,
+          checked: false,
+        },
+      ],
+    }
+    memoRegisterMutaion.mutate(payload)
+    setMemo('')
   }
+
+  const handleCheckboxChange = (memoId: string) => {
+    memoCheckMutaion.mutate(memoId)
+  }
+
   return (
     <div className="flex flex-col gap-2 bg-background">
       <DetailTop data={data} />
@@ -47,15 +83,24 @@ const DetailSchedule = () => {
       <div className="bg-white p-5">
         <div className="flex items-center justify-between">
           <div className="text-h5">메모장</div>
-          <MemoDrawer checklistItems={checklistItems} setChecklistItems={setChecklistItems} />
+          <MemoDrawer
+            memoList={memoListData || []}
+            memo={memo}
+            setMemo={setMemo}
+            handleRegisterMemo={handleRegisterMemo}
+          />
         </div>
-        <div className="pb-24 pt-8">
-          {checklistItems.length > 0 ? (
+        <div className="pb-24 pt-4">
+          {memoListData?.length > 0 ? (
             <div>
-              {checklistItems.map(item => (
-                <div key={item.id} className="flex items-center gap-2">
-                  <input type="checkbox" checked={item.checked} onChange={() => handleCheckboxChange(item.id)} />
-                  <span>{item.text}</span>
+              {memoListData.map((item: MemoItem) => (
+                <div key={item.memoId} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={item.checkStatus}
+                    onChange={() => handleCheckboxChange(item.memoId)}
+                  />
+                  <span>{item.content}</span>
                 </div>
               ))}
             </div>

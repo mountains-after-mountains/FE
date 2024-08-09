@@ -58,3 +58,30 @@ export interface Schedule {
   weatherList: Weather[]
   famous100: boolean
 }
+
+export interface MemoItem {
+  memoId: string
+  scheduleId: string
+  content: string
+  checkStatus: boolean
+}
+
+export interface MemoDrawerProps {
+  memoList: MemoItem[]
+  memo: string
+  setMemo: (value: string) => void
+  handleRegisterMemo: () => void
+}
+export interface MemoRequestItem {
+  text: string
+  checked: boolean
+}
+
+export interface RegisterMemoPayload {
+  scheduleId: string | undefined
+  memoRequest: MemoRequestItem[]
+}
+export interface ModifyMemoPayload {
+  memoId: string
+  memoContent: string
+}

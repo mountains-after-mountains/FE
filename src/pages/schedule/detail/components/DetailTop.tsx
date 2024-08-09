@@ -38,7 +38,7 @@ const DetailTop = ({ data }: DetailTopProps) => {
         <div className="flex gap-1 text-b3">
           <div className="text-subtext">인원수</div>
           <div className="text-text">
-            {data?.memberCount >= 5 ? `${data?.memberCount}명 이상` : `${data?.memberCount}명`}
+            {parseInt(data?.memberCount) >= 5 ? `${data?.memberCount}명 이상` : `${data?.memberCount}명`}
           </div>
         </div>
       </div>
