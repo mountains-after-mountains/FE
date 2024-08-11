@@ -1,9 +1,10 @@
 import Altitude from '@/assets/icons/altitude.svg?react'
+import clsx from 'clsx'
 
-const MountainInfo = ({ mountain }: { mountain?: any }) => {
+const MountainInfo = ({ mountain, row }: { mountain?: any; row?: boolean }) => {
   return (
     <div className="flex items-start justify-between pt-2">
-      <div>
+      <div className={clsx({ 'flex w-full items-center justify-between': row })}>
         <div className="flex gap-2">
           <div className="text-h3 text-gray-900">{mountain?.mntiName}</div>
           <div className="flex items-center gap-1">

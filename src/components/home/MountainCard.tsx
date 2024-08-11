@@ -16,7 +16,7 @@ const MountainCard = ({ mountain }: { mountain?: MountainListResponse }) => {
           className="h-full w-full rounded-[20px] object-cover"
         />
       </div>
-      <MountainInfo mountain={mountain} />
+      <MountainInfo mountain={mountain} row />
     </div>
   )
 }

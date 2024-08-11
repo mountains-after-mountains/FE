@@ -8,8 +8,8 @@ import useMountainsListHome from '@/hooks/useMountainsListHome'
 import { useMemo, useState } from 'react'
 
 const Home = () => {
-  const [mntiLevel, setMntiLevel] = useState<'1' | '2' | '3'>()
   const { data } = useMountainsListHome()
+  const [mntiLevel, setMntiLevel] = useState<'1' | '2' | '3'>()
 
   const currentData = useMemo(
     () => data?.filter(mountain => (mntiLevel ? mountain.mntiLevel === mntiLevel : true)),
