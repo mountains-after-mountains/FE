@@ -34,7 +34,7 @@ const SearchInput = () => {
   }, [value])
 
   return (
-    <div className="relative p-5">
+    <div className="relative p-5 pt-0">
       <div className="box-border flex gap-3 rounded-[40px] px-3 py-[5px] align-middle shadow-[0_1px_10px_rgba(0,0,0,0.1)]">
         <Mountains width={34} height={34} />
         <input className="w-full text-b2 focus:outline-none" value={value} onChange={onChange} />
