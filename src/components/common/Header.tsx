@@ -29,7 +29,7 @@ const Header = ({ selected }: Props) => {
           <PopoverTrigger>
             <MenuSvg />
           </PopoverTrigger>
-          <PopoverContent className="absolute right-0 flex flex-col items-start gap-5 rounded-3xl p-5">
+          <PopoverContent className="absolute right-0 flex max-w-[250px] flex-col items-start gap-5 rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <img src={ProfileImg} className="h-6 w-6" />
               <span className="text-h5 font-bold text-gray-900">호기심 많은 박태기나무</span>
