@@ -13,6 +13,8 @@ const Mountain = () => {
 
   const { data } = useMountainDetails({ mountainId: mountainId })
 
+  console.log(data)
+
   return (
     <div>
       <DetailMountainInfo mountain={data} className="pb-6" />
