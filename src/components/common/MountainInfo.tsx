@@ -1,7 +1,7 @@
 import Altitude from '@/assets/icons/altitude.svg?react'
-import { MountainResponse } from '@/types/mountain'
+import { MountainListResponse } from '@/types/schedule'
 
-const MountainInfo = ({ mountain }: { mountain?: MountainResponse }) => {
+const MountainInfo = ({ mountain }: { mountain?: MountainListResponse }) => {
   return (
     <div className="flex items-start justify-between pt-2">
       <div>
@@ -9,10 +9,10 @@ const MountainInfo = ({ mountain }: { mountain?: MountainResponse }) => {
           <div className="text-h3 text-gray-900">{mountain?.mntiName}</div>
           <div className="flex items-center gap-1">
             <Altitude />
-            <div className="text-b3 text-gray-700">{`${mountain?.mntiHigh}m`}</div>
+            <div className="text-b3 text-gray-700">{`${mountain?.height}m`}</div>
           </div>
         </div>
-        <div className="text-b3 text-gray-700">{mountain?.mntiAddress}</div>
+        <div className="text-b3 text-gray-700">{mountain?.mntiAdd}</div>
       </div>
     </div>
   )

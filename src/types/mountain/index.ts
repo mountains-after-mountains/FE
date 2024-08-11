@@ -21,8 +21,18 @@ export interface MountainResponse {
   mntiLevel: string
   mntiHigh: number
   mntiAddress: string
+  mntiListNo: string
   famous100: boolean
   photoFile: any
   weatherList: WeatherResponse[]
   course: CourseType[]
+}
+
+export interface MountainListHomeResponse {
+  height: number
+  mntiAdd: string
+  mntiLevel: '1' | '2' | '3'
+  mntiListNo: string
+  mntiName: string
+  potoFile: string
 }
