@@ -10,7 +10,7 @@ const Header = ({ selected }: Props) => {
   const navigate = useNavigate()
 
   return (
-    <header className="flex items-center justify-between p-5">
+    <header className="sticky top-0 z-20 flex items-center justify-between bg-white p-5">
       <div className="flex items-center gap-5 text-h4 font-bold text-gray-300">
         <button className={clsx({ 'text-gray-900': selected === 'home' })} onClick={() => navigate('/home')}>
           홈

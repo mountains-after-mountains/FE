@@ -21,7 +21,7 @@ const Home = () => {
     <>
       <Header selected="home" />
       <section>
-        <div className="sticky top-0 z-40 bg-white">
+        <div className="sticky top-[68px] z-40 bg-white">
           <SearchInput />
           <HomeBanner />
           <HomeToggleList onClickOuter={(level: '1' | '2' | '3' | undefined) => setMntiLevel(level)} />
