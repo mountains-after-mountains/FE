@@ -8,6 +8,7 @@ import useMountainsListHome from '@/hooks/useMountainsListHome'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Add from '@/assets/icons/add.svg?react'
+import BannerSwiper from '@/components/home/BannerSwiper'
 
 const Home = () => {
   const { data } = useMountainsListHome()
@@ -28,7 +29,7 @@ const Home = () => {
         <section className="relative mx-auto max-w-[500px]">
           <div className="sticky top-[68px] z-40 bg-white">
             <SearchInput mntiNameList={mntiNameList ?? []} />
-            <HomeBanner />
+            <BannerSwiper />
             <HomeToggleList onClickOuter={(level: '1' | '2' | '3' | undefined) => setMntiLevel(level)} />
           </div>
           <main className="relative pb-[100px]">
