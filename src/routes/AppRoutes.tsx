@@ -9,6 +9,7 @@ import ListSchedule from '@/pages/schedule/list'
 import Login from '@/pages/login'
 import Invitation from '@/pages/invitation'
 import useAuthStore from '@/store/useAuthStore.ts'
+import Search from '@/pages/search'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="mountain/:mountainId" element={<Mountain />} />
         <Route path="test" element={<Test />} />
         <Route path="home" element={<Home />} />
+        <Route path="search" element={<Search />} />
         <Route path="/schedule" element={<ListSchedule />} />
         <Route path="/schedule/register" element={<RegisterSchedule />} />
         <Route path="/schedule/modify" element={<ModifySchedule />} />
