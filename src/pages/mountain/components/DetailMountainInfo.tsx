@@ -5,6 +5,7 @@ import Clip from '@/assets/icons/clip.svg?react'
 import { MountainResponse } from '@/types/mountain'
 import clsx from 'clsx'
 import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
+import Arrow from '@/assets/icons/arrow_left.svg?react'
 
 const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainResponse; className?: string }) => {
   const navigate = useNavigate()
@@ -12,11 +13,15 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
 
   return (
     <div className={clsx(className)}>
-      <img
-        src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
-        className="mb-5 h-[246px] w-full"
-        onClick={goBack}
-      />
+      <div className="relative">
+        <div className="absolute left-4 top-3 cursor-pointer" onClick={goBack}>
+          <Arrow color={mountain?.photoFile ? 'white' : 'black'} />
+        </div>
+        <img
+          src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
+          className="mb-5 h-[246px] w-full"
+        />
+      </div>
       <div className="px-5">
         {mountain?.famous100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
