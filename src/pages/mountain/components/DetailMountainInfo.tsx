@@ -26,7 +26,7 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
         {mountain?.famous100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
         <a className="flex items-center gap-0.5 text-b3 text-gray-700 underline" href="" target="_blank">
-          {`${mountain?.mntiName} 공원`}
+          {`${mountain?.mntiName ?? ''} 공원`}
           <Clip />
         </a>
       </div>

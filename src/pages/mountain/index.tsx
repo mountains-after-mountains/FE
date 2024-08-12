@@ -5,16 +5,18 @@ import Divider from '@/components/common/Divider'
 import { WeatherGroup } from '@/components/common/Weather'
 import FooterButton from '@/components/common/button/FooterButton'
 import useMountainDetails from '@/hooks/useMoutainDetails'
+import LoadingSpinner from '@/components/common/Spinner'
 
 const Mountain = () => {
   const { mountainId } = useParams()
   const navigate = useNavigate()
   const onClick = () => navigate('/schedule/register')
 
-  const { data } = useMountainDetails({ mountainId: mountainId })
+  const { data, isFetching } = useMountainDetails({ mountainId: mountainId })
 
   return (
     <div>
+      {isFetching && <LoadingSpinner />}
       <DetailMountainInfo mountain={data} className="pb-6" />
       <Divider />
       <DetailTab courseList={data?.course} />
