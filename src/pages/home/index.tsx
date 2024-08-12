@@ -19,13 +19,15 @@ const Home = () => {
     [mntiLevel, data],
   )
 
+  const mntiNameList = useMemo(() => data?.map(mountain => mountain.mntiName), [data])
+
   return (
     <>
       <Header selected="home" />
       <div className="relative">
         <section className="relative mx-auto max-w-[500px]">
           <div className="sticky top-[68px] z-40 bg-white">
-            <SearchInput />
+            <SearchInput mntiNameList={mntiNameList ?? []} />
             <HomeBanner />
             <HomeToggleList onClickOuter={(level: '1' | '2' | '3' | undefined) => setMntiLevel(level)} />
           </div>

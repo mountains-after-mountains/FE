@@ -3,24 +3,17 @@ import SearchCommandList from './SearchCommandList'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { debounce } from 'lodash'
 
-// 임시 데이터, 타입은 추후에 api에 적혀있는 대로 수정
-const data = [
-  { id: 0, name: '청계산' },
-  { id: 1, name: '북한산' },
-  { id: 2, name: '청운산' },
-  { id: 3, name: '청산' },
-]
-
-const SearchInput = () => {
+const SearchInput = ({ mntiNameList }: { mntiNameList: string[] }) => {
   const [value, setValue] = useState<string>('')
-  const [filteredData, setFilteredData] = useState<{ id: number; name: string }[] | []>([])
+  const [filteredData, setFilteredData] = useState<string[] | []>([])
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
 
   useEffect(() => {
     const debouncedFilter = debounce((inputValue: string) => {
       if (inputValue.length) {
-        setFilteredData(data.filter(item => item.name.includes(inputValue)))
+        const temp = mntiNameList.filter(item => item.includes(inputValue)).slice(0, 3)
+        setFilteredData(temp)
       } else {
         setFilteredData([])
       }
