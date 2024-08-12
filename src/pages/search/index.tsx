@@ -17,8 +17,6 @@ const Search = (_: Props) => {
   const { data } = useMountainsListHome()
   const navigate = useNavigate()
 
-  console.log(keyword)
-
   const currentData = useMemo(
     () => (keyword ? data?.filter(mountain => mountain.mntiName.includes(keyword)) : []),
     [data, keyword],
