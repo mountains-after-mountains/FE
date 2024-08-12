@@ -8,7 +8,9 @@ type Props = {
 const SearchCommandList = ({ data, onClick }: Props) => {
   return (
     <div
-      className={`absolute top-[32px] my-5 box-border w-[calc(100%-40px)] rounded-lg border border-gray-200 bg-white ${data.length === 0 && 'invisible'} transition-all`}
+      className={`absolute top-[32px] my-5 box-border w-[calc(100%-40px)] transform rounded-lg border border-gray-200 bg-white transition-all duration-300 ease-in-out ${
+        data.length > 0 ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
+      }`}
     >
       {data?.map((item, index) => (
         <div
