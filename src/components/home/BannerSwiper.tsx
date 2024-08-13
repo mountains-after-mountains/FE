@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import clsx from 'clsx'
+import { useNavigate } from 'react-router-dom'
 
 const banners = [
   {
@@ -36,6 +37,8 @@ const banners = [
 ]
 
 const BannerSwiper = () => {
+  const navigate = useNavigate()
+
   return (
     <Swiper spaceBetween={0} pagination={{ clickable: true }} navigation={true} loop={true}>
       {banners.map(({ id, title, description }) => (
@@ -48,7 +51,7 @@ const BannerSwiper = () => {
               'bg-green-800': id === 4,
               'bg-green-200': id === 5,
             })}
-            onClick={() => console.log(id)}
+            onClick={() => navigate(`/contents/${id}`)}
           >
             <div
               className={clsx('text-b1', {

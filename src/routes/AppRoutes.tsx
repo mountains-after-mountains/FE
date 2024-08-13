@@ -10,6 +10,7 @@ import Login from '@/pages/login'
 import Invitation from '@/pages/invitation'
 import useAuthStore from '@/store/useAuthStore.ts'
 import Search from '@/pages/search'
+import Contents from '@/pages/contents'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="mountain/:mountainId" element={<Mountain />} />
+        <Route path="contents/:contentsId" element={<Contents />} />
         <Route path="test" element={<Test />} />
         <Route path="home" element={<Home />} />
         <Route path="search" element={<Search />} />
