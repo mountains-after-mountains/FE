@@ -7,7 +7,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
       </p>
       <table className="mb-[26px] w-full border-collapse border-spacing-0 border text-center [&>*>tr>td]:border [&>*>tr>td]:px-2.5 [&>*>tr>td]:py-1.5 [&>*>tr>th]:border [&>*>tr>th]:px-2.5 [&>*>tr>th]:py-1.5">
         <thead>
-          <tr>
+          <tr className="bg-gray-100">
             <th className="py-1.5 text-center text-b3 text-gray-900"></th>
             <th className="py-1.5 text-center text-b3 font-bold text-gray-900">고도 (m)</th>
             <th className="py-1.5 text-center text-b3 font-bold text-gray-900">구간별 산 개수</th>
@@ -15,7 +15,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
         </thead>
         <tbody>
           <tr>
-            <td className="px-2.5 py-1.5">
+            <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
               <span className="text-c1 text-gray-900">높은 고도</span>
             </td>
@@ -23,7 +23,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
             <td className="text-b3 text-gray-900">7</td>
           </tr>
           <tr>
-            <td className="px-2.5 py-1.5">
+            <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
               <span className="text-c1 text-gray-900">중간 고도</span>
             </td>
@@ -31,7 +31,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
             <td className="text-b3 text-gray-900">7</td>
           </tr>
           <tr>
-            <td className="px-2.5 py-1.5">
+            <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
               <span className="text-c1 text-gray-900">낮은 고도</span>
             </td>
