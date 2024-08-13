@@ -1,6 +1,10 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import Contents1 from './components/Contents1'
+import Contents2 from './components/Contents2'
+import Contents3 from './components/Contents3'
+import Contents4 from './components/Contents4'
+import Contents5 from './components/Contents5'
 
 type Props = {}
 
@@ -12,13 +16,13 @@ const Contents = (_: Props) => {
       case '1':
         return <Contents1 />
       case '2':
-        return <></>
+        return <Contents2 />
       case '3':
-        return <></>
+        return <Contents3 />
       case '4':
-        return <></>
+        return <Contents4 />
       case '5':
-        return <></>
+        return <Contents5 />
     }
   }, [contentsId])
 
