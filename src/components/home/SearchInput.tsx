@@ -2,45 +2,67 @@ import Mountains from '@/assets/icons/mountains.svg?react'
 import SearchCommandList from './SearchCommandList'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { debounce } from 'lodash'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-// 임시 데이터, 타입은 추후에 api에 적혀있는 대로 수정
-const data = [
-  { id: 0, name: '청계산' },
-  { id: 1, name: '북한산' },
-  { id: 2, name: '청운산' },
-  { id: 3, name: '청산' },
-]
+const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; defaultValue?: string | null }) => {
+  const [value, setValue] = useState<string>(defaultValue ?? '')
+  const [filteredData, setFilteredData] = useState<string[] | []>([])
+  const [showCommand, setShowCommand] = useState(false)
 
-const SearchInput = () => {
-  const [value, setValue] = useState<string>('')
-  const [filteredData, setFilteredData] = useState<{ id: number; name: string }[] | []>([])
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
 
   useEffect(() => {
     const debouncedFilter = debounce((inputValue: string) => {
       if (inputValue.length) {
-        setFilteredData(data.filter(item => item.name.includes(inputValue)))
+        const temp = mntiNameList.filter(item => item.includes(inputValue)).slice(0, 3)
+        setFilteredData(temp)
       } else {
         setFilteredData([])
       }
     }, 500)
 
     debouncedFilter(value)
+    setShowCommand(true)
 
     return () => {
       debouncedFilter.cancel()
     }
-  }, [value])
+  }, [value, mntiNameList])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setShowCommand(false)
+    navigate(`/search?keyword=${value}`)
+  }
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search)
+    const keyword = queryParams.get('keyword')
+    if (keyword) {
+      setValue(keyword)
+      setShowCommand(false)
+    }
+  }, [location.search])
 
   return (
-    <div className="relative p-5">
+    <form className="relative p-5 pt-0" onSubmit={handleSubmit}>
       <div className="box-border flex gap-3 rounded-[40px] px-3 py-[5px] align-middle shadow-[0_1px_10px_rgba(0,0,0,0.1)]">
         <Mountains width={34} height={34} />
         <input className="w-full text-b2 focus:outline-none" value={value} onChange={onChange} />
       </div>
-      <SearchCommandList data={filteredData} />
-    </div>
+      {showCommand && (
+        <SearchCommandList
+          data={filteredData}
+          onClick={(keyword: string) => {
+            setValue(keyword)
+            navigate(`/search?keyword=${keyword}`)
+          }}
+        />
+      )}
+    </form>
   )
 }
 

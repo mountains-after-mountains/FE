@@ -40,7 +40,9 @@ import thunderstormOff from '@/assets/icons/weather/thunderstorm_off.svg?react'
 import thunderstormOn from '@/assets/icons/weather/thunderstorm_on.svg?react'
 import windOff from '@/assets/icons/weather/wind_off.svg?react'
 import windOn from '@/assets/icons/weather/wind_on.svg?react'
+
 import { formatTimestampToMMDD } from '@/pages/mountain/util/formatTimestampToMMDD'
+import { WeatherResponse } from '@/types/mountain'
 import clsx from 'clsx'
 
 export type WeatherProps = {
@@ -50,11 +52,11 @@ export type WeatherProps = {
   isToday?: boolean
 }
 
-type WeatherType =
+export type WeatherType =
   | 'blizzard'
   | 'blowing_snow'
-  | 'cloudy_clear'
-  | 'cloudy'
+  | '흐림'
+  | '구름많음'
   | 'drizzle'
   | 'drizzle_sun'
   | 'fog'
@@ -69,7 +71,7 @@ type WeatherType =
   | 'scattered_thunderstorm'
   | 'sleet'
   | 'snow'
-  | 'sunny'
+  | '맑음'
   | 'thunderstorm'
   | 'wind'
 
@@ -82,11 +84,11 @@ const weatherIcons = {
     on: blowingSnowOn,
     off: blowingSnowOff,
   },
-  cloudy_clear: {
+  흐림: {
     on: cloudyClearOn,
     off: cloudyClearOff,
   },
-  cloudy: {
+  구름많음: {
     on: cloudyOn,
     off: cloudyOff,
   },
@@ -146,7 +148,7 @@ const weatherIcons = {
     on: snowOn,
     off: snowOff,
   },
-  sunny: {
+  맑음: {
     on: sunnyOn,
     off: sunnyOff,
   },
@@ -160,6 +162,17 @@ const weatherIcons = {
   },
 }
 
+const isTodayFn = (date: string) => {
+  const inputDate = new Date(`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`)
+
+  const today = new Date()
+
+  const formattedDate = `${String(inputDate.getMonth() + 1).padStart(2, '0')}.${String(inputDate.getDate()).padStart(2, '0')}`
+  const formattedToday = `${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
+
+  return { isToday: formattedDate === formattedToday, formattedDate }
+}
+
 const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boolean }) => {
   const status = isToday ? 'on' : 'off'
   const IconComponent = weatherIcons[weather]?.[status]
@@ -167,23 +180,33 @@ const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boo
   return IconComponent ? <IconComponent width={32} height={32} /> : null
 }
 
-const Weather = ({ date, weather, temperature, isToday }: WeatherProps) => {
+const Weather = ({ date, skyState, temperature, isToday }: WeatherResponse & { isToday: boolean }) => {
   return (
     <div className="flex h-[79px] w-8 flex-col items-center justify-between gap-1">
       <span className={clsx('text-b3 text-gray-400', { 'text-gray-900': isToday })}>{formatTimestampToMMDD(date)}</span>
-      <WeatherIcon weather={weather} isToday={isToday} />
+      <WeatherIcon weather={skyState} isToday={isToday} />
       <span className={clsx('text-b2 text-gray-400', { 'text-gray-900': isToday })}>{`${temperature}˚C`}</span>
     </div>
   )
 }
 
-const WeatherGroup = ({ weathers, className }: { weathers: WeatherProps[]; className?: string }) => {
+const WeatherGroup = ({ weathers, className }: { weathers?: WeatherResponse[]; className?: string }) => {
   return (
     <>
       <div className={clsx('flex w-full justify-between', className)}>
-        {weathers.map(({ weather, date, isToday, temperature }) => (
-          <Weather key={date} weather={weather} date={date} isToday={isToday} temperature={temperature} />
-        ))}
+        {weathers?.map(({ skyState, date, temperature, rainPercent }) => {
+          const isTodayResult = isTodayFn(date)
+          return (
+            <Weather
+              key={date}
+              skyState={skyState}
+              date={isTodayResult.formattedDate}
+              isToday={isTodayResult.isToday}
+              temperature={temperature}
+              rainPercent={rainPercent}
+            />
+          )
+        })}
       </div>
       <div className="mt-[10px] flex items-center justify-end gap-[10px] text-c2 text-gray-300">
         <span>데이터 출처 : Openweather</span>
