@@ -123,7 +123,7 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       backgroundImage: {
-        'home-banner': "url('./src/assets/image/bg_banner.png')",
+        'home-banner': "url('/assets/image/bg_banner.png')",
       },
     },
   },
