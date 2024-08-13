@@ -1,6 +1,5 @@
 import Header from '@/components/common/Header'
 import EmptyMntiList from '@/components/home/EmptyMntiList'
-import HomeBanner from '@/components/home/HomeBanner'
 import HomeToggleList from '@/components/home/HomeToggleList'
 import MountainCard from '@/components/home/MountainCard'
 import SearchInput from '@/components/home/SearchInput'
