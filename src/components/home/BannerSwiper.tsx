@@ -40,7 +40,7 @@ const BannerSwiper = () => {
   const navigate = useNavigate()
 
   return (
-    <Swiper spaceBetween={0} pagination={{ clickable: true }} navigation={true} loop={true}>
+    <Swiper spaceBetween={0} pagination={{ clickable: true }} navigation={true} loop={true} className="-z-10">
       {banners.map(({ id, title, description }) => (
         <SwiperSlide key={id}>
           <div
