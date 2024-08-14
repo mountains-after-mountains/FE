@@ -25,8 +25,10 @@ const Mountain = () => {
         <span className="text-h5 text-gray-900">날씨</span>
         <WeatherGroup weathers={data?.weatherList} className="mt-[10px]" />
       </div>
-      <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
-        <FooterButton onClick={onClick}>일정 등록하기</FooterButton>
+      <div className="fixed bottom-5 mx-5">
+        <FooterButton onClick={onClick} className="w-[calc(100vw-40px)] max-w-[510px]">
+          일정 등록하기
+        </FooterButton>
       </div>
     </div>
   )

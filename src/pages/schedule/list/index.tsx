@@ -1,13 +1,13 @@
-import Header from '@/components/layouts/header'
 import { useNavigate } from 'react-router-dom'
 import ListCard from '@/pages/schedule/components/ListCard.tsx'
+import Header from '@/components/common/Header'
 
 const ListSchedule = () => {
   const navigate = useNavigate()
   return (
     <div className="flex h-full flex-col">
-      <Header title="등산 일정" rightAction={<button className="text-b2 text-primary">추가</button>} />
-      <div className="flex h-full flex-col justify-between bg-background p-5">
+      <Header selected="schedule" />
+      <div className="scrollbar-hide flex h-[calc(100vh-68px)] flex-col justify-between overflow-auto bg-background p-5">
         <ListCard />
         <div className="flex h-full flex-col items-center justify-center">
           <img alt="등산 일정 이미지" src="src/assets/images/mountainListImg.png" />

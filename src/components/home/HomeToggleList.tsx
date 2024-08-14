@@ -25,9 +25,9 @@ const HomeToggleList = ({ onClickOuter }: { onClickOuter: (level: '1' | '2' | '3
   return (
     <div className="flex items-center justify-between px-5 py-[21px]">
       <div className="flex gap-[10px]">
-        <ToggleButton toggleOn={mntiLevel === '1'} onClick={() => onClick('1')} text="낮은 산" />
-        <ToggleButton toggleOn={mntiLevel === '2'} onClick={() => onClick('2')} text="중간 산" />
-        <ToggleButton toggleOn={mntiLevel === '3'} onClick={() => onClick('3')} text="높은 산" />
+        <ToggleButton toggleOn={mntiLevel === '1'} onClick={() => onClick('1')} text="산 아래 산" />
+        <ToggleButton toggleOn={mntiLevel === '2'} onClick={() => onClick('2')} text="산 중의 산" />
+        <ToggleButton toggleOn={mntiLevel === '3'} onClick={() => onClick('3')} text="산 너머 산" />
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>

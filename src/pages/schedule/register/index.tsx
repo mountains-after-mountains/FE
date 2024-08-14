@@ -37,7 +37,7 @@ const RegisterSchedule = () => {
   return (
     <div className="flex h-full flex-col">
       <Header title="등산일정 등록" />
-      <div className="flex h-full flex-col justify-between p-5">
+      <div className="flex h-[calc(100vh-52px)] flex-col justify-between p-5">
         <ScheduleFormSection
           date={date}
           setDate={setDate}
