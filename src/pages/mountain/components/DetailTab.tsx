@@ -5,7 +5,7 @@ import { CourseType } from '@/types/mountain'
 
 const DetailTab = ({ courseList }: { courseList?: CourseType[] }) => {
   return (
-    <div className="p-5 pb-0">
+    <div className="p-5 pb-2.5">
       <div className="mb-[10px] text-h5 text-gray-900">코스</div>
       {courseList && <Map markers={courseList} />}
       <div className="mb-[10px] mt-5 flex items-center">

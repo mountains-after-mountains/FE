@@ -26,7 +26,9 @@ const Layout = ({ children }: PropsWithChildren) => {
 
       {/* 메인 콘텐츠 영역 */}
       <div className="scrollbar-hide overflow-y-auto min-[1024px]:mr-[calc((100%-550px)*0.2)]">
-        <div className="mx-auto min-h-screen max-w-[550px] bg-white shadow-lg">{children}</div>
+        <div className="mx-auto min-h-screen max-w-[550px] bg-white shadow-lg max-[549px]:[&>*>div]:w-[100vw] min-[550px]:[&>div>div]:min-w-[550px]">
+          {children}
+        </div>
       </div>
     </div>
   )
