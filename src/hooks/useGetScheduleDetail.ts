@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { getScheduleDetail } from '@/services/api/schedule'
-import { useMemo } from 'react'
 
 const useGetScheduleDetail = (scheduleId: string | undefined) => {
   const { data, isError } = useQuery({
