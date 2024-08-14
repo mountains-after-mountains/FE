@@ -62,7 +62,7 @@
   }
 
   #root {
-    @apply mx-auto min-h-screen max-w-[500px] touch-auto overflow-y-auto scroll-smooth shadow-lg;
+    @apply mx-auto min-h-screen touch-auto overflow-y-auto scroll-smooth shadow-lg;
   }
 
   #root::-webkit-scrollbar {

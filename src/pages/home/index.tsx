@@ -38,7 +38,7 @@ const Home = () => {
               <EmptyMntiList />
             )}
             <button
-              className="fixed bottom-[50px] right-5 flex items-center rounded-3xl bg-green-600 px-5 py-3 text-b1 text-white min-[500px]:right-[calc(50%-250px+20px)]"
+              className="fixed bottom-[50px] right-5 flex items-center rounded-3xl bg-green-600 px-5 py-3 text-b1 text-white min-[500px]:right-[calc(50%-250px+20px)] min-[1024px]:right-[calc((100%-500px)*0.255+20px)]"
               onClick={() => navigate('/schedule/register')}
             >
               <Add />
