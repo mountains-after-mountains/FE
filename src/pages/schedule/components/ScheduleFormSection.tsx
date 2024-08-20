@@ -18,8 +18,10 @@ interface ScheduleFormSectionProps {
   setMinute: (minute: number | null) => void
   minute: number | null
   hour: number | null
+  modifyData?: any
 }
 const ScheduleFormSection = ({
+  modifyData,
   date,
   setDate,
   setMountainsValue,
@@ -43,13 +45,10 @@ const ScheduleFormSection = ({
           setSelectedValue={setMountainsValue}
           ariaLabel={'산 선택'}
           isError={mountainsListError}
+          modifyData={modifyData?.mountainId}
         />
       </TextWithSubtext>
-      <TextWithSubtext
-        title="언제 입산하시나요?"
-        subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!"
-        asteriskIcon={true}
-      >
+      <TextWithSubtext title="언제 입산하시나요?" subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!">
         <div className="flex gap-2">
           <DatePicker date={date} setDate={setDate} title="날짜" />
           <TimePicker title="시간" hour={hour} minute={minute} setHour={setHour} setMinute={setMinute} />
@@ -57,6 +56,7 @@ const ScheduleFormSection = ({
       </TextWithSubtext>
       <TextWithSubtext title="어떤 코스로 가시나요?">
         <CommonSelect
+          modifyData={modifyData?.course?.courseNo}
           items={mountainCourseOption}
           placeholder={'코스를 골라주세요'}
           setSelectedValue={setMountainCourseValue}
@@ -66,6 +66,7 @@ const ScheduleFormSection = ({
       </TextWithSubtext>
       <TextWithSubtext title="몇 명의 일행으로 같이 가시나요?">
         <CommonSelect
+          modifyData={modifyData?.memberCount}
           items={PersonnelOption}
           placeholder={'산을 골라주세요'}
           setSelectedValue={setPersonnelValue}

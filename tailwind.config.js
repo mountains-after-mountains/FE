@@ -41,6 +41,7 @@ module.exports = {
         background: 'hsl(var(--background))',
         surface: 'hsl(var(--surface))',
         border: 'hsl(var(--border))',
+        subtext: 'hsl(var(--subtext))',
         text: 'hsl(var(--text))',
         main: 'hsl(var(--main))',
         active: 'hsl(var(--active))',

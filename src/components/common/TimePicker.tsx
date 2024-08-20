@@ -20,6 +20,9 @@ const TimePicker = ({ title, setHour, setMinute, hour, minute }: TimePickerProps
   const handleSelectClick = () => {
     setOpen(false)
     setIsTimeSelected(true)
+
+    if (hour === null) setHour(0)
+    if (minute === null) setMinute(0)
   }
 
   const formatTime = (hour: number, minute: number) => {

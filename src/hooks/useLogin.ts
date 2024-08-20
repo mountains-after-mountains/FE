@@ -17,7 +17,7 @@ const useLogin = (code: string | null) => {
       try {
         const data = await login(code)
         setLogin(data.token, data.nickname)
-        navigate('/home')
+        navigate('/welcome')
       } catch (error) {
         console.error('Error during sign-in:', error)
       }

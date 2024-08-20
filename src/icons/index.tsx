@@ -1,6 +1,6 @@
-export const BackIcon = () => (
+export const BackIcon = ({ color = '#1C1C1C' }) => (
   <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7.415 1.415L6 0L0 6L6 12L7.415 10.585L2.83 6L7.415 1.415Z" fill="#1C1C1C" />
+    <path d="M7.415 1.415L6 0L0 6L6 12L7.415 10.585L2.83 6L7.415 1.415Z" fill={color} />
   </svg>
 )
 export const AsteriskIcon = () => (
@@ -27,5 +27,46 @@ export const ExpandDownIcon = () => (
 export const NextIcon = () => (
   <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M1.99996 0L0.584961 1.415L5.16996 6L0.584961 10.585L1.99996 12L7.99996 6L1.99996 0Z" fill="#1C1C1C" />
+  </svg>
+)
+
+export const EditIcon = ({ className = '' }) => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path
+      d="M0 14.2499V17.9999H3.75L14.815 6.93494L11.065 3.18494L0 14.2499ZM17.705 4.04494C18.095 3.65494 18.095 3.01994 17.705 2.62994L15.37 0.294941C14.98 -0.0950586 14.345 -0.0950586 13.955 0.294941L12.125 2.12494L15.875 5.87494L17.705 4.04494Z"
+      className="fill-current"
+    />
+  </svg>
+)
+
+export const UrlShareIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="48" height="48" rx="24" fill="#F6F6F6" />
+    <g clip-path="url(#clip0_782_13944)">
+      <path
+        d="M15.9 24C15.9 22.29 17.29 20.9 19 20.9H23V19H19C16.24 19 14 21.24 14 24C14 26.76 16.24 29 19 29H23V27.1H19C17.29 27.1 15.9 25.71 15.9 24ZM20 25H28V23H20V25ZM29 19H25V20.9H29C30.71 20.9 32.1 22.29 32.1 24C32.1 25.71 30.71 27.1 29 27.1H25V29H29C31.76 29 34 26.76 34 24C34 21.24 31.76 19 29 19Z"
+        fill="#1C1C1C"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_782_13944">
+        <rect width="24" height="24" fill="white" transform="translate(12 12)" />
+      </clipPath>
+    </defs>
+  </svg>
+)
+export const WasteBasket = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1232_7744)">
+      <path
+        d="M4.99935 15.8333C4.99935 16.7542 5.74518 17.5 6.66602 17.5H13.3327C14.2535 17.5 14.9993 16.7542 14.9993 15.8333V5.83333H4.99935V15.8333ZM15.8327 3.33333H12.916L12.0827 2.5H7.91602L7.08268 3.33333H4.16602V5H15.8327V3.33333Z"
+        fill="#0E9F59"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_1232_7744">
+        <rect width="20" height="20" fill="white" />
+      </clipPath>
+    </defs>
   </svg>
 )

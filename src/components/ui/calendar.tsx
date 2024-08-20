@@ -1,13 +1,17 @@
 import * as React from 'react'
-import { DayPicker } from 'react-day-picker'
+import { DateFormatter, DayPicker } from 'react-day-picker'
 import { ko } from 'date-fns/locale'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
+import { format } from 'date-fns'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+  const customFormatters: Partial<DateFormatter> = {
+    formatCaption: (date: Date) => format(date, 'yyyy년 MM월', { locale: ko }),
+  }
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -41,6 +45,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         ...classNames,
       }}
       locale={ko}
+      formatters={customFormatters}
       components={{}}
       {...props}
     />
