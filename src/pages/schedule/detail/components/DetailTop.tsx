@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import { BackIcon } from '@/icons'
 import { Schedule } from '@/types/schedule'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
 interface DetailTopProps {
   data: Schedule
@@ -14,8 +15,7 @@ const DetailTop = ({ data }: DetailTopProps) => {
   const scheduleDate = data?.scheduleDate ?? ''
   const dateInfo = useDateInfo(scheduleDate)
 
-  const defaultImage = 'https://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56531&fileTy=MEDIA&fileNo=1'
-  const imageSrc = data?.mountainImg || defaultImage
+  const imageSrc = `data:image/jpeg;base64,${data?.mountainImg}` || EmptyImg
   return (
     <div>
       <div className="relative h-[246px] w-full">

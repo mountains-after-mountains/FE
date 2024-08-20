@@ -22,10 +22,7 @@ const Header = ({ selected }: Props) => {
           <button className={clsx({ 'text-gray-900': selected === 'home' })} onClick={() => navigate('/home')}>
             홈
           </button>
-          <button
-            className={clsx({ 'text-gray-900': selected === 'schedule' })}
-            onClick={() => navigate('/schedule/register')}
-          >
+          <button className={clsx({ 'text-gray-900': selected === 'schedule' })} onClick={() => navigate('/schedule')}>
             등산일정
           </button>
         </div>

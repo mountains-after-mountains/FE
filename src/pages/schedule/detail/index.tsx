@@ -101,7 +101,7 @@ const DetailSchedule = () => {
           )}
         </div>
       </div>
-      <div className="fixed bottom-5 mx-5 w-[calc(100%-40px)] max-w-[460px]">
+      <div className="fixed bottom-5 w-[calc(%-40px)] max-w-[460px] px-5">
         <FooterButton onClick={() => navigate(`/invitation/make/${scheduleId}`)}>초대장 만들기</FooterButton>
       </div>
     </div>
