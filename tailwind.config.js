@@ -4,6 +4,11 @@ module.exports = {
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
+    screens: {
+      tablet: '480px',
+      laptop: '768px',
+      desktop: '1024px',
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -124,7 +129,7 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       backgroundImage: {
-        'home-banner': "url('./src/assets/image/bg_banner.png')",
+        'home-banner': "url('/assets/image/bg_banner.png')",
       },
     },
   },

@@ -1,35 +1,34 @@
 import MountainInfo from '@/components/common/MountainInfo'
 import Top100Badge from '@/components/common/Top100Badge'
 import { useNavigate } from 'react-router-dom'
+import Clip from '@/assets/icons/clip.svg?react'
+import { MountainResponse } from '@/types/mountain'
+import clsx from 'clsx'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
+import Arrow from '@/assets/icons/arrow_left.svg?react'
 
-const mountain = {
-  name: '북한산',
-  address: '서울시 성북구 정릉동',
-  altitude: 338,
-  rates: 2,
-  img: 'https://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56531&fileTy=MEDIA&fileNo=1',
-  isTop100: true,
-  park: {
-    name: '북한산국립공원',
-    link: 'https://www.knps.or.kr/',
-  },
-}
-
-const DetailMountainInfo = () => {
+const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainResponse; className?: string }) => {
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 
   return (
-    <div>
-      <img src={mountain.img} className="mb-5 h-[246px] w-full" onClick={goBack} />
+    <div className={clsx(className)}>
+      <div className="relative">
+        <div className="absolute left-4 top-3 cursor-pointer" onClick={goBack}>
+          <Arrow color={mountain?.photoFile ? 'white' : 'black'} />
+        </div>
+        <img
+          src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
+          className="mb-5 h-[246px] w-full"
+        />
+      </div>
       <div className="px-5">
-        {mountain.isTop100 && <Top100Badge className="inline-flex" />}
+        {mountain?.famous100 && <Top100Badge className="inline-flex" />}
         <MountainInfo mountain={mountain} />
-        <a
-          className="text-b3 text-gray-700 underline"
-          href={mountain.park.link}
-          target="_blank"
-        >{`${mountain.park.name} >`}</a>
+        <a className="flex items-center gap-0.5 text-b3 text-gray-700 underline" href="" target="_blank">
+          {`${mountain?.mntiName ?? ''} 공원`}
+          <Clip />
+        </a>
       </div>
     </div>
   )

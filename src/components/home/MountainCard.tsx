@@ -1,30 +1,22 @@
 import { useNavigate } from 'react-router-dom'
 import MountainInfo from '../common/MountainInfo'
-import Top100Badge from '../common/Top100Badge'
+import { MountainListResponse } from '@/types/schedule'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
-type Props = {
-  mountain: {
-    name: string
-    rates: number
-    address: string
-    altitude: number
-    img: string
-    isTop100: boolean
-  }
-}
-
-const MountainCard = ({ mountain }: Props) => {
-  const id = Math.floor(Math.random() * 100) + 1
+const MountainCard = ({ mountain }: { mountain?: MountainListResponse }) => {
   const navigation = useNavigate()
-  const onClick = () => navigation(`/mountain/${id}`)
+  const onClick = () => navigation(`/mountain/${mountain?.mntiListNo}`)
 
   return (
     <div className="my-[14px] box-border cursor-pointer px-5" onClick={onClick}>
       <div className="relative h-[200px]">
-        {mountain.isTop100 && <Top100Badge className="absolute right-3 top-[12px]" />}
-        <img src={mountain.img} className="h-full w-full rounded-[20px]" />
+        {/* {mountain?.famous100 && <Top100Badge className="absolute right-3 top-[12px]" />} */}
+        <img
+          src={mountain?.potoFile ? `data:image/jpeg;base64,${mountain?.potoFile}` : EmptyImg}
+          className="h-full w-full rounded-[20px] object-cover"
+        />
       </div>
-      <MountainInfo mountain={mountain} />
+      <MountainInfo mountain={mountain} row />
     </div>
   )
 }
