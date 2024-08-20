@@ -25,7 +25,7 @@ const AppRoutes = () => {
       <Router>
         {!isAuthenticated && <Login />}
         <Routes>
-                  <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/" element={<Home />} />
           <Route path="mountain/:mountainId" element={<Mountain />} />
           <Route path="contents/:contentsId" element={<Contents />} />
@@ -35,11 +35,11 @@ const AppRoutes = () => {
           <Route path="/schedule" element={<ListSchedule />} />
           <Route path="/schedule/register" element={<RegisterSchedule />} />
           <Route path="/schedule/modify" element={<ModifySchedule />} />
-                  <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
+          <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
           <Route path="/auth" element={<KakaoRedirect />} />
           <Route path="invitation" element={<Invitation />} />
-                  <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
-                  <Route path="/invitation/accept" element={<AcceptInvitation />} />
+          <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
+          <Route path="/invitation/accept" element={<AcceptInvitation />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

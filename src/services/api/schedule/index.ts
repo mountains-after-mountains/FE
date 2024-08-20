@@ -22,7 +22,7 @@ export const registerSchedule = async (scheduleData: ScheduleDataPayload) => {
   return response.data
 }
 
-export const getDetailSchedule = async (scheduleId: string | undefined) => {
+export const getDetailSchedule = async (scheduleId: string) => {
   const response = await axiosInstance.get(`/schedule/mySchedule/${scheduleId}`)
   return response.data
 }
@@ -60,17 +60,4 @@ export const deleteMemo = async (memoId: string) => {
 export const checkMemo = async (memoId: string) => {
   const response = await axiosInstance.patch(`/schedule/memo/update/${memoId}`)
   return response.data
-}
-
-export const getScheduleDetail = async (scheduleId: string) => {
-  try {
-    const response = await axiosInstance.post<registerScheduleResponse>(`/schedule/mySchedule/${scheduleId}`)
-    return response.data
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.message || 'Error fetching feature A data')
-    } else {
-      throw new Error('An unexpected error occurred')
-    }
-  }
 }

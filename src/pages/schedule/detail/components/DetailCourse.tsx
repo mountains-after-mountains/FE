@@ -1,5 +1,4 @@
 import MountainInfo from '@/components/common/MountainInfo.tsx'
-import CourseCard from '@/pages/mountain/components/CourseCard.tsx'
 import Top100Badge from '@/components/common/Top100Badge.tsx'
 import { Schedule } from '@/types/schedule'
 
@@ -19,12 +18,12 @@ const DetailCourse = ({ data }: DetailCourseProps) => {
       {/*  target="_blank"*/}
       {/*>{`${mountain.park.name} >`}</a>*/}
       {/*<Map lat={33.450701} lng={126.570667} markers={data?.course.pahts} />*/}
-      <CourseCard
-        courseName={data?.course?.courseName}
-        distance={Number(data?.course?.mntiDist) * 1000}
-        time={data?.course?.mntiTime}
-        mountainLevel={data?.mountainLevel}
-      />
+      {/*<CourseCard*/}
+      {/*  courseName={data?.course?.courseName}*/}
+      {/*  distance={Number(data?.course?.mntiDist) * 1000}*/}
+      {/*  time={data?.course?.mntiTime}*/}
+      {/*  mountainLevel={data?.mountainLevel}*/}
+      {/*/>*/}
     </div>
   )
 }

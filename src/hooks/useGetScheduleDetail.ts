@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getScheduleDetail } from '@/services/api/schedule'
+import { getDetailSchedule } from '@/services/api/schedule'
 
 const useGetScheduleDetail = (scheduleId: string | undefined) => {
   const { data, isError } = useQuery({
     queryKey: ['mountainCourse', scheduleId],
-    queryFn: () => getScheduleDetail(scheduleId || ''),
+    queryFn: () => getDetailSchedule(scheduleId || ''),
     enabled: !!scheduleId,
     refetchOnWindowFocus: false,
   })

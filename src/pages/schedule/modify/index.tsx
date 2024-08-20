@@ -16,7 +16,7 @@ const ModifySchedule = () => {
   const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
   const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId),
+    queryFn: () => getDetailSchedule(scheduleId || ''),
     refetchOnWindowFocus: false,
     enabled: !!scheduleId,
   })

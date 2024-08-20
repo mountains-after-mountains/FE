@@ -3,27 +3,19 @@ import MemoDrawer from '@/pages/schedule/detail/components/MemoDrawer.tsx'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { checkMemo, getDetailSchedule, getMemoList, registerMemo } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
-import { WeatherGroup, WeatherProps } from '@/components/common/Weather.tsx'
+import { WeatherGroup } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
 import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 import { MemoItem } from '@/types/schedule'
 
-const weathers: WeatherProps[] = [
-  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-  { weather: 'sunny', isToday: true, date: '2024-07-27T15:24:00', temperature: 30 },
-  { weather: 'blizzard', isToday: false, date: '2024-07-27T15:24:00', temperature: 30 },
-]
-
 const DetailSchedule = () => {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const [memo, setMemo] = useState('')
+
   const memoRegisterMutaion = useMutation({
     mutationFn: registerMemo,
     onSettled: () => {
@@ -40,7 +32,7 @@ const DetailSchedule = () => {
 
   const { data } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId),
+    queryFn: () => getDetailSchedule(scheduleId || ''),
     refetchOnWindowFocus: false,
     enabled: !!scheduleId,
   })
@@ -78,7 +70,7 @@ const DetailSchedule = () => {
       <DetailCourse data={data} />
       <div className="bg-white p-5">
         <span className="text-h5 text-gray-900">날씨</span>
-        <WeatherGroup weathers={weathers} className="mt-[10px]" />
+        <WeatherGroup weathers={data?.weatherList} className="mt-[10px]" />
       </div>
       <div className="bg-white p-5">
         <div className="flex items-center justify-between">
