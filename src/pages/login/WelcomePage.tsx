@@ -24,7 +24,7 @@ const WelcomePage = () => {
 
   return (
     <div
-      className={`flex h-full flex-col items-center justify-center gap-6 text-h3 transition-opacity duration-200 ${
+      className={`flex h-screen flex-col items-center justify-center gap-6 text-h3 transition-opacity duration-200 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
     >
