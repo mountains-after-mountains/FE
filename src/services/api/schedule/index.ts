@@ -2,6 +2,7 @@ import axiosInstance from '@/services/instance/axiosInstance.ts'
 import {
   courseListType,
   ModifyMemoPayload,
+  ModifySchedulePayload,
   MountainListResponse,
   RegisterMemoPayload,
   ScheduleDataPayload,
@@ -59,5 +60,10 @@ export const deleteMemo = async (memoId: string) => {
 
 export const checkMemo = async (memoId: string) => {
   const response = await axiosInstance.patch(`/schedule/memo/update/${memoId}`)
+  return response.data
+}
+
+export const modifySchedule = async (payload: ModifySchedulePayload) => {
+  const response = await axiosInstance.patch('/schedule/update', payload)
   return response.data
 }

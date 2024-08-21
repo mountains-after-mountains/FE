@@ -13,14 +13,12 @@ interface DatePickerProps {
 
 const DatePicker = ({ title, date, setDate }: DatePickerProps) => {
   const [open, setOpen] = useState(false)
-  const [isDateSelected, setIsDateSelected] = useState(false)
 
   const handleSelectClick = () => {
     setOpen(false)
-    setIsDateSelected(true)
   }
 
-  const buttonText = isDateSelected && date ? format(date, 'MM월 dd일') : title
+  const buttonText = date ? format(date, 'MM월 dd일') : title
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

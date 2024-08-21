@@ -19,7 +19,7 @@ const BackDrawer = () => {
         <BackIcon />
       </DrawerTrigger>
       <DrawerContent className="bg-white">
-        <DrawerHeader className="text-h4">저장하지 않고 나가시겠어요?</DrawerHeader>
+        <DrawerHeader className="text-start text-h4">저장하지 않고 나가시겠어요?</DrawerHeader>
         <div className="px-4 pb-9 text-b2">아직 변경 사항이 저장되지 않았어요.</div>
         <DrawerFooter>
           <DrawerClose asChild>

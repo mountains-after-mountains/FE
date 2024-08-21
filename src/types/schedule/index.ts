@@ -72,3 +72,10 @@ export interface ModifyMemoPayload {
   memoId: string
   memoContent: string
 }
+export interface ModifySchedulePayload {
+  mountainId: string
+  course: string
+  scheduleDate: string
+  memberCount: string
+  scheduleId: string | undefined
+}
