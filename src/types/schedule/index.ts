@@ -1,3 +1,5 @@
+import { Weather } from '@/types/weather'
+
 export interface MountainListResponse {
   mntiListNo: string
   mntiName: string
@@ -24,12 +26,7 @@ export interface ScheduleListResponse {
   memberCount: number
   scheduleDate: string
   course: string | null
-}
-interface Weather {
-  date: string
-  temperature: string
-  skyState: string
-  rainPersent: string
+  weatherList: Weather[]
 }
 
 // 코스 정보 타입 정의
