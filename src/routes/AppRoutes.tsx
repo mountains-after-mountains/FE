@@ -37,7 +37,7 @@ const AppRoutes = () => {
           <Route path="/schedule/modify/:scheduleId" element={<ModifySchedule />} />
           <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
           <Route path="/auth" element={<KakaoRedirect />} />
-          <Route path="invitation" element={<Invitation />} />
+          <Route path="invitation/:invitationId" element={<Invitation />} />
           <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
           <Route path="/invitation/accept" element={<AcceptInvitation />} />
           <Route path="*" element={<Navigate to="/" />} />
