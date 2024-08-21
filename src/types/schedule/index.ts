@@ -1,4 +1,4 @@
-import { Weather } from '@/types/weather'
+import { CourseType, Weather } from 'src/types/common'
 
 export interface MountainListResponse {
   mntiListNo: string
@@ -29,16 +29,6 @@ export interface ScheduleListResponse {
   weatherList: Weather[]
 }
 
-// 코스 정보 타입 정의
-interface Course {
-  courseNo: string | null
-  courseName: string | null
-  mntiTime: number | null
-  mntiDist: number | null
-  mntiLevel: number | null
-  paths: any | null
-}
-
 // 스케줄 정보 타입 정의
 export interface Schedule {
   scheduleId: string
@@ -51,7 +41,7 @@ export interface Schedule {
   mountainLevel: string
   mountainAddress: string
   mountainImg: string | null
-  course: Course
+  course: CourseType
   weatherList: Weather[]
   famous100: boolean
 }
