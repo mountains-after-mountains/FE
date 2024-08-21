@@ -54,6 +54,13 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
     setEditingContent(content)
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      handleRegisterMemo()
+    }
+  }
+
   return (
     <Drawer>
       <DrawerTrigger>
@@ -98,6 +105,7 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
             className="w-full rounded border-2 border-primary p-3 placeholder:text-border focus:outline-none"
             value={memo}
             onChange={e => setMemo(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="메모를 입력하세요"
           />
         </div>

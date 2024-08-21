@@ -34,10 +34,10 @@ const AppRoutes = () => {
           <Route path="search" element={<Search />} />
           <Route path="/schedule" element={<ListSchedule />} />
           <Route path="/schedule/register" element={<RegisterSchedule />} />
-          <Route path="/schedule/modify" element={<ModifySchedule />} />
+          <Route path="/schedule/modify/:scheduleId" element={<ModifySchedule />} />
           <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
           <Route path="/auth" element={<KakaoRedirect />} />
-          <Route path="invitation" element={<Invitation />} />
+          <Route path="invitation/:invitationId" element={<Invitation />} />
           <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
           <Route path="/invitation/accept" element={<AcceptInvitation />} />
           <Route path="*" element={<Navigate to="/" />} />

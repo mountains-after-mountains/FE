@@ -15,11 +15,12 @@ const DetailTop = ({ data }: DetailTopProps) => {
   const scheduleDate = data?.scheduleDate ?? ''
   const dateInfo = useDateInfo(scheduleDate)
 
-  const imageSrc = `data:image/jpeg;base64,${data?.mountainImg}` || EmptyImg
+  const imageSrc = data?.mountainImg ? `data:image/jpeg;base64,${data.mountainImg}` : EmptyImg
   return (
     <div>
       <div className="relative h-[246px] w-full">
         <img src={imageSrc} className="h-full w-full object-cover" alt="Mountain" />
+        <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-0 flex items-start justify-between p-4">
           <button className="text-white" onClick={() => navigate(-1)}>
             <BackIcon color="#ffffff" />

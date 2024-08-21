@@ -4,6 +4,7 @@ import { NextIcon } from '@/icons'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import { useNavigate } from 'react-router-dom'
 import { ScheduleListResponse } from '@/types/schedule'
+import { WeatherGroup } from '@/components/common/Weather.tsx'
 
 interface ListCardProps {
   schedule: ScheduleListResponse
@@ -33,7 +34,9 @@ const ListCard = ({ schedule }: ListCardProps) => {
           <div className="text-b2">{schedule?.course}</div>
         </div>
       </div>
-      <div className="pt-5">{/*<WeatherGroup weathers={weathers} className="mt-[10px]" />*/}</div>
+      <div className="pt-2">
+        <WeatherGroup weathers={schedule.weatherList} className="mt-[10px]" />
+      </div>
     </CommonCard>
   )
 }

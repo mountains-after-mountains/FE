@@ -15,23 +15,33 @@ interface TimePickerProps {
 
 const TimePicker = ({ title, setHour, setMinute, hour, minute }: TimePickerProps) => {
   const [open, setOpen] = useState(false)
-  const [isTimeSelected, setIsTimeSelected] = useState(false)
 
   const handleSelectClick = () => {
     setOpen(false)
-    setIsTimeSelected(true)
 
     if (hour === null) setHour(0)
     if (minute === null) setMinute(0)
   }
 
-  const formatTime = (hour: number, minute: number) => {
-    const formattedHour = hour.toString().padStart(2, '0')
-    const formattedMinute = minute.toString().padStart(2, '0')
-    return `${formattedHour}시 ${formattedMinute}분`
+  const formatTime = (timeOrHour: string | number, minute?: number) => {
+    let hour: string
+    let formattedMinute: string
+
+    if (typeof timeOrHour === 'string') {
+      const date = new Date(timeOrHour)
+      hour = date.getHours().toString().padStart(2, '0')
+      formattedMinute = date.getMinutes().toString().padStart(2, '0')
+    } else if (typeof timeOrHour === 'number' && minute !== undefined) {
+      hour = timeOrHour.toString().padStart(2, '0')
+      formattedMinute = minute.toString().padStart(2, '0')
+    } else {
+      throw new Error('Invalid arguments: Please provide either a time string or both hour and minute numbers.')
+    }
+
+    return `${hour}시 ${formattedMinute}분`
   }
 
-  const buttonText = isTimeSelected && hour !== null && minute !== null ? formatTime(hour, minute) : title
+  const buttonText = hour !== null && minute !== null ? formatTime(hour, minute) : title
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full rounded-xl bg-white">

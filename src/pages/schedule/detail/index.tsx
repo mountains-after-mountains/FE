@@ -1,7 +1,7 @@
 import MemoDescription from '@/pages/schedule/detail/components/MemoDescription.tsx'
 import MemoDrawer from '@/pages/schedule/detail/components/MemoDrawer.tsx'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { checkMemo, getDetailSchedule, getMemoList, registerMemo } from '@/services/api/schedule'
+import { checkMemo, getMemoList, registerMemo } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import { WeatherGroup } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
@@ -9,6 +9,9 @@ import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 import { MemoItem } from '@/types/schedule'
+import LoadingSpinner from '@/components/common/Spinner.tsx'
+import { Checkbox } from '@/components/ui/checkbox.tsx'
+import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 
 const DetailSchedule = () => {
   const navigate = useNavigate()
@@ -30,12 +33,7 @@ const DetailSchedule = () => {
     },
   })
 
-  const { data } = useQuery({
-    queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId || ''),
-    refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
-  })
+  const { data, isFetching } = useDetailSchedule(scheduleId)
 
   const { data: memoListData } = useQuery({
     queryKey: ['memoList', scheduleId],
@@ -66,6 +64,7 @@ const DetailSchedule = () => {
 
   return (
     <div className="flex flex-col gap-2 bg-background">
+      {isFetching && <LoadingSpinner />}
       <DetailTop data={data} />
       <DetailCourse data={data} />
       <div className="bg-white p-5">
@@ -87,12 +86,12 @@ const DetailSchedule = () => {
             <div>
               {memoListData.map((item: MemoItem) => (
                 <div key={item.memoId} className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
+                  <Checkbox
+                    className="h-[18px] w-[18px] border-2"
                     checked={item.checkStatus}
-                    onChange={() => handleCheckboxChange(item.memoId)}
+                    onCheckedChange={() => handleCheckboxChange(item.memoId)}
                   />
-                  <span>{item.content}</span>
+                  <label htmlFor={item.memoId}>{item.content}</label>
                 </div>
               ))}
             </div>

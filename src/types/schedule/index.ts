@@ -1,3 +1,5 @@
+import { CourseType, Weather } from 'src/types/common'
+
 export interface MountainListResponse {
   mntiListNo: string
   mntiName: string
@@ -24,22 +26,7 @@ export interface ScheduleListResponse {
   memberCount: number
   scheduleDate: string
   course: string | null
-}
-interface Weather {
-  date: string
-  temperature: string
-  skyState: string
-  rainPersent: string
-}
-
-// 코스 정보 타입 정의
-interface Course {
-  courseNo: string | null
-  courseName: string | null
-  mntiTime: number | null
-  mntiDist: number | null
-  mntiLevel: number | null
-  paths: any | null
+  weatherList: Weather[]
 }
 
 // 스케줄 정보 타입 정의
@@ -54,7 +41,7 @@ export interface Schedule {
   mountainLevel: string
   mountainAddress: string
   mountainImg: string | null
-  course: Course
+  course: CourseType
   weatherList: Weather[]
   famous100: boolean
 }
@@ -84,4 +71,11 @@ export interface RegisterMemoPayload {
 export interface ModifyMemoPayload {
   memoId: string
   memoContent: string
+}
+export interface ModifySchedulePayload {
+  mountainId: string
+  course: string
+  scheduleDate: string
+  memberCount: string
+  scheduleId: string | undefined
 }

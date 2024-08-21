@@ -1,88 +1,96 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '@/components/layouts/header'
 import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaOptionsType } from 'embla-carousel'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
-import { useQuery } from '@tanstack/react-query'
-import { getDetailSchedule } from '@/services/api/schedule'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import useDateInfo from '@/hooks/useDateInfo.ts'
-
-const mockData = [
-  {
-    id: 1,
-    img: 'https://cdn.pixabay.com/photo/2024/04/19/04/39/kingfisher-8705377_1280.jpg',
-  },
-  {
-    id: 2,
-    img: 'https://www.econovill.com/news/photo/201812/353683_236958_5647.jpg',
-  },
-  {
-    id: 3,
-    img: 'https://cdn.vdcm.co.kr/news/photo/201803/4538_13153_5736.jpg',
-  },
-  {
-    id: 4,
-    img: 'https://image.kr.canon/pds/editor/images/000013/20161006155152880_7UJF306Y.jpg',
-  },
-  {
-    id: 5,
-    img: 'https://www.walkerhillstory.com/wp-content/uploads/2020/09/2-1.jpg',
-  },
-  {
-    id: 6,
-    img: 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-  },
-  {
-    id: 7,
-    img: 'https://cdn.travie.com/news/photo/first/201710/img_19975_1.jpg',
-  },
-]
+import { createInvitation, getInvitationImgList } from '@/services/api/invitation'
+import LoadingSpinner from '@/components/common/Spinner.tsx'
+import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 
 const OPTIONS: EmblaOptionsType = { loop: false }
+
+interface InvitationImage {
+  img: string
+  imgNumber: number
+}
 
 const MakeInvitation = () => {
   const navigate = useNavigate()
   const [emblaRef] = useEmblaCarousel(OPTIONS)
-  const [selectedImage, setSelectedImage] = useState(mockData[0].img)
+  const [selectedImage, setSelectedImage] = useState<InvitationImage | null>(null)
   const [text, setText] = useState('')
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const maxLength = 100
 
-  const { data } = useQuery({
-    queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId || ''),
+  const { data, isFetching } = useDetailSchedule(scheduleId)
+
+  const { data: invitationImagList } = useQuery({
+    queryKey: ['getInvitationImgList'],
+    queryFn: getInvitationImgList,
     refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
   })
+
+  useEffect(() => {
+    if (invitationImagList && invitationImagList.length > 0) {
+      setSelectedImage({ img: invitationImagList[0].img, imgNumber: invitationImagList[0].imgNumber })
+    }
+  }, [invitationImagList])
+
+  const createInvitationMutation = useMutation({
+    mutationFn: createInvitation,
+    onSuccess: data => {
+      const invitationId = data.invitationId
+      navigate(`/invitation/${invitationId}`)
+    },
+  })
+
   const scheduleDate = data?.scheduleDate ?? ''
   const dateInfo = useDateInfo(scheduleDate)
 
-  const handleImageClick = (img: string) => {
-    setSelectedImage(img)
+  const handleImageClick = (img: string, imgNumber: number) => {
+    setSelectedImage({ img, imgNumber })
   }
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
   }
+
   const completeInvitation = () => {
-    navigate(`/invitation/${scheduleId}`)
+    if (!selectedImage) return
+
+    const payload = {
+      scheduleId: scheduleId,
+      imgNumber: selectedImage.imgNumber,
+      text: text,
+    }
+    createInvitationMutation.mutate(payload)
   }
+
   return (
-    <>
-      <Header title="초대장 만들기" rightAction={<div className="text-b2 text-main">삭제</div>} />
+    <div className="flex flex-col">
+      {isFetching && <LoadingSpinner />}
+      <Header title="초대장 만들기" />
       <div className="px-5 py-4">
-        <img src={selectedImage} className="mb-4 aspect-square rounded-xl" alt="Selected" />
+        <img
+          src={`data:image/jpeg;base64,${selectedImage?.img}`}
+          className="mb-4 aspect-square rounded-xl"
+          alt="Selected"
+        />
         <div className="mb-8 overflow-hidden" ref={emblaRef}>
           <div className="flex gap-5">
-            {mockData.map(item => (
+            {invitationImagList?.map((item: InvitationImage) => (
               <img
-                key={item.id}
-                src={item.img}
-                className={`w-20 cursor-pointer ${selectedImage === item.img ? 'border-4 border-black' : ''}`}
-                alt={`Carousel ${item.id}`}
-                onClick={() => handleImageClick(item.img)}
+                key={item.imgNumber}
+                src={`data:image/jpeg;base64,${item.img}`}
+                className={`w-14 cursor-pointer rounded ${
+                  selectedImage?.img === item.img ? 'border-2 border-black' : 'border-2 border-border'
+                }`}
+                alt={`Carousel ${item.imgNumber}`}
+                onClick={() => handleImageClick(item.img, item.imgNumber)}
               />
             ))}
           </div>
@@ -92,7 +100,7 @@ const MakeInvitation = () => {
           <div className="text-b2 font-semibold">{data?.mountainName}</div>
           <div className="text-b2">{data?.courseName}</div>
         </div>
-        <div className="relative pb-2">
+        <div className="relative mb-4 pb-2">
           <textarea
             className="w-full rounded-xl bg-gray-100 px-3 py-4 placeholder:text-b2 placeholder:text-border focus:outline-none"
             placeholder="초대장을 자유롭게 작성해주세요."
@@ -107,7 +115,7 @@ const MakeInvitation = () => {
         </div>
         <FooterButton onClick={completeInvitation}>초대장 완성하기</FooterButton>
       </div>
-    </>
+    </div>
   )
 }
 

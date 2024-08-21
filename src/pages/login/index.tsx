@@ -1,4 +1,9 @@
 import kakao_login from '@/assets/images/kakao_login.png'
+import login_img_1 from '@/assets/images/login_img_1.png'
+import login_img_2 from '@/assets/images/login_img_2.png'
+import login_img_3 from '@/assets/images/login_img_3.png'
+import login_img_4 from '@/assets/images/login_img_4.png'
+
 import { EmblaOptionsType } from 'embla-carousel'
 import CustomCarousel from '@/pages/login/components/CustomCarousel.tsx'
 import { useState } from 'react'
@@ -6,23 +11,23 @@ import { useState } from 'react'
 const data = [
   {
     id: 1,
-    img: 'src/assets/images/login_img_1.png',
+    img: login_img_1,
     text: '서울엔 어떤 산이 있을까요?\n' + '난이도별, 콘텐츠별로 둘러봐요',
   },
   {
     id: 2,
-    img: 'src/assets/images/login_img_2.png',
+    img: login_img_2,
     text: '언제 어떤 코스로 갈까요?\n' + '설레는 등산을 준비해요',
   },
   {
     id: 3,
-    img: 'src/assets/images/login_img_3.png',
-    text: '친구에게 초대장을 보내고\n' + '준비물도 한 곳에서 관리해',
+    img: login_img_3,
+    text: '친구에게 초대장을 보내고\n' + '준비물도 한 곳에서 관리해요',
   },
   {
     id: 4,
-    img: 'src/assets/images/login_img_4.png',
-    text: '지금부터 산너머산 시작 하겠습니다 ~~',
+    img: login_img_4,
+    text: '즐거운 등산,\n' + '지금부터 산너머산으로 시작해요!',
   },
 ]
 const OPTIONS: EmblaOptionsType = { loop: false }
