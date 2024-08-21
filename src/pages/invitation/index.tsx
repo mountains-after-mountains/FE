@@ -12,7 +12,7 @@ const Invitation = () => {
   const { invitationId } = useParams<{ invitationId: string }>()
 
   const { data, isFetching } = useQuery({
-    queryKey: ['detailSchedule', invitationId],
+    queryKey: ['getCreateInvitation', invitationId],
     queryFn: () => getCreateInvitation(invitationId || ''),
     refetchOnWindowFocus: false,
     enabled: !!invitationId,

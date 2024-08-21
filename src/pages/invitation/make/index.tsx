@@ -5,11 +5,11 @@ import { EmblaOptionsType } from 'embla-carousel'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getDetailSchedule } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import { createInvitation, getInvitationImgList } from '@/services/api/invitation'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 
 const OPTIONS: EmblaOptionsType = { loop: false }
 
@@ -26,12 +26,7 @@ const MakeInvitation = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const maxLength = 100
 
-  const { data, isFetching } = useQuery({
-    queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId || ''),
-    refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
-  })
+  const { data, isFetching } = useDetailSchedule(scheduleId)
 
   const { data: invitationImagList } = useQuery({
     queryKey: ['getInvitationImgList'],

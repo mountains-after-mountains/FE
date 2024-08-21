@@ -1,14 +1,15 @@
 import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { getDetailSchedule, modifySchedule } from '@/services/api/schedule'
+import { useMutation } from '@tanstack/react-query'
+import { modifySchedule } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
 import { format } from 'date-fns'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 
 const ModifySchedule = () => {
   const navigate = useNavigate()
@@ -16,28 +17,26 @@ const ModifySchedule = () => {
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
   const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
-
-  const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
-  const { data, isFetching } = useQuery({
-    queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId || ''),
-    refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
-  })
-  const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
-    mountainsValue.value ? mountainsValue.value : data?.mountainId,
-  )
   const [hour, setHour] = useState<number | null>(null)
   const [minute, setMinute] = useState<number | null>(null)
   const [date, setDate] = useState<Date | undefined>()
+
+  const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
+  const { data, isFetching } = useDetailSchedule(scheduleId)
+  const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
+    mountainsValue.value ? mountainsValue.value : data?.mountainId,
+  )
+
   useEffect(() => {
     if (data) {
-      setMountainsValue({ key: data.mountainName, value: data.mountainId })
-      setMountainCourseValue({ key: data.course.courseName, value: data.course.courseNo })
-      setPersonnelValue({ key: `${data.memberCount}명`, value: data.memberCount })
+      setMountainsValue({ key: '', value: data.mountainId })
+      setMountainCourseValue({ key: '', value: data.course.courseNo })
+      setPersonnelValue({ key: '', value: data.memberCount })
       setDate(data.scheduleDate)
-      setHour(data.scheduleDate)
-      setMinute(data.scheduleDate)
+
+      const dateObj = new Date(data.scheduleDate)
+      setHour(dateObj.getHours())
+      setMinute(dateObj.getMinutes())
     }
   }, [data])
 

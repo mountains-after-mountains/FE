@@ -69,7 +69,7 @@ const ScheduleFormSection = ({
         <CommonSelect
           modifyData={modifyData?.memberCount}
           items={PersonnelOption}
-          placeholder={'산을 골라주세요'}
+          placeholder={'인원 수를 선택해주세요'}
           setSelectedValue={setPersonnelValue}
           ariaLabel={'일행 선택'}
         />

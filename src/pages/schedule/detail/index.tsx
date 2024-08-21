@@ -1,7 +1,7 @@
 import MemoDescription from '@/pages/schedule/detail/components/MemoDescription.tsx'
 import MemoDrawer from '@/pages/schedule/detail/components/MemoDrawer.tsx'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { checkMemo, getDetailSchedule, getMemoList, registerMemo } from '@/services/api/schedule'
+import { checkMemo, getMemoList, registerMemo } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import { WeatherGroup } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { MemoItem } from '@/types/schedule'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
+import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 
 const DetailSchedule = () => {
   const navigate = useNavigate()
@@ -32,12 +33,7 @@ const DetailSchedule = () => {
     },
   })
 
-  const { data, isFetching } = useQuery({
-    queryKey: ['detailSchedule', scheduleId],
-    queryFn: () => getDetailSchedule(scheduleId || ''),
-    refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
-  })
+  const { data, isFetching } = useDetailSchedule(scheduleId)
 
   const { data: memoListData } = useQuery({
     queryKey: ['memoList', scheduleId],
