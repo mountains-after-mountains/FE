@@ -9,6 +9,7 @@ import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 import { MemoItem } from '@/types/schedule'
+import LoadingSpinner from '@/components/common/Spinner.tsx'
 
 const DetailSchedule = () => {
   const navigate = useNavigate()
@@ -30,7 +31,7 @@ const DetailSchedule = () => {
     },
   })
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['detailSchedule', scheduleId],
     queryFn: () => getDetailSchedule(scheduleId || ''),
     refetchOnWindowFocus: false,
@@ -66,6 +67,7 @@ const DetailSchedule = () => {
 
   return (
     <div className="flex flex-col gap-2 bg-background">
+      {isFetching && <LoadingSpinner />}
       <DetailTop data={data} />
       <DetailCourse data={data} />
       <div className="bg-white p-5">
