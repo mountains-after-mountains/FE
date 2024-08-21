@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getCreateInvitation } from '@/services/api/invitation'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import useDateInfo from '@/hooks/useDateInfo.ts'
 
 const Invitation = () => {
   const { invitationId } = useParams<{ invitationId: string }>()
@@ -17,6 +18,7 @@ const Invitation = () => {
     refetchOnWindowFocus: false,
     enabled: !!invitationId,
   })
+  const { formattedDate, dDayText } = useDateInfo(data?.scheduleDate)
 
   return (
     <div className="flex flex-col">
@@ -31,7 +33,7 @@ const Invitation = () => {
           />
         </div>
         <div className="rounded-b-2xl px-5 py-4 shadow-md">
-          <DayBadgeWithTitle text="D-day " title="5월 26일 (수)" rightAction={<EditIcon />} />
+          <DayBadgeWithTitle text={dDayText} title={formattedDate} rightAction={<EditIcon />} />
           <div className="mb-2 mb-4 mt-1 flex gap-1">
             <div className="text-b2 font-semibold">{data?.mountainName}</div>
             <div className="text-b2">{data?.courseName}</div>
@@ -40,10 +42,10 @@ const Invitation = () => {
         </div>
         <div className="flex justify-center gap-6 pt-[18px]">
           <KakaoShareButton
-            title="D-12 5월 26일 (수) 북한산 백운대 코스"
+            title={`${dDayText} ${formattedDate} ${data?.mountainName} ${data?.courseName}`}
             description={data?.text}
             imageUrl="https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"
-            webUrl="https://developers.kakao.com"
+            webUrl={`https://over-the-mountain.site/schedule/invite/join/${data?.scheduleId}`}
           />
           <UrlShareButton />
         </div>
