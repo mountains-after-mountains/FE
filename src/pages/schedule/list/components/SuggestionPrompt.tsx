@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import mountainListImg from '@/assets/images/mountainListImg.png'
 
 const SuggestionPrompt = () => {
   const navigate = useNavigate()
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      <img alt="등산 일정 이미지" src="src/assets/images/mountainListImg.png" />
+      <img alt="등산 일정 이미지" src={mountainListImg} />
       <div className="mb-2 mt-5 text-h5 text-green-950">일정을 정하고 친구와 공유해요</div>
       <div className="mb-4 text-center text-b2 text-gray-600">
         등산하기 좋은 산을 알려드릴게요
