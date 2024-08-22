@@ -1,7 +1,7 @@
 import FooterButton from '@/components/common/button/FooterButton'
 import Header from '@/components/layouts/header'
 import useMountainsList from '@/hooks/useMountainsList.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import { useMutation } from '@tanstack/react-query'
@@ -27,6 +27,11 @@ const RegisterSchedule = () => {
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
     mountainsValue.value ? mountainsValue.value : null,
   )
+  useEffect(() => {
+    if (mountainId) {
+      setMountainsValue({ key: '', value: mountainId })
+    }
+  }, [mountainId])
   const registerScheduleMutation = useMutation({
     mutationFn: registerSchedule,
     onSuccess: response => {
@@ -37,7 +42,6 @@ const RegisterSchedule = () => {
       }
     },
   })
-  console.log(date)
 
   const handleSubmit = () => {
     const formattedDate = date ? format(date, 'yyyyMMdd') : ''
