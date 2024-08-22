@@ -3,7 +3,7 @@ import { getMountainsList } from '@/services/api/schedule'
 import { useMemo } from 'react'
 
 const useMountainsList = () => {
-  const { data, isError } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ['mountainsList'],
     queryFn: getMountainsList,
     refetchOnWindowFocus: false,
@@ -17,7 +17,7 @@ const useMountainsList = () => {
     }))
   }, [data])
 
-  return { data: transformedData, isError }
+  return { data: transformedData, isError, isFetching }
 }
 
 export default useMountainsList

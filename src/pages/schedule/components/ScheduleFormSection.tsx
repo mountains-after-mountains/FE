@@ -19,6 +19,7 @@ interface ScheduleFormSectionProps {
   minute: number | null
   hour: number | null
   modifyData?: any
+  mountainId?: string
 }
 
 const ScheduleFormSection = ({
@@ -36,6 +37,7 @@ const ScheduleFormSection = ({
   setMinute,
   minute,
   hour,
+  mountainId,
 }: ScheduleFormSectionProps) => {
   return (
     <div className="flex flex-col gap-[30px]">
@@ -46,7 +48,7 @@ const ScheduleFormSection = ({
           setSelectedValue={setMountainsValue}
           ariaLabel={'산 선택'}
           isError={mountainsListError}
-          modifyData={modifyData?.mountainId}
+          modifyData={modifyData?.mountainId || mountainId}
         />
       </TextWithSubtext>
       <TextWithSubtext title="언제 입산하시나요?" subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!">

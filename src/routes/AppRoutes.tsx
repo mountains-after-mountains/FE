@@ -33,7 +33,7 @@ const AppRoutes = () => {
           <Route path="home" element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="/schedule" element={<ListSchedule />} />
-          <Route path="/schedule/register" element={<RegisterSchedule />} />
+          <Route path="/schedule/register/:mountainId?" element={<RegisterSchedule />} />
           <Route path="/schedule/modify/:scheduleId" element={<ModifySchedule />} />
           <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
           <Route path="/auth" element={<KakaoRedirect />} />

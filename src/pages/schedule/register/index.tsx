@@ -7,9 +7,11 @@ import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import { useMutation } from '@tanstack/react-query'
 import { registerSchedule } from '@/services/api/schedule'
 import { format } from 'date-fns'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import LoadingSpinner from '@/components/common/Spinner.tsx'
 
 const RegisterSchedule = () => {
+  const { mountainId } = useParams()
   const [date, setDate] = useState<Date | undefined>()
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
@@ -17,7 +19,11 @@ const RegisterSchedule = () => {
   const [hour, setHour] = useState<number | null>(null)
   const [minute, setMinute] = useState<number | null>(null)
   const navigate = useNavigate()
-  const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
+  const {
+    data: mountainsListOption,
+    isError: mountainsListError,
+    isFetching: mountainsListLoading,
+  } = useMountainsList()
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
     mountainsValue.value ? mountainsValue.value : null,
   )
@@ -51,9 +57,11 @@ const RegisterSchedule = () => {
 
   return (
     <div className="flex h-full flex-col">
+      {mountainsListLoading && <LoadingSpinner />}
       <Header title="등산일정 등록" />
       <div className="flex h-[calc(100vh-52px)] flex-col justify-between p-5">
         <ScheduleFormSection
+          mountainId={mountainId}
           date={date}
           setDate={setDate}
           mountainsListOption={mountainsListOption}
