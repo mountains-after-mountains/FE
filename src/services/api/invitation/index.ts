@@ -13,3 +13,7 @@ export const getCreateInvitation = async (invitationId: string) => {
   const response = await axiosInstance.get(`/schedule/invite/view/${invitationId}`)
   return response.data
 }
+export const acceptInvitation = async (scheduleId: string) => {
+  const response = await axiosInstance.post(`/schedule/invite/join/${scheduleId}`)
+  return response.data
+}

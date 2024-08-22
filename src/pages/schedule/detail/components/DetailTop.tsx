@@ -22,7 +22,7 @@ const DetailTop = ({ data }: DetailTopProps) => {
         <img src={imageSrc} className="h-full w-full object-cover" alt="Mountain" />
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-0 flex items-start justify-between p-4">
-          <button className="text-white" onClick={() => navigate(-1)}>
+          <button className="text-white" onClick={() => navigate('/schedule')}>
             <BackIcon color="#ffffff" />
           </button>
           <button className="text-white" onClick={() => navigate(`/schedule/modify/${scheduleId}`)}>

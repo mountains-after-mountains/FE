@@ -10,7 +10,7 @@ import LoadingSpinner from '@/components/common/Spinner'
 const Mountain = () => {
   const { mountainId } = useParams()
   const navigate = useNavigate()
-  const onClick = () => navigate('/schedule/register')
+  const onClick = () => navigate(`/schedule/register/${mountainId}`)
 
   const { data, isFetching } = useMountainDetails({ mountainId: mountainId })
 
