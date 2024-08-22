@@ -45,6 +45,12 @@ const DetailSchedule = () => {
   const handleRegisterMemo = () => {
     if (!memo.trim()) return
 
+    const isDuplicate = memoListData?.some((item: MemoItem) => item.content === memo.trim())
+    if (isDuplicate) {
+      alert('이미 동일한 내용의 메모가 존재합니다.')
+      return
+    }
+
     const payload = {
       scheduleId,
       memoRequest: [

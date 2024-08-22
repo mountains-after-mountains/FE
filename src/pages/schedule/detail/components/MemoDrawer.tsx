@@ -36,6 +36,11 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
   const handleModifyMemo = () => {
     if (!editingMemoId) return
 
+    const isDuplicate = memoList.some(item => item.content === editingContent.trim() && item.memoId !== editingMemoId)
+    if (isDuplicate) {
+      alert('이미 동일한 내용의 메모가 존재합니다.')
+      return
+    }
     const payload = {
       memoId: editingMemoId,
       memoContent: editingContent,
