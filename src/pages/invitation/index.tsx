@@ -36,7 +36,7 @@ const Invitation = () => {
             title={`${dDayText} ${formattedDate} ${data?.mountainName} ${data?.courseName}`}
             description={data?.text}
             imageUrl="https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"
-            webUrl={invitationUrl}
+            webUrl={`invitation/accept/${data?.invitationId}`}
           />
           <UrlShareButton url={invitationUrl} />
         </div>
