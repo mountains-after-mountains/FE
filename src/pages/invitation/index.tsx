@@ -11,6 +11,7 @@ const Invitation = () => {
   const { invitationId } = useParams<{ invitationId: string }>()
   const { data, isFetching } = useInvitationData(invitationId || '')
   const { formattedDate, dDayText } = useDateInfo(data?.scheduleDate)
+  const invitationUrl = `https://over-the-mountain.site/invitation/accept/${data?.invitationId}`
 
   return (
     <div className="flex flex-col">
@@ -35,9 +36,9 @@ const Invitation = () => {
             title={`${dDayText} ${formattedDate} ${data?.mountainName} ${data?.courseName}`}
             description={data?.text}
             imageUrl="https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"
-            webUrl={`https://over-the-mountain.site/invitation/accept/${data?.invitationId}`}
+            webUrl={invitationUrl}
           />
-          <UrlShareButton />
+          <UrlShareButton url={invitationUrl} />
         </div>
       </div>
     </div>
