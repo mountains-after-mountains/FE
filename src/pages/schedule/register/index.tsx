@@ -45,7 +45,7 @@ const RegisterSchedule = () => {
     <div className="flex h-full flex-col">
       {mountainsListLoading && <LoadingSpinner />}
       <Header title="등산일정 등록" />
-      <div className="flex h-[calc(100vh-52px)] flex-col justify-between p-5">
+      <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           mountainId={mountainId}
           date={date}
@@ -62,12 +62,12 @@ const RegisterSchedule = () => {
           hour={hour}
           minute={minute}
         />
-        <div>
-          <div className="flex justify-center pb-[10px] text-b2 text-subtext">일정은 나중에 수정할 수 있어요.</div>
-          <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
-            일정 등록하기
-          </FooterButton>
-        </div>
+      </div>
+      <div className="fixed bottom-5 w-[calc(100%-40px)] max-w-[460px] px-5">
+        <div className="flex justify-center pb-[10px] text-b2 text-subtext">일정은 나중에 수정할 수 있어요.</div>
+        <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
+          일정 등록하기
+        </FooterButton>
       </div>
     </div>
   )
