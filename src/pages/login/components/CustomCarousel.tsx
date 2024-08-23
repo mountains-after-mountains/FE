@@ -12,23 +12,19 @@ type DataType = {
 type PropType = {
   data: DataType[]
   options?: EmblaOptionsType
-  setNumber: (id: number) => void
 }
 
 const CustomCarousel = (props: PropType) => {
-  const { data, options, setNumber } = props
+  const { data, options } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
   useEffect(() => {
     if (emblaApi) {
-      const onSelect = () => {
-        const selectedIndex = emblaApi.selectedScrollSnap()
-        setNumber(data[selectedIndex].id)
-      }
+      const onSelect = () => {}
       emblaApi.on('select', onSelect)
       onSelect()
     }
-  }, [emblaApi, setNumber, data])
+  }, [emblaApi, data])
 
   return (
     <div className="max-w-[500px]">
