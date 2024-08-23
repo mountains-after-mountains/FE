@@ -6,7 +6,6 @@ import login_img_4 from '@/assets/images/login_img_4.png'
 
 import { EmblaOptionsType } from 'embla-carousel'
 import CustomCarousel from '@/pages/login/components/CustomCarousel.tsx'
-import { useState } from 'react'
 
 const data = [
   {
@@ -33,7 +32,6 @@ const data = [
 const OPTIONS: EmblaOptionsType = { loop: false }
 
 const Login = () => {
-  const [number, setNumber] = useState<number | null>(null)
   const Rest_api_key = import.meta.env.VITE_REST_API_KEY
   const Redirect_uri = `${window.location.origin}/auth`
   // oauth 요청 URL
@@ -42,15 +40,11 @@ const Login = () => {
     window.location.href = kakaoURL
   }
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-black/60">
-      <CustomCarousel data={data} options={OPTIONS} setNumber={setNumber} />
-      {number === 4 ? (
-        <button onClick={handleLogin}>
-          <img src={kakao_login} alt="kakao_login_img" />
-        </button>
-      ) : (
-        <div className="pt-[45px]" />
-      )}
+    <div className="fixed bottom-0 top-0 z-50 flex flex-col items-center justify-center gap-5 bg-black/60">
+      <CustomCarousel data={data} options={OPTIONS} />
+      <button onClick={handleLogin}>
+        <img src={kakao_login} alt="kakao_login_img" />
+      </button>
     </div>
   )
 }

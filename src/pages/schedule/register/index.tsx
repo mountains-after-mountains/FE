@@ -4,11 +4,9 @@ import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
-import { useMutation } from '@tanstack/react-query'
-import { registerSchedule } from '@/services/api/schedule'
-import { format } from 'date-fns'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import { useRegisterSchedule } from '@/pages/schedule/register/hooks/useRegisterSchedule.ts'
 
 const RegisterSchedule = () => {
   const { mountainId } = useParams()
@@ -18,46 +16,30 @@ const RegisterSchedule = () => {
   const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
   const [hour, setHour] = useState<number | null>(null)
   const [minute, setMinute] = useState<number | null>(null)
-  const navigate = useNavigate()
   const {
     data: mountainsListOption,
     isError: mountainsListError,
     isFetching: mountainsListLoading,
   } = useMountainsList()
+
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
     mountainsValue.value ? mountainsValue.value : null,
   )
+
+  const { handleSubmit, isSubmitDisabled } = useRegisterSchedule({
+    date,
+    hour,
+    minute,
+    mountainsValue,
+    mountainCourseValue,
+    PersonnelValue,
+  })
+
   useEffect(() => {
     if (mountainId) {
       setMountainsValue({ key: '', value: mountainId })
     }
   }, [mountainId])
-  const registerScheduleMutation = useMutation({
-    mutationFn: registerSchedule,
-    onSuccess: response => {
-      if (response && response.id) {
-        navigate(`/schedule/detail/${response.id}`)
-      } else {
-        console.error('No ID found in response')
-      }
-    },
-  })
-
-  const handleSubmit = () => {
-    const formattedDate = date ? format(date, 'yyyyMMdd') : ''
-    const formattedHour = hour !== null ? hour.toString().padStart(2, '0') : '00'
-    const formattedMinute = minute !== null ? minute.toString().padStart(2, '0') : '00'
-    const scheduleDate = `${formattedDate}${formattedHour}${formattedMinute}`
-    const scheduleData = {
-      mountainId: mountainsValue.value,
-      courseNo: mountainCourseValue.value,
-      scheduleDate,
-      memberCount: PersonnelValue.value,
-    }
-
-    registerScheduleMutation.mutate(scheduleData)
-  }
-  const isSubmitDisabled = !(mountainsValue.value && date)
 
   return (
     <div className="flex h-full flex-col">

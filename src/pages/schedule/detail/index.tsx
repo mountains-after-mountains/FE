@@ -1,7 +1,5 @@
 import MemoDescription from '@/pages/schedule/detail/components/MemoDescription.tsx'
 import MemoDrawer from '@/pages/schedule/detail/components/MemoDrawer.tsx'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { checkMemo, getMemoList, registerMemo } from '@/services/api/schedule'
 import { useNavigate, useParams } from 'react-router-dom'
 import { WeatherGroup } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
@@ -10,62 +8,22 @@ import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 import { MemoItem } from '@/types/schedule'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
-import { Checkbox } from '@/components/ui/checkbox.tsx'
 import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
+import { useMemoList } from '@/pages/schedule/detail/hooks/useMemoList.ts'
+import CheckMemoItem from '@/pages/schedule/detail/components/CheckMemoItem.tsx'
 
 const DetailSchedule = () => {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const [memo, setMemo] = useState('')
 
-  const memoRegisterMutaion = useMutation({
-    mutationFn: registerMemo,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['memoList'] })
-    },
-  })
-
-  const memoCheckMutaion = useMutation({
-    mutationFn: checkMemo,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['memoList'] })
-    },
-  })
-
   const { data, isFetching } = useDetailSchedule(scheduleId)
+  const { memoListData, handleRegisterMemo, handleCheckboxChange } = useMemoList(scheduleId)
 
-  const { data: memoListData } = useQuery({
-    queryKey: ['memoList', scheduleId],
-    queryFn: () => getMemoList(scheduleId),
-    refetchOnWindowFocus: false,
-    enabled: !!scheduleId,
-  })
-
-  const handleRegisterMemo = () => {
-    if (!memo.trim()) return
-
-    const isDuplicate = memoListData?.some((item: MemoItem) => item.content === memo.trim())
-    if (isDuplicate) {
-      alert('이미 동일한 내용의 메모가 존재합니다.')
-      return
+  const handleCreateInvitation = () => {
+    if (scheduleId) {
+      navigate(`/invitation/make/${scheduleId}`)
     }
-
-    const payload = {
-      scheduleId,
-      memoRequest: [
-        {
-          text: memo,
-          checked: false,
-        },
-      ],
-    }
-    memoRegisterMutaion.mutate(payload)
-    setMemo('')
-  }
-
-  const handleCheckboxChange = (memoId: string) => {
-    memoCheckMutaion.mutate(memoId)
   }
 
   return (
@@ -84,21 +42,17 @@ const DetailSchedule = () => {
             memoList={memoListData || []}
             memo={memo}
             setMemo={setMemo}
-            handleRegisterMemo={handleRegisterMemo}
+            handleRegisterMemo={() => {
+              handleRegisterMemo(memo)
+              setMemo('')
+            }}
           />
         </div>
         <div className="pb-24 pt-4">
           {memoListData?.length > 0 ? (
             <div>
               {memoListData.map((item: MemoItem) => (
-                <div key={item.memoId} className="flex items-center gap-2">
-                  <Checkbox
-                    className="h-[18px] w-[18px] border-2"
-                    checked={item.checkStatus}
-                    onCheckedChange={() => handleCheckboxChange(item.memoId)}
-                  />
-                  <label htmlFor={item.memoId}>{item.content}</label>
-                </div>
+                <CheckMemoItem key={item.memoId} item={item} onCheckboxChange={handleCheckboxChange} />
               ))}
             </div>
           ) : (
@@ -107,7 +61,7 @@ const DetailSchedule = () => {
         </div>
       </div>
       <div className="fixed bottom-5 w-[calc(%-40px)] max-w-[460px] px-5">
-        <FooterButton onClick={() => navigate(`/invitation/make/${scheduleId}`)}>초대장 만들기</FooterButton>
+        <FooterButton onClick={handleCreateInvitation}>초대장 만들기</FooterButton>
       </div>
     </div>
   )

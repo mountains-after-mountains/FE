@@ -7,64 +7,22 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { EditIcon, WasteBasket } from '@/icons'
+import { EditIcon } from '@/icons'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
-import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteMemo, modifyMemo } from '@/services/api/schedule'
 import { MemoDrawerProps } from '@/types/schedule'
+import { useMemoDrawer } from '@/pages/schedule/detail/hooks/useMemoDrawer.ts'
+import MemoItem from '@/pages/schedule/detail/components/MemoItem.tsx'
 
 const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerProps) => {
-  const [editingMemoId, setEditingMemoId] = useState<string | null>(null)
-  const [editingContent, setEditingContent] = useState('')
-
-  const queryClient = useQueryClient()
-
-  const modifyMemoMutation = useMutation({
-    mutationFn: modifyMemo,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['memoList'] })
-    },
-  })
-  const deleteMemoMutation = useMutation({
-    mutationFn: deleteMemo,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['memoList'] })
-    },
-  })
-
-  const handleModifyMemo = () => {
-    if (!editingMemoId) return
-
-    const isDuplicate = memoList.some(item => item.content === editingContent.trim() && item.memoId !== editingMemoId)
-    if (isDuplicate) {
-      alert('이미 동일한 내용의 메모가 존재합니다.')
-      return
-    }
-    const payload = {
-      memoId: editingMemoId,
-      memoContent: editingContent,
-    }
-    modifyMemoMutation.mutate(payload)
-    setEditingMemoId(null)
-    setEditingContent('')
-  }
-
-  const handleDeleteMemo = (memoId: string) => {
-    deleteMemoMutation.mutate(memoId)
-  }
-
-  const startEditingMemo = (memoId: string, content: string) => {
-    setEditingMemoId(memoId)
-    setEditingContent(content)
-  }
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      handleRegisterMemo()
-    }
-  }
+  const {
+    editingMemoId,
+    editingContent,
+    handleModifyMemo,
+    handleDeleteMemo,
+    startEditingMemo,
+    setEditingContent,
+    handleKeyDown,
+  } = useMemoDrawer(memoList, handleRegisterMemo)
 
   return (
     <Drawer>
@@ -80,31 +38,16 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
         </DrawerHeader>
         <div className="px-4">
           {memoList.map(item => (
-            <div key={item.memoId} className="mb-2 flex">
-              {editingMemoId === item.memoId ? (
-                <input
-                  className="w-full rounded border-2 border-primary p-3 focus:outline-none"
-                  value={editingContent}
-                  onChange={e => setEditingContent(e.target.value)}
-                />
-              ) : (
-                <div className="w-full rounded bg-gray-100 px-3 py-2 text-b2">{item.content}</div>
-              )}
-              {editingMemoId === item.memoId ? (
-                <button className="px-3" onClick={handleModifyMemo}>
-                  <span className="text-blue-600">확인</span>
-                </button>
-              ) : (
-                <div className="flex gap-2 rounded bg-gray-100 px-3 py-2">
-                  <button onClick={() => startEditingMemo(item.memoId, item.content)}>
-                    <EditIcon className="text-green-600" />
-                  </button>
-                  <button onClick={() => handleDeleteMemo(item.memoId)}>
-                    <WasteBasket />
-                  </button>
-                </div>
-              )}
-            </div>
+            <MemoItem
+              key={item.memoId}
+              item={item}
+              editingMemoId={editingMemoId}
+              editingContent={editingContent}
+              onEditStart={startEditingMemo}
+              onModify={handleModifyMemo}
+              onDelete={handleDeleteMemo}
+              onContentChange={setEditingContent}
+            />
           ))}
           <input
             className="w-full rounded border-2 border-primary p-3 placeholder:text-border focus:outline-none"
