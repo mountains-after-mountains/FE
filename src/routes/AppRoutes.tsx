@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Test from '@/pages/Test'
 import Home from '@/pages/home'
 import Mountain from '@/pages/mountain'
@@ -23,27 +23,40 @@ const AppRoutes = () => {
   return (
     <Layout>
       <Router>
-        {!isAuthenticated && <Login />}
-        <Routes>
-          <Route path="/welcome" element={<WelcomePage />} />
-          <Route path="/" element={<Home />} />
-          <Route path="mountain/:mountainId" element={<Mountain />} />
-          <Route path="contents/:contentsId" element={<Contents />} />
-          <Route path="test" element={<Test />} />
-          <Route path="home" element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="/schedule" element={<ListSchedule />} />
-          <Route path="/schedule/register/:mountainId?" element={<RegisterSchedule />} />
-          <Route path="/schedule/modify/:scheduleId" element={<ModifySchedule />} />
-          <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
-          <Route path="/auth" element={<KakaoRedirect />} />
-          <Route path="invitation/:invitationId" element={<Invitation />} />
-          <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
-          <Route path="/invitation/accept/:invitationId" element={<AcceptInvitation />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <AppRoutesWithLocation isAuthenticated={isAuthenticated} />
       </Router>
     </Layout>
+  )
+}
+
+const AppRoutesWithLocation = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+  const location = useLocation()
+
+  const noAuthPaths = ['/schedule/detail', '/invitation/accept']
+  const shouldShowLoginModal = !isAuthenticated && !noAuthPaths.some(path => location.pathname.startsWith(path))
+
+  return (
+    <>
+      {shouldShowLoginModal && <Login />}
+      <Routes>
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="mountain/:mountainId" element={<Mountain />} />
+        <Route path="contents/:contentsId" element={<Contents />} />
+        <Route path="test" element={<Test />} />
+        <Route path="home" element={<Home />} />
+        <Route path="search" element={<Search />} />
+        <Route path="/schedule" element={<ListSchedule />} />
+        <Route path="/schedule/register/:mountainId?" element={<RegisterSchedule />} />
+        <Route path="/schedule/modify/:scheduleId" element={<ModifySchedule />} />
+        <Route path="/schedule/detail/:scheduleId" element={<DetailSchedule />} />
+        <Route path="/auth" element={<KakaoRedirect />} />
+        <Route path="invitation/:invitationId" element={<Invitation />} />
+        <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
+        <Route path="/invitation/accept/:invitationId" element={<AcceptInvitation />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   )
 }
 
