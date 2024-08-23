@@ -40,7 +40,7 @@ const Login = () => {
     window.location.href = kakaoURL
   }
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-black/60">
+    <div className="fixed bottom-0 top-0 z-50 flex flex-col items-center justify-center gap-5 bg-black/60">
       <CustomCarousel data={data} options={OPTIONS} />
       <button onClick={handleLogin}>
         <img src={kakao_login} alt="kakao_login_img" />
