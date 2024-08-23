@@ -2,10 +2,11 @@ import { ReactNode } from 'react'
 
 interface CommonCardProps {
   children: ReactNode
+  className?: string
 }
 
-const CommonCard = ({ children }: CommonCardProps) => {
-  return <div className="rounded-[20px] bg-white p-5">{children}</div>
+const CommonCard = ({ children, className = '' }: CommonCardProps) => {
+  return <div className={`rounded-[20px] bg-white p-5 ${className}`}>{children}</div>
 }
 
 export default CommonCard

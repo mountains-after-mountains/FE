@@ -1,18 +1,17 @@
 import CommonCard from '@/components/common/CommonCard.tsx'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import { NextIcon } from '@/icons'
-import useDateInfo from '@/hooks/useDateInfo.ts'
-import { useNavigate } from 'react-router-dom'
 import { ScheduleListResponse } from '@/types/schedule'
 import { WeatherGroup } from '@/components/common/Weather.tsx'
+import { useListCard } from '@/pages/schedule/list/hooks/useListCard.ts'
 
 interface ListCardProps {
   schedule: ScheduleListResponse
 }
 
 const ListCard = ({ schedule }: ListCardProps) => {
-  const navigate = useNavigate()
-  const { formattedDate, dDayText } = useDateInfo(schedule?.scheduleDate)
+  const { formattedDate, dDayText, handleNavigate } = useListCard(schedule)
+
   return (
     <CommonCard>
       <div className="flex flex-col gap-1">
@@ -20,10 +19,7 @@ const ListCard = ({ schedule }: ListCardProps) => {
           text={dDayText}
           title={formattedDate}
           rightAction={
-            <button
-              onClick={() => navigate(`/schedule/detail/${schedule?.scheduleId}`)}
-              className="flex items-center gap-[7px] text-b2"
-            >
+            <button onClick={handleNavigate} className="flex items-center gap-[7px] text-b2">
               자세히
               <NextIcon />
             </button>
