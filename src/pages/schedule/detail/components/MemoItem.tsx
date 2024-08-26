@@ -33,7 +33,7 @@ const MemoItem = ({
       )}
       {editingMemoId === item.memoId ? (
         <button className="px-3" onClick={onModify}>
-          <span className="text-blue-600">확인</span>
+          <span className="whitespace-nowrap text-main">수정</span>
         </button>
       ) : (
         <div className="flex gap-2 rounded bg-gray-100 px-3 py-2">
