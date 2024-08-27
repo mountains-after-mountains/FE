@@ -1,8 +1,9 @@
 import MenuSvg from '@/assets/icons/menu.svg?react'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import ProfileImg from '@/assets/image/profile.png'
+import useAuthStore from '@/store/useAuthStore'
 
 type Props = {
   selected: 'home' | 'schedule'
@@ -11,9 +12,10 @@ type Props = {
 const Header = ({ selected }: Props) => {
   const navigate = useNavigate()
   const name = localStorage.getItem('nickName')
-
+  const { logout } = useAuthStore()
 
   const handleAddSchedule = () => navigate('/schedule/register')
+  const handleSignOut = () => logout()
 
   return (
     <>
@@ -36,10 +38,10 @@ const Header = ({ selected }: Props) => {
                 <img src={ProfileImg} className="h-6 w-6" />
                 <span className="text-h5 font-bold text-gray-900">{name}</span>
               </div>
-              <button>회원탈퇴</button>
               <button>개인정보처리방침</button>
               <button>개선의견 남기기</button>
-              <button>로그아웃</button>
+              <PopoverClose onClick={handleSignOut}>로그아웃</PopoverClose>
+              <button>회원탈퇴</button>
             </PopoverContent>
           </Popover>
         ) : (
