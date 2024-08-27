@@ -16,16 +16,14 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
         <tbody>
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">
-              <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
-              <span className="text-c1 text-gray-900">높은 고도</span>
+              <span className="mr-1.5 text-b3 font-bold text-green-700">산 아래 산</span>
             </td>
             <td className="text-b3 text-gray-900">500m 이상</td>
             <td className="text-b3 text-gray-900">7</td>
           </tr>
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">
-              <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
-              <span className="text-c1 text-gray-900">중간 고도</span>
+              <span className="mr-1.5 text-b3 font-bold text-green-700">산 중의 산</span>
             </td>
             <td className="text-b3 text-gray-900">300m ~ 499m</td>
             <td className="text-b3 text-gray-900">7</td>
@@ -33,7 +31,6 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
-              <span className="text-c1 text-gray-900">낮은 고도</span>
             </td>
             <td className="text-b3 text-gray-900">300m 미만</td>
             <td className="text-b3 text-gray-900">11</td>
