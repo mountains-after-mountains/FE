@@ -19,7 +19,7 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
         </div>
         <img
           src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
-          className="mb-5 h-[246px] w-full"
+          className="mb-5 h-[246px] w-full object-cover"
         />
       </div>
       <div className="px-5">

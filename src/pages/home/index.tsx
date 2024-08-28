@@ -8,11 +8,15 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Add from '@/assets/icons/add.svg?react'
 import BannerSwiper from '@/components/home/BannerSwiper'
+import useScrollStore from '@/store/useScrollStore'
+import clsx from 'clsx'
 
 const Home = () => {
   const { data } = useMountainsListHome()
   const [mntiLevel, setMntiLevel] = useState<'1' | '2' | '3'>()
   const navigate = useNavigate()
+
+  const { scrollToTop, scrollY } = useScrollStore()
 
   const currentData = useMemo(
     () => data?.filter(mountain => (mntiLevel ? mountain.mntiLevel === mntiLevel : true)),
@@ -28,10 +32,22 @@ const Home = () => {
         <section className="relative mx-auto max-w-[550px]">
           <div className="sticky top-[68px] z-40 bg-white">
             <SearchInput mntiNameList={mntiNameList ?? []} />
-            <BannerSwiper />
-            <HomeToggleList onClickOuter={(level: '1' | '2' | '3' | undefined) => setMntiLevel(level)} />
+            <div
+              className={clsx(
+                'overflow-hidden transition-all duration-300 ease-in-out',
+                scrollY > 0 ? 'h-0 opacity-0' : 'h-auto opacity-100',
+              )}
+            >
+              <BannerSwiper />
+            </div>
+            <HomeToggleList
+              onClickOuter={(level: '1' | '2' | '3' | undefined) => {
+                setMntiLevel(level)
+                scrollToTop()
+              }}
+            />
           </div>
-          <main className="relative pb-[100px]">
+          <div className="relative pb-[100px]">
             {(currentData?.length ?? 0) > 0 ? (
               currentData?.map(mountain => <MountainCard key={mountain.mntiName} mountain={mountain} />)
             ) : (
@@ -44,7 +60,7 @@ const Home = () => {
               <Add />
               일정 추가하기
             </button>
-          </main>
+          </div>
         </section>
       </div>
     </>

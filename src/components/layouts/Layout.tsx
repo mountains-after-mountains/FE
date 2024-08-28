@@ -1,8 +1,28 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import Mountains from '@/assets/icons/mountains.svg?react'
 import Instagram from '@/assets/icons/logo_instagram.svg?react'
+import useScrollStore from '@/store/useScrollStore'
 
 const Layout = ({ children }: PropsWithChildren) => {
+  const { isScrolling, setScrollY } = useScrollStore()
+
+  const mainRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isScrolling) {
+      mainRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [isScrolling])
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(mainRef?.current?.scrollTop ?? 0)
+
+    mainRef.current?.addEventListener('scroll', handleScroll)
+    return () => {
+      mainRef.current?.removeEventListener('scroll', handleScroll)
+    }
+  }, [setScrollY])
+
   return (
     <div className="scrollbar-hide flex h-screen justify-center bg-[#0E9F59] bg-opacity-20">
       {/* 좌측 고정된 영역 */}
@@ -25,7 +45,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       </section>
 
       {/* 메인 콘텐츠 영역 */}
-      <div className="scrollbar-hide overflow-y-auto min-[1024px]:mr-[calc((100%-550px)*0.2)]">
+      <div className="scrollbar-hide overflow-y-auto min-[1024px]:mr-[calc((100%-550px)*0.2)]" ref={mainRef}>
         <div className="mx-auto min-h-screen max-w-[550px] bg-white shadow-lg max-[549px]:[&>*>div]:w-[100vw] min-[550px]:[&>div>div]:min-w-[550px]">
           {children}
         </div>
