@@ -6,6 +6,7 @@ import { MountainResponse } from '@/types/mountain'
 import clsx from 'clsx'
 import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 import Arrow from '@/assets/icons/arrow_left.svg?react'
+import SeoulTrailBadge from '@/components/common/SeoulTrailBadge'
 
 const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainResponse; className?: string }) => {
   const navigate = useNavigate()
@@ -23,7 +24,10 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
         />
       </div>
       <div className="px-5">
-        {mountain?.famous100 && <Top100Badge className="inline-flex" />}
+        <div className="flex gap-1">
+          {mountain?.seoulTrail && <SeoulTrailBadge />}
+          {mountain?.famous100 && <Top100Badge className="inline-flex" />}
+        </div>
         <MountainInfo mountain={mountain} />
         <a className="flex items-center gap-0.5 text-b3 text-gray-700 underline" href="" target="_blank">
           {`${mountain?.mntiName ?? ''} 공원`}
