@@ -40,7 +40,7 @@ const CourseCard = ({ courseName, distance, time, level }: Props) => {
           <Timer />
           예상소요시간
         </div>
-        <div className="text-b3 text-gray-900">{`${time}시간`}</div>
+        <div className="text-b3 text-gray-900">{`${time}분`}</div>
       </div>
     </div>
   )

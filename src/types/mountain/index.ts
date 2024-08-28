@@ -26,6 +26,7 @@ export interface MountainResponse {
   photoFile: any
   weatherList: WeatherResponse[]
   course: CourseType[]
+  seoulTrail: boolean
 }
 
 export interface MountainListHomeResponse {

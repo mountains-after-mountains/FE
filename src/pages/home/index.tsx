@@ -32,14 +32,12 @@ const Home = () => {
         <section className="relative mx-auto max-w-[550px]">
           <div className="sticky top-[68px] z-40 bg-white">
             <SearchInput mntiNameList={mntiNameList ?? []} />
-            <div
+            <BannerSwiper
               className={clsx(
-                'overflow-hidden transition-all duration-300 ease-in-out',
-                scrollY > 0 ? 'h-0 opacity-0' : 'h-auto opacity-100',
+                'overflow-hidden transition-all duration-500 ease-linear',
+                scrollY > 0 ? 'max-h-0 opacity-0' : 'max-h-[500px] opacity-100',
               )}
-            >
-              <BannerSwiper />
-            </div>
+            />
             <HomeToggleList
               onClickOuter={(level: '1' | '2' | '3' | undefined) => {
                 setMntiLevel(level)
