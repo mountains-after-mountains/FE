@@ -1,7 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
+import 'swiper/swiper-bundle.css'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
+import { Autoplay } from 'swiper/modules'
+import { useState } from 'react'
 
 const banners = [
   {
@@ -36,11 +39,21 @@ const banners = [
   },
 ]
 
-const BannerSwiper = () => {
+const BannerSwiper = ({ className }: { className?: string }) => {
+  const [slideNumber, setSlideNumber] = useState(1)
   const navigate = useNavigate()
 
   return (
-    <Swiper spaceBetween={0} pagination={{ clickable: true }} navigation={true} loop={true} className="-z-10">
+    <Swiper
+      spaceBetween={0}
+      pagination={{ clickable: true }}
+      onSlideChange={swiper => setSlideNumber(swiper.realIndex)}
+      navigation={false}
+      loop={true}
+      className={clsx('relative -z-10', className)}
+      autoplay={{ delay: 3000 }}
+      modules={[Autoplay]}
+    >
       {banners.map(({ id, title, description }) => (
         <SwiperSlide key={id}>
           <div
@@ -74,6 +87,11 @@ const BannerSwiper = () => {
           </div>
         </SwiperSlide>
       ))}
+      <div className="absolute bottom-3 right-3 z-20 flex items-center gap-[2px] rounded-[30px] bg-black bg-opacity-25 px-2.5 py-1 text-c2 text-gray-200">
+        <span className="text-white">{slideNumber + 1}</span>
+        <span>/</span>
+        <span>5</span>
+      </div>
     </Swiper>
   )
 }
