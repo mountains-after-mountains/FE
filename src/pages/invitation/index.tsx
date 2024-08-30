@@ -17,7 +17,7 @@ const Invitation = () => {
   return (
     <div className="flex flex-col">
       {isFetching && <LoadingSpinner />}
-      <Header title="초대장" onBackClick={() => navigate(`/schedule/detail/${data?.scheduleId}`)} />
+      <Header title="초대장" onBackClick={() => navigate('/schedule')} />
       <div className="px-5 py-14">
         <div className="rounded-t-2xl">
           <img src={`data:image/jpeg;base64,${data?.img}`} alt="Onboarding image" className="rounded-t-2xl" />
