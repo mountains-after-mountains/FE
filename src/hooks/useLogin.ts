@@ -20,6 +20,7 @@ const useLogin = (code: string | null) => {
         navigate('/welcome')
       } catch (error) {
         console.error('Error during sign-in:', error)
+        navigate('/')
       }
     }
 

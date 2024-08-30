@@ -32,7 +32,7 @@ const AppRoutes = () => {
 const AppRoutesWithLocation = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const location = useLocation()
 
-  const noAuthPaths = ['/schedule/detail', '/invitation/accept']
+  const noAuthPaths = ['/schedule/detail', '/invitation/accept', '/auth']
   const shouldShowLoginModal = !isAuthenticated && !noAuthPaths.some(path => location.pathname.startsWith(path))
 
   return (
