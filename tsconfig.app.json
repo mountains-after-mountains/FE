@@ -32,7 +32,8 @@
       "@/lib": ["src/lib/*"],
       "@/pages": ["src/pages/*"],
       "@/types": ["src/types/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }
