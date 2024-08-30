@@ -1,18 +1,15 @@
 import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
-import { useMutation } from '@tanstack/react-query'
-import { modifySchedule } from '@/services/api/schedule'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
-import { format } from 'date-fns'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
+import { useModifySchedule } from '@/pages/schedule/modify/hooks/useModifySchedule.ts'
 
 const ModifySchedule = () => {
-  const navigate = useNavigate()
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
   const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
@@ -40,26 +37,15 @@ const ModifySchedule = () => {
     }
   }, [data])
 
-  const modifyScheduleMutation = useMutation({
-    mutationFn: modifySchedule,
+  const { handleModifySchedule } = useModifySchedule({
+    scheduleId,
+    mountainsValue,
+    PersonnelValue,
+    date,
+    hour,
+    minute,
+    mountainCourseValue,
   })
-
-  const handleModifySchedule = () => {
-    const formattedDate = date ? format(date, 'yyyyMMdd') : ''
-    const formattedHour = hour !== null ? hour.toString().padStart(2, '0') : '00'
-    const formattedMinute = minute !== null ? minute.toString().padStart(2, '0') : '00'
-    const scheduleDate = `${formattedDate}${formattedHour}${formattedMinute}`
-    const payload = {
-      scheduleId: scheduleId,
-      mountainId: mountainsValue.value,
-      memberCount: PersonnelValue.value,
-      scheduleDate: scheduleDate,
-      course: mountainCourseValue.value,
-    }
-    modifyScheduleMutation.mutate(payload, {
-      onSuccess: () => navigate('/schedule'),
-    })
-  }
 
   return (
     <div className="flex h-full flex-col">

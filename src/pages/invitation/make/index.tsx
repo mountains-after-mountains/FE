@@ -1,74 +1,26 @@
-import { useEffect, useState } from 'react'
-import Header from '@/components/layouts/header'
 import useEmblaCarousel from 'embla-carousel-react'
-import { EmblaOptionsType } from 'embla-carousel'
+import Header from '@/components/layouts/header'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useNavigate, useParams } from 'react-router-dom'
-import useDateInfo from '@/hooks/useDateInfo.ts'
-import { createInvitation, getInvitationImgList } from '@/services/api/invitation'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
-import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
+import useInvitation from '@/pages/invitation/make/hooks/useInvitation.ts'
+import { InvitationImage } from '@/types/invitation'
 
-const OPTIONS: EmblaOptionsType = { loop: false }
-
-interface InvitationImage {
-  img: string
-  imgNumber: number
-}
+const OPTIONS = { loop: false }
 
 const MakeInvitation = () => {
-  const navigate = useNavigate()
   const [emblaRef] = useEmblaCarousel(OPTIONS)
-  const [selectedImage, setSelectedImage] = useState<InvitationImage | null>(null)
-  const [text, setText] = useState('')
-  const { scheduleId } = useParams<{ scheduleId: string }>()
-  const maxLength = 100
-
-  const { data, isFetching } = useDetailSchedule(scheduleId)
-
-  const { data: invitationImagList } = useQuery({
-    queryKey: ['getInvitationImgList'],
-    queryFn: getInvitationImgList,
-    refetchOnWindowFocus: false,
-  })
-
-  useEffect(() => {
-    if (invitationImagList && invitationImagList.length > 0) {
-      setSelectedImage({ img: invitationImagList[0].img, imgNumber: invitationImagList[0].imgNumber })
-    }
-  }, [invitationImagList])
-
-  const createInvitationMutation = useMutation({
-    mutationFn: createInvitation,
-    onSuccess: data => {
-      const invitationId = data.invitationId
-      navigate(`/invitation/${invitationId}`)
-    },
-  })
-
-  const scheduleDate = data?.scheduleDate ?? ''
-  const dateInfo = useDateInfo(scheduleDate)
-
-  const handleImageClick = (img: string, imgNumber: number) => {
-    setSelectedImage({ img, imgNumber })
-  }
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value)
-  }
-
-  const completeInvitation = () => {
-    if (!selectedImage) return
-
-    const payload = {
-      scheduleId: scheduleId,
-      imgNumber: selectedImage.imgNumber,
-      text: text,
-    }
-    createInvitationMutation.mutate(payload)
-  }
+  const {
+    isFetching,
+    selectedImage,
+    invitationImgList,
+    text,
+    dateInfo,
+    data,
+    handleImageClick,
+    handleTextChange,
+    completeInvitation,
+  } = useInvitation()
 
   return (
     <div className="flex flex-col">
@@ -82,7 +34,7 @@ const MakeInvitation = () => {
         />
         <div className="mb-8 overflow-hidden" ref={emblaRef}>
           <div className="flex gap-5">
-            {invitationImagList?.map((item: InvitationImage) => (
+            {invitationImgList?.map((item: InvitationImage) => (
               <img
                 key={item.imgNumber}
                 src={`data:image/jpeg;base64,${item.img}`}
@@ -109,9 +61,7 @@ const MakeInvitation = () => {
             onChange={handleTextChange}
             maxLength={100}
           />
-          <div className="absolute bottom-4 right-3 text-b2 text-border">
-            {text.length}/{maxLength}
-          </div>
+          <div className="absolute bottom-4 right-3 text-b2 text-border">{text.length}/100</div>
         </div>
         <FooterButton onClick={completeInvitation}>초대장 완성하기</FooterButton>
       </div>

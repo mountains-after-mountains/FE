@@ -2,12 +2,13 @@ import Header from '@/components/layouts/header'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import KakaoShareButton from '@/pages/invitation/components/KakaoShareButton.tsx'
 import UrlShareButton from '@/pages/invitation/components/UrlShareButton.tsx'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import useInvitationData from '@/hooks/useInvitationData.ts'
 
 const Invitation = () => {
+  const navigate = useNavigate()
   const { invitationId } = useParams<{ invitationId: string }>()
   const { data, isFetching } = useInvitationData(invitationId || '')
   const { formattedDate, dDayText } = useDateInfo(data?.scheduleDate)
@@ -16,7 +17,7 @@ const Invitation = () => {
   return (
     <div className="flex flex-col">
       {isFetching && <LoadingSpinner />}
-      <Header title="초대장" />
+      <Header title="초대장" onBackClick={() => navigate('/schedule')} />
       <div className="px-5 py-14">
         <div className="rounded-t-2xl">
           <img src={`data:image/jpeg;base64,${data?.img}`} alt="Onboarding image" className="rounded-t-2xl" />
@@ -35,7 +36,7 @@ const Invitation = () => {
           <KakaoShareButton
             title={`${dDayText} ${formattedDate} ${data?.mountainName} ${data?.courseName}`}
             description={data?.text}
-            imageUrl="https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"
+            imageUrl={data?.imgUrl}
             webUrl={`invitation/accept/${data?.invitationId}`}
           />
           <UrlShareButton url={invitationUrl} />

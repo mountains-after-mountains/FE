@@ -10,7 +10,7 @@ const OnboardingContent = ({ img, text }: OnboardingContentProps) => {
         <img src={img} alt="Onboarding image" />
       </div>
       <div
-        className="flex h-1/5 items-center justify-center bg-white text-center text-b2"
+        className="flex h-1/5 items-center justify-center bg-white text-center text-b2 font-semibold"
         style={{ whiteSpace: 'pre-line' }}
       >
         {text}
