@@ -1,5 +1,4 @@
 import FooterButton from '@/components/common/button/FooterButton'
-import Header from '@/components/layouts/header'
 import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
@@ -7,6 +6,7 @@ import useMountainCourse from '@/hooks/useMountainCourse.ts'
 import { useParams } from 'react-router-dom'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { useRegisterSchedule } from '@/pages/schedule/register/hooks/useRegisterSchedule.ts'
+import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
 
 const RegisterSchedule = () => {
   const { mountainId } = useParams()
@@ -44,7 +44,12 @@ const RegisterSchedule = () => {
   return (
     <div className="flex h-full flex-col">
       {mountainsListLoading && <LoadingSpinner />}
-      <Header title="등산일정 등록" />
+      <HeaderWithDrawer
+        title="등산일정 등록"
+        backDrawerTitle="등록하지 않고 나가시겠어요?"
+        message="아직 등록되지 않았어요."
+        continueButtonLabel="이어서 등록하기"
+      />
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           mountainId={mountainId}
