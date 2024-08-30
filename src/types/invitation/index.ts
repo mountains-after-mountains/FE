@@ -3,3 +3,7 @@ export interface createInvitationPayload {
   imgNumber: number
   text: string
 }
+export interface InvitationImage {
+  img: string
+  imgNumber: number
+}
