@@ -50,7 +50,7 @@ const ModifySchedule = () => {
   return (
     <div className="flex h-full flex-col">
       {isFetching && <LoadingSpinner />}
-      {scheduleId && <HeaderWithDrawer scheduleId={scheduleId} />}
+      {scheduleId && <HeaderWithDrawer title="등산일정 수정" scheduleId={scheduleId} />}
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           modifyData={data}

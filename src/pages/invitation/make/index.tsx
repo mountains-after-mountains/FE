@@ -1,10 +1,10 @@
 import useEmblaCarousel from 'embla-carousel-react'
-import Header from '@/components/layouts/header'
 import DayBadgeWithTitle from '@/components/common/DayBadgeWithTitle.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import useInvitation from '@/pages/invitation/make/hooks/useInvitation.ts'
 import { InvitationImage } from '@/types/invitation'
+import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
 
 const OPTIONS = { loop: false }
 
@@ -25,7 +25,12 @@ const MakeInvitation = () => {
   return (
     <div className="flex flex-col">
       {isFetching && <LoadingSpinner />}
-      <Header title="초대장 만들기" />
+      <HeaderWithDrawer
+        title="초대장 만들기"
+        backDrawerTitle="완성하지 않고 나가시겠어요?"
+        message="아직 완성되지 않았어요."
+        continueButtonLabel="이어서 완성하기"
+      />
       <div className="px-5 py-4">
         <img
           src={`data:image/jpeg;base64,${selectedImage?.img}`}
