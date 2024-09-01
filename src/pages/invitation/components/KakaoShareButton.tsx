@@ -44,7 +44,7 @@ const KakaoShareButton: React.FC<KakaoShareButtonProps> = ({ title, description,
         if (window.Kakao.isInitialized()) {
           window.Kakao.Share.createCustomButton({
             container: '#kakaotalk-sharing-btn',
-            templateId: 110356,
+            templateId: 111504,
             templateArgs: {
               title: title,
               description: description,
