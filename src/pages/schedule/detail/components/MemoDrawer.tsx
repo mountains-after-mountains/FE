@@ -22,6 +22,8 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
     startEditingMemo,
     setEditingContent,
     handleKeyDown,
+    handleCompositionStart,
+    handleCompositionEnd,
   } = useMemoDrawer(memoList, handleRegisterMemo)
 
   return (
@@ -54,6 +56,8 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
             value={memo}
             onChange={e => setMemo(e.target.value)}
             onKeyDown={handleKeyDown}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
             placeholder="메모를 입력하세요"
           />
         </div>
