@@ -5,7 +5,7 @@ import { WeatherGroup } from '@/components/common/Weather.tsx'
 import DetailCourse from '@/pages/schedule/detail/components/DetailCourse.tsx'
 import DetailTop from '@/pages/schedule/detail/components/DetailTop.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MemoItem } from '@/types/schedule'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
@@ -22,6 +22,12 @@ const DetailSchedule = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
   const [isOpen, setIsOpen] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if (scheduleId) {
+      localStorage.setItem('scheduleId', scheduleId)
+    }
+  }, [scheduleId])
 
   const { data, isFetching } = useDetailSchedule(scheduleId)
   const { memoListData, handleRegisterMemo, handleCheckboxChange, memoListLoading } = useMemoList(scheduleId)

@@ -13,7 +13,12 @@ const WelcomePage = () => {
     }, 2300)
 
     const timer2 = setTimeout(() => {
-      navigate('/home')
+      const scheduleId = localStorage.getItem('scheduleId')
+      if (scheduleId && scheduleId !== 'undefined' && scheduleId !== 'null') {
+        navigate(`/schedule/detail/${scheduleId}`)
+      } else {
+        navigate('/home')
+      }
     }, 2500)
 
     return () => {
