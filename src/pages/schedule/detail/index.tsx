@@ -11,6 +11,7 @@ import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 import { useMemoList } from '@/pages/schedule/detail/hooks/useMemoList.ts'
 import CheckMemoItem from '@/pages/schedule/detail/components/CheckMemoItem.tsx'
+import { SpeechBubble } from '@/icons'
 
 const DetailSchedule = () => {
   const navigate = useNavigate()
@@ -38,15 +39,18 @@ const DetailSchedule = () => {
       <div className="bg-white p-5">
         <div className="flex items-center justify-between">
           <div className="text-h5">메모장</div>
-          <MemoDrawer
-            memoList={memoListData || []}
-            memo={memo}
-            setMemo={setMemo}
-            handleRegisterMemo={() => {
-              handleRegisterMemo(memo)
-              setMemo('')
-            }}
-          />
+          <div className="flex items-center gap-3">
+            <SpeechBubble />
+            <MemoDrawer
+              memoList={memoListData || []}
+              memo={memo}
+              setMemo={setMemo}
+              handleRegisterMemo={() => {
+                handleRegisterMemo(memo)
+                setMemo('')
+              }}
+            />
+          </div>
         </div>
         <div className="pb-24 pt-4">
           {memoListData?.length > 0 ? (
