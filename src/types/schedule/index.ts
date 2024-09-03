@@ -58,6 +58,10 @@ export interface MemoDrawerProps {
   memo: string
   setMemo: (value: string) => void
   handleRegisterMemo: () => void
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
+  isAuthenticated: boolean
+  setIsLogin: (login: boolean) => void
 }
 export interface MemoRequestItem {
   text: string

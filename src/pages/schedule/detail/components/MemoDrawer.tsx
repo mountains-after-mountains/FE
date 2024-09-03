@@ -13,7 +13,16 @@ import { MemoDrawerProps } from '@/types/schedule'
 import { useMemoDrawer } from '@/pages/schedule/detail/hooks/useMemoDrawer.ts'
 import MemoItem from '@/pages/schedule/detail/components/MemoItem.tsx'
 
-const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerProps) => {
+const MemoDrawer = ({
+  memoList,
+  memo,
+  setMemo,
+  handleRegisterMemo,
+  isOpen,
+  setIsOpen,
+  isAuthenticated,
+  setIsLogin,
+}: MemoDrawerProps) => {
   const {
     editingMemoId,
     editingContent,
@@ -25,9 +34,16 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
     handleCompositionStart,
     handleCompositionEnd,
   } = useMemoDrawer(memoList, handleRegisterMemo)
-
+  const handleDrawerChange = (open: boolean) => {
+    if (open && !isAuthenticated) {
+      setIsOpen(false)
+      setIsLogin(true)
+    } else {
+      setIsOpen(open)
+    }
+  }
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={handleDrawerChange}>
       <DrawerTrigger>
         <EditIcon />
       </DrawerTrigger>
