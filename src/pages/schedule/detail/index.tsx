@@ -19,7 +19,7 @@ const DetailSchedule = () => {
   const [memo, setMemo] = useState('')
 
   const { data, isFetching } = useDetailSchedule(scheduleId)
-  const { memoListData, handleRegisterMemo, handleCheckboxChange } = useMemoList(scheduleId)
+  const { memoListData, handleRegisterMemo, handleCheckboxChange, memoListLoading } = useMemoList(scheduleId)
 
   const handleCreateInvitation = () => {
     if (scheduleId) {
@@ -29,7 +29,7 @@ const DetailSchedule = () => {
 
   return (
     <div className="flex flex-col gap-2 bg-background">
-      {isFetching && <LoadingSpinner />}
+      {(isFetching || memoListLoading) && <LoadingSpinner />}
       <DetailTop data={data} />
       <DetailCourse data={data} />
       <div className="bg-white p-5">

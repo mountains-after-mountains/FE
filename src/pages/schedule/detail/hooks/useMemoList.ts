@@ -5,7 +5,7 @@ import { MemoItem } from '@/types/schedule'
 export const useMemoList = (scheduleId: string | undefined) => {
   const queryClient = useQueryClient()
 
-  const { data: memoListData } = useQuery({
+  const { data: memoListData, isFetching: memoListLoading } = useQuery({
     queryKey: ['memoList', scheduleId],
     queryFn: () => getMemoList(scheduleId),
     refetchOnWindowFocus: false,
@@ -52,6 +52,7 @@ export const useMemoList = (scheduleId: string | undefined) => {
   }
 
   return {
+    memoListLoading,
     memoListData,
     handleRegisterMemo,
     handleCheckboxChange,
