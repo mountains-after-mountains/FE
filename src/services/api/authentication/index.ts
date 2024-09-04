@@ -1,10 +1,10 @@
 import axiosInstance from '@/services/instance/axiosInstance'
 import { AxiosError } from 'axios'
 
-export const login = async (code: string) => {
+export const login = async (code: string, scheduleId: string) => {
   try {
     const response = await axiosInstance.get('/user/kakaoLogin', {
-      params: { code },
+      params: { code, scheduleId },
     })
     return response.data
   } catch (error) {
