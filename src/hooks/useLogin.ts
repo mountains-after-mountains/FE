@@ -15,7 +15,8 @@ const useLogin = (code: string | null) => {
       }
 
       try {
-        const data = await login(code)
+        const scheduleId = localStorage.getItem('scheduleId')
+        const data = await login(code, scheduleId || '')
         setLogin(data.token, data.nickname)
         navigate('/welcome')
       } catch (error) {
