@@ -13,7 +13,16 @@ import { MemoDrawerProps } from '@/types/schedule'
 import { useMemoDrawer } from '@/pages/schedule/detail/hooks/useMemoDrawer.ts'
 import MemoItem from '@/pages/schedule/detail/components/MemoItem.tsx'
 
-const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerProps) => {
+const MemoDrawer = ({
+  memoList,
+  memo,
+  setMemo,
+  handleRegisterMemo,
+  isOpen,
+  setIsOpen,
+  isAuthenticated,
+  setIsLogin,
+}: MemoDrawerProps) => {
   const {
     editingMemoId,
     editingContent,
@@ -22,10 +31,19 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
     startEditingMemo,
     setEditingContent,
     handleKeyDown,
+    handleCompositionStart,
+    handleCompositionEnd,
   } = useMemoDrawer(memoList, handleRegisterMemo)
-
+  const handleDrawerChange = (open: boolean) => {
+    if (open && !isAuthenticated) {
+      setIsOpen(false)
+      setIsLogin(true)
+    } else {
+      setIsOpen(open)
+    }
+  }
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={handleDrawerChange}>
       <DrawerTrigger>
         <EditIcon />
       </DrawerTrigger>
@@ -54,6 +72,8 @@ const MemoDrawer = ({ memoList, memo, setMemo, handleRegisterMemo }: MemoDrawerP
             value={memo}
             onChange={e => setMemo(e.target.value)}
             onKeyDown={handleKeyDown}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
             placeholder="메모를 입력하세요"
           />
         </div>

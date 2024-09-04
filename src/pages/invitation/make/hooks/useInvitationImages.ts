@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getInvitationImgList } from '@/services/api/invitation'
 
 const useInvitationImages = () => {
-  const { data: invitationImgList } = useQuery({
+  const { data: invitationImgList, isFetching: invitationImgListLoading } = useQuery({
     queryKey: ['getInvitationImgList'],
     queryFn: getInvitationImgList,
     refetchOnWindowFocus: false,
@@ -10,6 +10,7 @@ const useInvitationImages = () => {
 
   return {
     invitationImgList,
+    invitationImgListLoading,
   }
 }
 

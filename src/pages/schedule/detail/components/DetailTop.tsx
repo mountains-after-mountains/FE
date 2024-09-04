@@ -7,16 +7,17 @@ import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
 interface DetailTopProps {
   data: Schedule
+  isAuthenticated?: boolean
 }
 
-const DetailTop = ({ data }: DetailTopProps) => {
+const DetailTop = ({ data, isAuthenticated }: DetailTopProps) => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const navigate = useNavigate()
   const { imageSrc, dateInfo } = useDetailTopLogic(data)
 
   return (
     <div>
-      <ImageSection imageSrc={imageSrc} navigate={navigate} scheduleId={scheduleId} />
+      <ImageSection imageSrc={imageSrc} navigate={navigate} scheduleId={scheduleId} isAuthenticated={isAuthenticated} />
       <InfoSection dateInfo={dateInfo} memberCount={data?.memberCount} />
     </div>
   )
@@ -29,17 +30,31 @@ const useDetailTopLogic = (data: Schedule) => {
   return { imageSrc, dateInfo }
 }
 
-const ImageSection = ({ imageSrc, navigate, scheduleId }: { imageSrc: string; navigate: any; scheduleId?: string }) => (
+const ImageSection = ({
+  imageSrc,
+  navigate,
+  scheduleId,
+  isAuthenticated,
+}: {
+  imageSrc: string
+  navigate: any
+  scheduleId?: string
+  isAuthenticated?: boolean
+}) => (
   <div className="relative h-[246px] w-full">
     <img src={imageSrc} className="h-full w-full object-cover" alt="Mountain" />
     <div className="absolute inset-0 bg-black/10" />
     <div className="absolute inset-0 flex items-start justify-between p-4">
-      <button className="text-white" onClick={() => navigate('/schedule')}>
-        <BackIcon color="#ffffff" />
-      </button>
-      <button className="text-white" onClick={() => navigate(`/schedule/modify/${scheduleId}`)}>
-        수정
-      </button>
+      {isAuthenticated && (
+        <button className="text-white" onClick={() => navigate('/schedule')}>
+          <BackIcon color="#ffffff" />
+        </button>
+      )}
+      {isAuthenticated && (
+        <button className="text-white" onClick={() => navigate(`/schedule/modify/${scheduleId}`)}>
+          수정
+        </button>
+      )}
     </div>
   </div>
 )

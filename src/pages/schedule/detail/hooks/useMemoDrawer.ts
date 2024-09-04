@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteMemo, modifyMemo } from '@/services/api/schedule'
 import { MemoItem } from '@/types/schedule'
@@ -6,6 +6,8 @@ import { MemoItem } from '@/types/schedule'
 export const useMemoDrawer = (memoList: MemoItem[], handleRegisterMemo: () => void) => {
   const [editingMemoId, setEditingMemoId] = useState<string | null>(null)
   const [editingContent, setEditingContent] = useState('')
+
+  const isComposing = useRef(false) // 조합 중 여부를 확인하는 플래그 Mac에서 엔터 누르면 두번 이벤트 발생 때문에 추가
 
   const queryClient = useQueryClient()
 
@@ -67,5 +69,7 @@ export const useMemoDrawer = (memoList: MemoItem[], handleRegisterMemo: () => vo
     startEditingMemo,
     setEditingContent,
     handleKeyDown,
+    handleCompositionStart: () => (isComposing.current = true),
+    handleCompositionEnd: () => (isComposing.current = false),
   }
 }

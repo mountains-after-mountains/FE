@@ -2,10 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { checkMemo, getMemoList, registerMemo } from '@/services/api/schedule'
 import { MemoItem } from '@/types/schedule'
 
-export const useMemoList = (scheduleId: string | undefined) => {
+export const useMemoList = (
+  scheduleId: string | undefined,
+  isAuthenticated: boolean,
+  setIsLogin: (login: boolean) => void,
+) => {
   const queryClient = useQueryClient()
 
-  const { data: memoListData } = useQuery({
+  const { data: memoListData, isFetching: memoListLoading } = useQuery({
     queryKey: ['memoList', scheduleId],
     queryFn: () => getMemoList(scheduleId),
     refetchOnWindowFocus: false,
@@ -48,10 +52,15 @@ export const useMemoList = (scheduleId: string | undefined) => {
   }
 
   const handleCheckboxChange = (memoId: string) => {
+    if (!isAuthenticated) {
+      setIsLogin(true)
+      return
+    }
     checkMemoMutation.mutate(memoId)
   }
 
   return {
+    memoListLoading,
     memoListData,
     handleRegisterMemo,
     handleCheckboxChange,

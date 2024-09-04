@@ -12,7 +12,7 @@ const useInvitation = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
 
   const { data, isFetching } = useDetailSchedule(scheduleId)
-  const { invitationImgList } = useInvitationImages()
+  const { invitationImgList, invitationImgListLoading } = useInvitationImages()
   const { completeInvitation } = useCreateInvitation()
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const useInvitation = () => {
   }
 
   return {
+    invitationImgListLoading,
     isFetching,
     selectedImage,
     invitationImgList,
