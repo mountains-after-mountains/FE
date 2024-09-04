@@ -7,5 +7,6 @@ export const useScheduleList = () => {
     queryKey: ['scheduleList'],
     queryFn: getScheduleList,
     refetchOnWindowFocus: false,
+    retry: 0,
   })
 }

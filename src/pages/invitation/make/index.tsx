@@ -5,12 +5,14 @@ import LoadingSpinner from '@/components/common/Spinner.tsx'
 import useInvitation from '@/pages/invitation/make/hooks/useInvitation.ts'
 import { InvitationImage } from '@/types/invitation'
 import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawer.tsx'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
 const OPTIONS = { loop: false }
 
 const MakeInvitation = () => {
   const [emblaRef] = useEmblaCarousel(OPTIONS)
   const {
+    invitationImgListLoading,
     isFetching,
     selectedImage,
     invitationImgList,
@@ -24,7 +26,7 @@ const MakeInvitation = () => {
 
   return (
     <div className="flex flex-col">
-      {isFetching && <LoadingSpinner />}
+      {(isFetching || invitationImgListLoading) && <LoadingSpinner />}
       <HeaderWithDrawer
         title="초대장 만들기"
         backDrawerTitle="완성하지 않고 나가시겠어요?"
@@ -33,7 +35,7 @@ const MakeInvitation = () => {
       />
       <div className="px-5 py-4">
         <img
-          src={`data:image/jpeg;base64,${selectedImage?.img}`}
+          src={selectedImage?.img ? `data:image/jpeg;base64,${selectedImage.img}` : EmptyImg}
           className="mb-4 aspect-square rounded-xl"
           alt="Selected"
         />

@@ -18,11 +18,17 @@ const ModifySchedule = () => {
   const [minute, setMinute] = useState<number | null>(null)
   const [date, setDate] = useState<Date | undefined>()
 
-  const { data: mountainsListOption, isError: mountainsListError } = useMountainsList()
+  const {
+    data: mountainsListOption,
+    isError: mountainsListError,
+    isFetching: mountainsListLoading,
+  } = useMountainsList()
   const { data, isFetching } = useDetailSchedule(scheduleId)
-  const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
-    mountainsValue.value ? mountainsValue.value : data?.mountainId,
-  )
+  const {
+    data: mountainCourseOption,
+    isError: mountainCourseError,
+    isFetching: mountainCourseLoading,
+  } = useMountainCourse(mountainsValue.value ? mountainsValue.value : data?.mountainId)
 
   useEffect(() => {
     if (data) {
@@ -49,7 +55,7 @@ const ModifySchedule = () => {
 
   return (
     <div className="flex h-full flex-col">
-      {isFetching && <LoadingSpinner />}
+      {(isFetching || mountainCourseLoading || mountainsListLoading) && <LoadingSpinner />}
       {scheduleId && <HeaderWithDrawer title="등산일정 수정" scheduleId={scheduleId} />}
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection

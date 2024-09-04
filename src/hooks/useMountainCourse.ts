@@ -3,7 +3,7 @@ import { getMountainCourse } from '@/services/api/schedule'
 import { useMemo } from 'react'
 
 const useMountainCourse = (mountainId: string | null) => {
-  const { data, isError } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ['mountainCourse', mountainId],
     queryFn: () => getMountainCourse(mountainId || ''),
     enabled: !!mountainId,
@@ -18,7 +18,7 @@ const useMountainCourse = (mountainId: string | null) => {
     }))
   }, [data])
 
-  return { data: transformedData, isError }
+  return { data: transformedData, isError, isFetching }
 }
 
 export default useMountainCourse

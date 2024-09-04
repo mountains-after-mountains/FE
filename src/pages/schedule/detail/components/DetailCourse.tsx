@@ -13,15 +13,17 @@ const DetailCourse = ({ data }: DetailCourseProps) => {
     <div className="bg-white p-5">
       <div className="pb-[14px] text-h5">코스 상세</div>
       {data?.famous100 && <Top100Badge className="inline-flex" />}
-      <MountainInfo mountain={data} />
-      {data && <Map markers={[data.course]} />}
-      <CourseCard
-        key={data?.course?.courseName}
-        courseName={data?.course?.courseName || ''}
-        distance={Number(data?.course?.mntiDist)}
-        time={data?.course?.mntiTime}
-        level={data?.course?.mntiLevel}
-      />
+      <div className="flex flex-col gap-2">
+        <MountainInfo mountain={data} />
+        {data && <Map markers={[data.course]} />}
+        <CourseCard
+          key={data?.course?.courseName}
+          courseName={data?.course?.courseName || ''}
+          distance={Number(data?.course?.mntiDist)}
+          time={data?.course?.mntiTime}
+          level={data?.course?.mntiLevel}
+        />
+      </div>
     </div>
   )
 }
