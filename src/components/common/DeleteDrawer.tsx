@@ -8,6 +8,7 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
@@ -31,7 +32,9 @@ const DeleteDrawer = ({ scheduleId }: { scheduleId: string }) => {
     <Drawer>
       <DrawerTrigger className="text-b2 text-primary">삭제</DrawerTrigger>
       <DrawerContent className="bg-white">
-        <DrawerHeader className="text-start text-h4">등산 일정을 삭제하시겠어요?</DrawerHeader>
+        <DrawerHeader>
+          <DrawerTitle className="text-start text-xl font-bold">등산 일정을 삭제하시겠어요?</DrawerTitle>
+        </DrawerHeader>
         <div className="px-4 pb-9 text-b2">만들었던 일정이 사라져요.</div>
         <DrawerFooter>
           <DrawerClose asChild>
