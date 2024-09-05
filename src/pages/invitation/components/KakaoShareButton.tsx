@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import KakaoShareIcon from '@/assets/icons/kakaoShareIcon.svg?react'
 
 interface KakaoShareButtonProps {
@@ -12,7 +12,7 @@ declare global {
     Kakao: any
   }
 }
-const KakaoShareButton: React.FC<KakaoShareButtonProps> = ({ title, description, imageUrl, webUrl }) => {
+const KakaoShareButton = ({ title, description, imageUrl, webUrl }: KakaoShareButtonProps) => {
   const JavaScript_Key = import.meta.env.VITE_JAVASCRIPT_KEY
 
   useEffect(() => {

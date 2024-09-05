@@ -6,6 +6,7 @@ import LoadingSpinner from '@/components/common/Spinner.tsx'
 import useInvitationData from '@/hooks/useInvitationData.ts'
 import { useMutation } from '@tanstack/react-query'
 import { acceptInvitation } from '@/services/api/invitation'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
 const AcceptInvitation = () => {
   const navigate = useNavigate()
@@ -31,7 +32,11 @@ const AcceptInvitation = () => {
       </div>
       <div className="px-5 py-8">
         <div className="flex-grow-[7] rounded-t-2xl">
-          <img src={`data:image/jpeg;base64,${data?.img}`} alt="Onboarding image" className="rounded-t-2xl" />
+          <img
+            src={data?.img ? `data:image/jpeg;base64,${data?.img}` : EmptyImg}
+            alt="Onboarding image"
+            className="rounded-t-2xl"
+          />
         </div>
         <div className="rounded-b-2xl px-5 py-4 shadow-md">
           <DayBadgeWithTitle text={dDayText} title={formattedDate} />

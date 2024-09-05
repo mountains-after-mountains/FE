@@ -20,14 +20,14 @@ const HeaderWithDrawer = ({
 }: HeaderWithDrawerProps) => {
   return (
     <div className="flex items-center px-4 py-3">
-      <button className="w-1/3 p-2">
+      <div className="w-1/3 p-2">
         <BackDrawer
           onConfirmExit={onConfirmExit}
           continueButtonLabel={continueButtonLabel}
           message={message}
           backDrawerTitle={backDrawerTitle}
         />
-      </button>
+      </div>
       <div className="flex w-1/3 justify-center text-h5 text-gray-900">{title}</div>
       <div className="flex w-1/3 justify-end">{scheduleId && <DeleteDrawer scheduleId={scheduleId} />}</div>
     </div>

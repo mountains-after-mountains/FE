@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import useDateInfo from '@/hooks/useDateInfo.ts'
 import useInvitationData from '@/hooks/useInvitationData.ts'
+import EmptyImg from '@/assets/image/empty_mnti_img_card.png'
 
 const Invitation = () => {
   const navigate = useNavigate()
@@ -20,7 +21,11 @@ const Invitation = () => {
       <Header title="초대장" onBackClick={() => navigate('/schedule')} />
       <div className="px-5 py-14">
         <div className="rounded-t-2xl">
-          <img src={`data:image/jpeg;base64,${data?.img}`} alt="Onboarding image" className="rounded-t-2xl" />
+          <img
+            src={data?.img ? `data:image/jpeg;base64,${data?.img}` : EmptyImg}
+            alt="Onboarding image"
+            className="rounded-t-2xl"
+          />
         </div>
         <div className="rounded-b-2xl px-5 py-4 shadow-md">
           {/*초대장 수정은 나중에*/}

@@ -5,6 +5,7 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
@@ -39,7 +40,9 @@ const BackDrawer = ({
         <BackIcon />
       </DrawerTrigger>
       <DrawerContent className="bg-white">
-        <DrawerHeader className="text-start text-h4">{backDrawerTitle}</DrawerHeader>
+        <DrawerHeader>
+          <DrawerTitle className="text-start text-xl font-bold">{backDrawerTitle}</DrawerTitle>
+        </DrawerHeader>
         <div className="px-4 pb-9 text-b2">{message}</div>
         <DrawerFooter>
           <DrawerClose asChild>
