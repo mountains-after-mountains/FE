@@ -3,13 +3,12 @@ import CommonSelect from '@/components/common/CommonSelect.tsx'
 import DatePicker from '@/components/common/DatePicker.tsx'
 import TimePicker from '@/components/common/TimePicker.tsx'
 import { PersonnelOption } from '@/constants/SelectOptions.ts'
+import { useState } from 'react'
 
 interface ScheduleFormSectionProps {
   date: Date | undefined
   setDate: (date: Date | undefined) => void
   setMountainsValue: (value: { key: string; value: string }) => void
-  mountainsListOption: Array<{ key: string; value: string }>
-  mountainsListError: boolean
   mountainCourseOption: Array<{ key: string; value: string }>
   mountainCourseError: boolean
   setMountainCourseValue: (value: { key: string; value: string }) => void
@@ -19,16 +18,15 @@ interface ScheduleFormSectionProps {
   minute: number | null
   hour: number | null
   modifyData?: any
-  mountainId?: string
+  searchValue: string
+  setSearchValue: (value: string) => void
+  mountainsList: any
 }
 
 const ScheduleFormSection = ({
-  modifyData,
   date,
   setDate,
   setMountainsValue,
-  mountainsListOption,
-  mountainsListError,
   mountainCourseOption,
   mountainCourseError,
   setMountainCourseValue,
@@ -37,19 +35,49 @@ const ScheduleFormSection = ({
   setMinute,
   minute,
   hour,
-  mountainId,
+  modifyData,
+  searchValue,
+  setSearchValue,
+  mountainsList,
 }: ScheduleFormSectionProps) => {
+  const [showDropdown, setShowDropdown] = useState(false)
+
+  const handleMountainSelect = (mntiListNo: string, mntiName: string) => {
+    setMountainsValue({ key: mntiName, value: mntiListNo })
+    setSearchValue(mntiName)
+    setShowDropdown(false)
+  }
   return (
     <div className="flex flex-col gap-[30px]">
       <TextWithSubtext title="어떤 산에 가시나요?" asteriskIcon={true}>
-        <CommonSelect
-          items={mountainsListOption}
-          placeholder={'산을 골라주세요'}
-          setSelectedValue={setMountainsValue}
-          ariaLabel={'산 선택'}
-          isError={mountainsListError}
-          modifyData={modifyData?.mountainId || mountainId}
-        />
+        <div>
+          <input
+            className="w-full rounded-md border border-input px-3 py-2 text-sm focus:border-primary focus:outline-none"
+            value={searchValue}
+            onChange={e => {
+              setSearchValue(e.target.value)
+              setShowDropdown(true)
+            }}
+            placeholder="산 이름을 입력하세요"
+          />
+          {showDropdown && mountainsList && (
+            <ul className="mt-1 max-h-52 overflow-y-auto rounded-md border border-input bg-popover bg-white text-popover-foreground shadow-md">
+              {mountainsList.length > 0 ? (
+                mountainsList.map((mountain: { mntiListNo: string; mntiName: string }) => (
+                  <li
+                    key={mountain.mntiListNo}
+                    className="cursor-pointer px-4 py-2 text-sm text-popover-foreground hover:bg-accent"
+                    onClick={() => handleMountainSelect(mountain.mntiListNo, mountain.mntiName)}
+                  >
+                    {mountain.mntiName}
+                  </li>
+                ))
+              ) : (
+                <li className="p-2">검색 결과가 없습니다.</li>
+              )}
+            </ul>
+          )}
+        </div>
       </TextWithSubtext>
       <TextWithSubtext title="언제 입산하시나요?" subtext="일몰시간을 확인하고 늦지 않게 입산해주세요!">
         <div className="flex gap-2">

@@ -1,4 +1,3 @@
-import useMountainsList from '@/hooks/useMountainsList.ts'
 import { useEffect, useState } from 'react'
 import ScheduleFormSection from '@/pages/schedule/components/ScheduleFormSection.tsx'
 import { useParams } from 'react-router-dom'
@@ -8,21 +7,24 @@ import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawe
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 import { useDetailSchedule } from '@/hooks/useDetailSchedule.ts'
 import { useModifySchedule } from '@/pages/schedule/modify/hooks/useModifySchedule.ts'
+import { useQuery } from '@tanstack/react-query'
+import { getMountainsList } from '@/services/api/schedule'
 
 const ModifySchedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>()
   const [mountainsValue, setMountainsValue] = useState({ key: '', value: '' })
-  const [mountainCourseValue, setMountainCourseValue] = useState({ key: '', value: '' })
+  const [mountainCourseValue, setMountainCourseValue] = useState({ key: '코스를 골라주세요', value: '' })
   const [PersonnelValue, setPersonnelValue] = useState({ key: '', value: '' })
   const [hour, setHour] = useState<number | null>(null)
   const [minute, setMinute] = useState<number | null>(null)
   const [date, setDate] = useState<Date | undefined>()
+  const [searchValue, setSearchValue] = useState('')
 
-  const {
-    data: mountainsListOption,
-    isError: mountainsListError,
-    isFetching: mountainsListLoading,
-  } = useMountainsList()
+  const { data: mountainsList } = useQuery({
+    queryKey: ['getMountainsList', searchValue],
+    queryFn: () => getMountainsList(searchValue),
+  })
+
   const { data, isFetching } = useDetailSchedule(scheduleId)
   const {
     data: mountainCourseOption,
@@ -36,7 +38,7 @@ const ModifySchedule = () => {
       setMountainCourseValue({ key: '', value: data.course.courseNo })
       setPersonnelValue({ key: '', value: data.memberCount })
       setDate(data.scheduleDate)
-
+      setSearchValue(data.mountainName)
       const dateObj = new Date(data.scheduleDate)
       setHour(dateObj.getHours())
       setMinute(dateObj.getMinutes())
@@ -55,15 +57,13 @@ const ModifySchedule = () => {
 
   return (
     <div className="flex h-full flex-col">
-      {(isFetching || mountainCourseLoading || mountainsListLoading) && <LoadingSpinner />}
+      {(isFetching || mountainCourseLoading) && <LoadingSpinner />}
       {scheduleId && <HeaderWithDrawer title="등산일정 수정" scheduleId={scheduleId} />}
       <div className="flex h-full flex-col p-5">
         <ScheduleFormSection
           modifyData={data}
           date={date}
           setDate={setDate}
-          mountainsListOption={mountainsListOption}
-          mountainsListError={mountainsListError}
           setMountainsValue={setMountainsValue}
           mountainCourseOption={mountainCourseOption}
           mountainCourseError={mountainCourseError}
@@ -73,6 +73,9 @@ const ModifySchedule = () => {
           setMinute={setMinute}
           hour={hour}
           minute={minute}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          mountainsList={mountainsList}
         />
       </div>
       <div className="fixed bottom-5 w-[calc(100%-40px)] max-w-[460px] px-5">
