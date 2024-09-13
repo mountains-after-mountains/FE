@@ -8,8 +8,10 @@ import {
   ScheduleDataPayload,
 } from '@/types/schedule/index.ts'
 
-export const getMountainsList = async () => {
-  const response = await axiosInstance.get<MountainListResponse[]>('/main/list')
+export const getMountainsList = async (keyword?: string) => {
+  const response = await axiosInstance.get<MountainListResponse[]>('/main/list', {
+    params: keyword ? { keyword: keyword } : {},
+  })
   return response.data
 }
 

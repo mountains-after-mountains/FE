@@ -6,7 +6,7 @@ import { PersonnelOption } from '@/constants/SelectOptions.ts'
 import { useState } from 'react'
 
 const Test = () => {
-  const [, setPersonnelValue] = useState({ key: '', value: '' })
+  const [personnelValue, setPersonnelValue] = useState({ key: '', value: '' })
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-2 bg-background">
@@ -32,6 +32,7 @@ const Test = () => {
       <CommonCard>카드</CommonCard>
       <DayBadge text="d-day" />
       <CommonSelect
+        selectedValue={personnelValue}
         items={PersonnelOption}
         placeholder="선택해주세요"
         setSelectedValue={setPersonnelValue}

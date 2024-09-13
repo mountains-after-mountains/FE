@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 interface SelectOptionType {
@@ -12,28 +11,21 @@ interface SelectBoxProps {
   setSelectedValue: (selection: { key: string; value: string }) => void
   isError?: boolean
   ariaLabel: string
-  modifyData?: string
+  selectedValue: any
 }
 
-const CommonSelect = ({ modifyData, items, placeholder, setSelectedValue, isError, ariaLabel }: SelectBoxProps) => {
-  const [selectedValue, setSelectedValueState] = useState<string | undefined>(undefined)
-
-  useEffect(() => {
-    if (modifyData) {
-      setSelectedValueState(modifyData.toString())
-    }
-  }, [modifyData])
-
+const CommonSelect = ({ items, placeholder, setSelectedValue, isError, ariaLabel, selectedValue }: SelectBoxProps) => {
   const handleValueChange = (value: string) => {
     const item = items.find(item => item.value === value)
     if (item) {
       setSelectedValue({ key: item.key, value: item.value })
-      setSelectedValueState(value)
+    } else {
+      setSelectedValue({ key: '', value: '' })
     }
   }
 
   return (
-    <Select value={selectedValue} onValueChange={handleValueChange}>
+    <Select value={selectedValue.value} onValueChange={handleValueChange}>
       <SelectTrigger className="rounded-xl bg-white" aria-label={ariaLabel}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
