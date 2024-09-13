@@ -4,6 +4,7 @@ import DatePicker from '@/components/common/DatePicker.tsx'
 import TimePicker from '@/components/common/TimePicker.tsx'
 import { PersonnelOption } from '@/constants/SelectOptions.ts'
 import { useState } from 'react'
+import { MountainListResponse } from '@/types/schedule'
 
 interface ScheduleFormSectionProps {
   date: Date | undefined
@@ -17,10 +18,11 @@ interface ScheduleFormSectionProps {
   setMinute: (minute: number | null) => void
   minute: number | null
   hour: number | null
-  modifyData?: any
   searchValue: string
   setSearchValue: (value: string) => void
-  mountainsList: any
+  mountainsList: MountainListResponse[]
+  mountainCourseValue: { key: string; value: string } // 배열이 아닌 단일 값
+  PersonnelValue: { key: string; value: string } // 배열이 아닌 단일 값
 }
 
 const ScheduleFormSection = ({
@@ -29,13 +31,14 @@ const ScheduleFormSection = ({
   setMountainsValue,
   mountainCourseOption,
   mountainCourseError,
+  mountainCourseValue,
   setMountainCourseValue,
+  PersonnelValue,
   setPersonnelValue,
   setHour,
   setMinute,
   minute,
   hour,
-  modifyData,
   searchValue,
   setSearchValue,
   mountainsList,
@@ -52,7 +55,7 @@ const ScheduleFormSection = ({
       <TextWithSubtext title="어떤 산에 가시나요?" asteriskIcon={true}>
         <div>
           <input
-            className="w-full rounded-md border border-input px-3 py-2 text-sm focus:border-primary focus:outline-none"
+            className="h-10 w-full rounded-md border border-input px-3 py-2 text-sm focus:border-primary focus:outline-none"
             value={searchValue}
             onChange={e => {
               setSearchValue(e.target.value)
@@ -87,7 +90,7 @@ const ScheduleFormSection = ({
       </TextWithSubtext>
       <TextWithSubtext title="어떤 코스로 가시나요?">
         <CommonSelect
-          modifyData={modifyData?.course?.courseNo}
+          selectedValue={mountainCourseValue}
           items={mountainCourseOption}
           placeholder={'코스를 골라주세요'}
           setSelectedValue={setMountainCourseValue}
@@ -97,7 +100,7 @@ const ScheduleFormSection = ({
       </TextWithSubtext>
       <TextWithSubtext title="몇 명의 일행으로 같이 가시나요?">
         <CommonSelect
-          modifyData={modifyData?.memberCount}
+          selectedValue={PersonnelValue}
           items={PersonnelOption}
           placeholder={'인원 수를 선택해주세요'}
           setSelectedValue={setPersonnelValue}

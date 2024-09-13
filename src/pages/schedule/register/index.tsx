@@ -51,6 +51,10 @@ const RegisterSchedule = () => {
     }
   }, [mountainId, mountainsList])
 
+  useEffect(() => {
+    setMountainCourseValue({ key: '', value: '' })
+  }, [mountainsValue])
+
   return (
     <div className="flex h-full flex-col">
       {!hasSelectedMountain && <LoadingSpinner />}
@@ -67,7 +71,9 @@ const RegisterSchedule = () => {
           setMountainsValue={setMountainsValue}
           mountainCourseOption={mountainCourseOption}
           mountainCourseError={mountainCourseError}
+          mountainCourseValue={mountainCourseValue}
           setMountainCourseValue={setMountainCourseValue}
+          PersonnelValue={PersonnelValue}
           setPersonnelValue={setPersonnelValue}
           setHour={setHour}
           setMinute={setMinute}
@@ -75,7 +81,7 @@ const RegisterSchedule = () => {
           minute={minute}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          mountainsList={mountainsList}
+          mountainsList={mountainsList || []}
         />
       </div>
       <div className="fixed bottom-5 w-[calc(100%-40px)] max-w-[460px] px-5">
