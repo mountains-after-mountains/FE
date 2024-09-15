@@ -54,7 +54,7 @@ const MemoDrawer = ({
             <DrawerClose className="text-b1 text-main">확인</DrawerClose>
           </DrawerTitle>
         </DrawerHeader>
-        <div className="px-4">
+        <div className="max-h-96 overflow-y-auto px-4">
           {memoList.map(item => (
             <MemoItem
               key={item.memoId}
