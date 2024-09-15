@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import {
   Drawer,
   DrawerClose,
@@ -23,17 +24,11 @@ const MemoDrawer = ({
   isAuthenticated,
   setIsLogin,
 }: MemoDrawerProps) => {
-  const {
-    editingMemoId,
-    editingContent,
-    handleModifyMemo,
-    handleDeleteMemo,
-    startEditingMemo,
-    setEditingContent,
-    handleKeyDown,
-    handleCompositionStart,
-    handleCompositionEnd,
-  } = useMemoDrawer(memoList, handleRegisterMemo)
+  const { editingMemoId, editingContent, handleModifyMemo, handleDeleteMemo, startEditingMemo, setEditingContent } =
+    useMemoDrawer(memoList, handleRegisterMemo)
+
+  const [isComposing, setIsComposing] = useState(false)
+
   const handleDrawerChange = (open: boolean) => {
     if (open && !isAuthenticated) {
       setIsOpen(false)
@@ -42,6 +37,27 @@ const MemoDrawer = ({
       setIsOpen(open)
     }
   }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(e.target.value)
+  }
+
+  const handleCompositionStartWrapper = () => {
+    setIsComposing(true)
+  }
+
+  const handleCompositionEndWrapper = (e: React.CompositionEvent<HTMLInputElement>) => {
+    setIsComposing(false)
+    setMemo(e.currentTarget.value)
+  }
+  const handleKeyDownWrapper = (e: React.KeyboardEvent) => {
+    if (!isComposing && e.key === 'Enter') {
+      e.preventDefault()
+      handleRegisterMemo()
+      setMemo('')
+    }
+  }
+
   return (
     <Drawer open={isOpen} onOpenChange={handleDrawerChange}>
       <DrawerTrigger>
@@ -54,7 +70,7 @@ const MemoDrawer = ({
             <DrawerClose className="text-b1 text-main">확인</DrawerClose>
           </DrawerTitle>
         </DrawerHeader>
-        <div className="px-4">
+        <div className="max-h-96 overflow-y-auto px-4">
           {memoList.map(item => (
             <MemoItem
               key={item.memoId}
@@ -70,10 +86,10 @@ const MemoDrawer = ({
           <input
             className="w-full rounded border-2 border-primary p-3 placeholder:text-border focus:outline-none"
             value={memo}
-            onChange={e => setMemo(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onCompositionStart={handleCompositionStart}
-            onCompositionEnd={handleCompositionEnd}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDownWrapper}
+            onCompositionStart={handleCompositionStartWrapper}
+            onCompositionEnd={handleCompositionEndWrapper}
             placeholder="메모를 입력하세요"
           />
         </div>

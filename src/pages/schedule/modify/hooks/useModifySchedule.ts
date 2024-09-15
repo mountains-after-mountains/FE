@@ -41,7 +41,7 @@ export const useModifySchedule = ({
       course: mountainCourseValue.value,
     }
     modifyScheduleMutation.mutate(payload, {
-      onSuccess: () => navigate('/schedule'),
+      onSuccess: () => navigate(`/schedule/detail/${scheduleId}`),
     })
   }
 

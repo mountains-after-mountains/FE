@@ -50,6 +50,6 @@ export const useRegisterSchedule = ({
 
   return {
     handleSubmit,
-    isSubmitDisabled: !(mountainsValue.value && date),
+    isSubmitDisabled: !(mountainsValue.value && date && hour),
   }
 }
