@@ -33,6 +33,11 @@ export const useMemoList = (
   const handleRegisterMemo = (memo: string) => {
     if (!memo.trim() || !scheduleId) return
 
+    if (memoListData.length === 50) {
+      alert('최대 50개까지 메모할 수 있어요.')
+      return
+    }
+
     const isDuplicate = memoListData?.some((item: MemoItem) => item.content === memo.trim())
     if (isDuplicate) {
       alert('이미 동일한 내용의 메모가 존재합니다.')
