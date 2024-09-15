@@ -63,7 +63,12 @@ const InfoSection = ({ dateInfo, memberCount }: { dateInfo: any; memberCount: st
   <div className="flex flex-col gap-[6px] bg-white p-5">
     <DayBadgeWithTitle text={dateInfo.dDayText} title={dateInfo.formattedDate} />
     <DetailRow label="입산시간" value={dateInfo.formattedTime} />
-    <DetailRow label="인원수" value={parseInt(memberCount) >= 5 ? `${memberCount}명 이상` : `${memberCount}명`} />
+    <DetailRow
+      label="인원수"
+      value={
+        parseInt(memberCount) === 0 ? '미정' : parseInt(memberCount) >= 5 ? `${memberCount}명 이상` : `${memberCount}명`
+      }
+    />
   </div>
 )
 
