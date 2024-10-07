@@ -7,6 +7,7 @@ export interface MountainListResponse {
   potoFile: string | null
   mntiAdd: string
   height: number
+  famous100: boolean
 }
 export interface courseListType {
   courseNo: string
