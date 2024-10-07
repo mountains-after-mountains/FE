@@ -44,7 +44,8 @@ const handleErrorResponse = (error: any) => {
 
     if (status === 401) {
       window.dispatchEvent(new CustomEvent('unauthorized'))
-      sessionStorage.removeItem('authToken')
+      localStorage.removeItem('token')
+      localStorage.removeItem('nickName')
     }
   } else if (error.request) {
     console.error('No response received from server')

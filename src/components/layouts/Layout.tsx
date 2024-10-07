@@ -35,11 +35,29 @@ const Layout = ({ children }: PropsWithChildren) => {
           <h1 className="text-center text-[56px] font-bold text-green-600">산너머산</h1>
         </div>
         <div className="fixed bottom-5 flex flex-col items-center gap-1">
-          <Instagram />
-          <div className="text-b2 text-gray-700">이메일 overthemnt.san@gmail.com</div>
+          <a
+            href="https://www.instagram.com/over.the.mountain?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram />
+          </a>
+          <div className="text-b2 text-gray-700">이메일: overthemnt.san@gmail.com</div>
           <div className="flex items-center gap-3 text-b2 text-gray-700 underline">
-            <span>개인정보처리방침</span>
-            <span>이용약관</span>
+            <a
+              href="https://www.notion.so/over-the-mnt/179a7f503ba54d2aa705bd882e069c10"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              개인정보처리방침
+            </a>
+            <a
+              href="https://www.notion.so/over-the-mnt/e327e45a722844cf93264240ebc8c0a4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              이용약관
+            </a>
           </div>
         </div>
       </section>

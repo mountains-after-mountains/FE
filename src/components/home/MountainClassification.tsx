@@ -3,7 +3,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
     <div>
       <p className="mb-2 text-b1">산은 어떤 기준으로 분류되나요?</p>
       <p className="mb-3.5 whitespace-pre-line text-b2">
-        {'서울에 25개 산을 3개의 고도로 나누었어요.\n산의 높이로 난이도를 유추할 수 있어요.'}
+        {'서울에 38개 산을 3개의 고도로 나누었어요.\n산의 높이로 난이도를 유추할 수 있어요.'}
       </p>
       <table className="mb-[26px] w-full border-collapse border-spacing-0 border text-center [&>*>tr>td]:border [&>*>tr>td]:px-2.5 [&>*>tr>td]:py-1.5 [&>*>tr>th]:border [&>*>tr>th]:px-2.5 [&>*>tr>th]:py-1.5">
         <thead>
@@ -19,21 +19,21 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 아래 산</span>
             </td>
             <td className="text-b3 text-gray-900">500m 이상</td>
-            <td className="text-b3 text-gray-900">7</td>
+            <td className="text-b3 text-gray-900">15</td>
           </tr>
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 중의 산</span>
             </td>
             <td className="text-b3 text-gray-900">300m ~ 499m</td>
-            <td className="text-b3 text-gray-900">7</td>
+            <td className="text-b3 text-gray-900">6</td>
           </tr>
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 너머 산</span>
             </td>
             <td className="text-b3 text-gray-900">300m 미만</td>
-            <td className="text-b3 text-gray-900">11</td>
+            <td className="text-b3 text-gray-900">7</td>
           </tr>
         </tbody>
       </table>

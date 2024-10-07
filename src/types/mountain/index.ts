@@ -27,6 +27,7 @@ export interface MountainResponse {
   weatherList: WeatherResponse[]
   course: CourseType[]
   seoulTrail: boolean
+  website: string
 }
 
 export interface MountainListHomeResponse {

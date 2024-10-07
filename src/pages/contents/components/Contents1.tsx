@@ -53,7 +53,9 @@ const Contents1 = () => {
           }
         </p>
         <p className="mb-1.5 text-b1 text-gray-700">서울둘레길 인증까지 받을 수 있는 산은 어디?</p>
-        <a className="mb-2.5 text-b3 text-gray-700 underline">코스 자세히 보러가기</a>
+        <a className="mb-2.5 text-b3 text-gray-700 underline" href="https://gil.seoul.go.kr/content.do?key=2405200002">
+          코스 자세히 보러가기
+        </a>
         <img src={Image} className="mb-10 w-full" />
         <ul className="space-y-[30px]">
           {data.map(({ contents, title, image }) => (

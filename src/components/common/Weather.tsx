@@ -40,10 +40,9 @@ import thunderstormOff from '@/assets/icons/weather/thunderstorm_off.svg?react'
 import thunderstormOn from '@/assets/icons/weather/thunderstorm_on.svg?react'
 import windOff from '@/assets/icons/weather/wind_off.svg?react'
 import windOn from '@/assets/icons/weather/wind_on.svg?react'
-
-import { formatTimestampToMMDD } from '@/pages/mountain/util/formatTimestampToMMDD'
 import { WeatherResponse } from '@/types/mountain'
 import clsx from 'clsx'
+import { format } from 'date-fns'
 
 export type WeatherProps = {
   date: string
@@ -183,7 +182,7 @@ const WeatherIcon = ({ weather, isToday }: { weather: WeatherType; isToday?: boo
 const Weather = ({ date, skyState, temperature, isToday }: WeatherResponse & { isToday: boolean }) => {
   return (
     <div className="flex h-[79px] w-8 flex-col items-center justify-between gap-1">
-      <span className={clsx('text-b3 text-gray-400', { 'text-gray-900': isToday })}>{formatTimestampToMMDD(date)}</span>
+      <span className={clsx('text-b3 text-gray-400', { 'text-gray-900': isToday })}>{format(date, 'MM.d')}</span>
       <WeatherIcon weather={skyState} isToday={isToday} />
       <span className={clsx('text-b2 text-gray-400', { 'text-gray-900': isToday })}>{`${temperature}˚C`}</span>
     </div>
