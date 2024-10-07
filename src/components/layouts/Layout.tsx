@@ -35,8 +35,14 @@ const Layout = ({ children }: PropsWithChildren) => {
           <h1 className="text-center text-[56px] font-bold text-green-600">산너머산</h1>
         </div>
         <div className="fixed bottom-5 flex flex-col items-center gap-1">
-          <Instagram />
-          <div className="text-b2 text-gray-700">이메일 overthemnt.san@gmail.com</div>
+          <a
+            href="https://www.instagram.com/over.the.mountain?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram />
+          </a>
+          <div className="text-b2 text-gray-700">이메일: overthemnt.san@gmail.com</div>
           <div className="flex items-center gap-3 text-b2 text-gray-700 underline">
             <a
               href="https://www.notion.so/over-the-mnt/179a7f503ba54d2aa705bd882e069c10"
