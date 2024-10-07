@@ -39,7 +39,9 @@ const Header = ({ selected }: Props) => {
                 <span className="text-h5 font-bold text-gray-900">{name}</span>
               </div>
               <button>개인정보처리방침</button>
-              <button>개선의견 남기기</button>
+              <a href="https://moaform.com/q/U9DcCc" target="_blank" rel="noopener noreferrer">
+                <button>개선의견 남기기</button>
+              </a>
               <PopoverClose onClick={handleSignOut}>로그아웃</PopoverClose>
               <button>회원탈퇴</button>
             </PopoverContent>
