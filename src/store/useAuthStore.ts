@@ -16,6 +16,7 @@ const useAuthStore = create<AuthState>(set => ({
   logout: () => {
     localStorage.removeItem('token')
     localStorage.removeItem('nickName')
+    localStorage.removeItem('scheduleId')
     set({ isAuthenticated: false })
   },
 }))

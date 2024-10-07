@@ -38,8 +38,20 @@ const Layout = ({ children }: PropsWithChildren) => {
           <Instagram />
           <div className="text-b2 text-gray-700">이메일 overthemnt.san@gmail.com</div>
           <div className="flex items-center gap-3 text-b2 text-gray-700 underline">
-            <span>개인정보처리방침</span>
-            <span>이용약관</span>
+            <a
+              href="https://www.notion.so/over-the-mnt/179a7f503ba54d2aa705bd882e069c10"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              개인정보처리방침
+            </a>
+            <a
+              href="https://www.notion.so/over-the-mnt/e327e45a722844cf93264240ebc8c0a4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              이용약관
+            </a>
           </div>
         </div>
       </section>
