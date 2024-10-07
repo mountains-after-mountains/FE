@@ -2,7 +2,7 @@ import Mountains from '@/assets/icons/mountains.svg?react'
 import SearchCommandList from './SearchCommandList'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { debounce } from 'lodash'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; defaultValue?: string | null }) => {
   const [value, setValue] = useState<string>(defaultValue ?? '')
@@ -33,9 +33,13 @@ const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; d
   }, [value, mntiNameList])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setShowCommand(false)
-    navigate(`/search?keyword=${value}`)
+    if (value == '') {
+      navigate(`/`)
+    } else {
+      e.preventDefault()
+      setShowCommand(false)
+      navigate(`/search?keyword=${value}`)
+    }
   }
 
   useEffect(() => {
