@@ -3,7 +3,7 @@ import axiosInstance from '@/services/instance/axiosInstance'
 import { MountainListResponse } from '@/types/schedule'
 
 const useMountainsListHome = (keyword?: string) => {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ['mountainsList', keyword],
     queryFn: async () =>
       await axiosInstance.get<MountainListResponse[]>('/main/list', {
@@ -12,7 +12,7 @@ const useMountainsListHome = (keyword?: string) => {
     refetchOnWindowFocus: false,
   })
 
-  return { data: data?.data, isError, isLoading }
+  return { data: data?.data, isError, isFetching }
 }
 
 export default useMountainsListHome
