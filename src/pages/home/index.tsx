@@ -13,7 +13,7 @@ import clsx from 'clsx'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
 
 const Home = () => {
-  const { data, isFetching } = useMountainsListHome()
+  const { data, isLoading } = useMountainsListHome()
   const [mntiLevel, setMntiLevel] = useState<'1' | '2' | '3'>()
   const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ const Home = () => {
     <>
       <Header selected="home" />
       <div className="relative">
-        {isFetching && <LoadingSpinner />}
+        {isLoading && <LoadingSpinner />}
         <section className="relative mx-auto max-w-[550px]">
           <div className="sticky top-[68px] z-40 bg-white">
             <SearchInput mntiNameList={mntiNameList ?? []} />

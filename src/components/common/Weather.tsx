@@ -199,7 +199,7 @@ const WeatherGroup = ({ weathers, className }: { weathers?: WeatherResponse[]; c
             <Weather
               key={date}
               skyState={skyState}
-              date={isTodayResult.formattedDate}
+              date={date}
               isToday={isTodayResult.isToday}
               temperature={temperature}
               rainPercent={rainPercent}
