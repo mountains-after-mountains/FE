@@ -52,7 +52,7 @@ const Contents2 = () => {
   return (
     <>
       <ContentsHeader />
-      <main className="whitespace-pre-line px-5 pb-10 pt-2.5">
+      <main className="whitespace-pre-line px-5 pb-2 pt-2.5">
         <p className="mb-2.5 text-h3 text-gray-900">{'먹으러 등산 가는 사람?\n저요.🙋🏻‍♀️'}</p>
         <p className="mb-10 text-b3 text-gray-700">
           {
@@ -77,7 +77,6 @@ const Contents2 = () => {
             </li>
           ))}
         </ul>
-        <p className="text-b3 text-gray-700">친구야, 등산하고 맛집가자! 산 구경하고 초대장 보내기</p>
       </main>
     </>
   )

@@ -26,21 +26,21 @@ const CourseCard = ({ courseName, distance, time, level }: Props) => {
     <div className="mb-[10px] rounded-[20px] bg-gray-100 p-[14px]">
       <div className="mb-[10px] flex gap-1">
         <div className="text-b1">{courseName}</div>
-        <StarRate difficulty={difficulty} textNone />
+        {level ? <StarRate difficulty={difficulty} textNone /> : null}
       </div>
       <div className="flex gap-[15px]">
         <div className="mb-1 flex w-[92px] items-center gap-1 text-b3 text-gray-900">
           <Climb />
           거리
         </div>
-        <div className="text-b3 text-gray-900">{`${distance}km`}</div>
+        <div className="text-b3 text-gray-900">{distance ? `${distance}km` : '-'}</div>
       </div>
       <div className="flex gap-[15px]">
         <div className="flex w-[92px] items-center gap-1 text-b3 text-gray-900">
           <Timer />
           예상소요시간
         </div>
-        <div className="text-b3 text-gray-900">{`${time}분`}</div>
+        <div className="text-b3 text-gray-900">{time ? `${time}분` : '-'}</div>
       </div>
     </div>
   )

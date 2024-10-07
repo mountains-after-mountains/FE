@@ -6,7 +6,13 @@ const EmptyMntiList = () => {
       <p className="text-h3 font-bold text-gray-900">앗, 이런 산은 없어요!</p>
       <p className="text-b3 text-gray-900">다른 이름으로 검색해주세요.</p>
       <img src={emptyImg} className="mb-5 h-[199px] w-[192px]" />
-      <button className="rounded-3xl border border-gray-300 px-4 py-2 text-b2 text-gray-900">산 등록 요청</button>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfbLy3PKiDZLscc9cURnHVK6CjyXfbDXSMg0eSwKpUZaDbs3w/viewform?usp=sf_link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button className="rounded-3xl border border-gray-300 px-4 py-2 text-b2 text-gray-900">산 등록 요청</button>
+      </a>
     </div>
   )
 }

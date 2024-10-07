@@ -2,7 +2,7 @@ import Mountains from '@/assets/icons/mountains.svg?react'
 import SearchCommandList from './SearchCommandList'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { debounce } from 'lodash'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; defaultValue?: string | null }) => {
   const [value, setValue] = useState<string>(defaultValue ?? '')
@@ -33,9 +33,13 @@ const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; d
   }, [value, mntiNameList])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setShowCommand(false)
-    navigate(`/search?keyword=${value}`)
+    if (value == '') {
+      navigate(`/`)
+    } else {
+      e.preventDefault()
+      setShowCommand(false)
+      navigate(`/search?keyword=${value}`)
+    }
   }
 
   useEffect(() => {
@@ -51,7 +55,12 @@ const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; d
     <form className="relative p-5 pt-0" onSubmit={handleSubmit}>
       <div className="box-border flex gap-3 rounded-[40px] px-3 py-[5px] align-middle shadow-[0_1px_10px_rgba(0,0,0,0.1)]">
         <Mountains width={34} height={34} />
-        <input className="w-full text-b2 focus:outline-none" value={value} onChange={onChange} />
+        <input
+          placeholder="산 이름으로 검색해주세요."
+          className="w-full text-b2 focus:outline-none"
+          value={value}
+          onChange={onChange}
+        />
       </div>
       {showCommand && (
         <SearchCommandList

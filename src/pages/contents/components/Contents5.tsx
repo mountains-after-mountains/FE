@@ -68,9 +68,9 @@ const hikingData = [
   },
 ]
 
-const Contents1 = () => {
+const Contents5 = () => {
   return (
-    <>
+    <div className="flex flex-col">
       <ContentsHeader />
       <main className="whitespace-pre-line px-5 pb-10 pt-2.5">
         <p className="mb-2.5 text-h3 text-gray-900">{'등린이가 오르기 좋은\n서울 산은 어디?'}</p>
@@ -110,8 +110,8 @@ const Contents1 = () => {
           }
         </p>
       </footer>
-    </>
+    </div>
   )
 }
 
-export default Contents1
+export default Contents5

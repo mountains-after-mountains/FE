@@ -38,10 +38,18 @@ const Header = ({ selected }: Props) => {
                 <img src={ProfileImg} className="h-6 w-6" />
                 <span className="text-h5 font-bold text-gray-900">{name}</span>
               </div>
-              <button>개인정보처리방침</button>
-              <button>개선의견 남기기</button>
+              <a
+                href="https://www.notion.so/over-the-mnt/179a7f503ba54d2aa705bd882e069c10"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button>개인정보처리방침</button>
+              </a>
+              <a href="https://moaform.com/q/U9DcCc" target="_blank" rel="noopener noreferrer">
+                <button>개선의견 남기기</button>
+              </a>
               <PopoverClose onClick={handleSignOut}>로그아웃</PopoverClose>
-              <button>회원탈퇴</button>
+              {/*<button>회원탈퇴</button>*/}
             </PopoverContent>
           </Popover>
         ) : (
