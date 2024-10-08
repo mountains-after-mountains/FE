@@ -129,7 +129,11 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       backgroundImage: {
-        'home-banner': "url('/assets/image/bg_banner.png')",
+        'home-banner1': "url('/assets/image/bg_banner1.png')",
+        'home-banner2': "url('/assets/image/bg_banner2.png')",
+        'home-banner3': "url('/assets/image/bg_banner3.png')",
+        'home-banner4': "url('/assets/image/bg_banner4.png')",
+        'home-banner5': "url('/assets/image/bg_banner5.png')",
       },
     },
   },

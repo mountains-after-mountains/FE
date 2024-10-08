@@ -23,7 +23,7 @@ const banners = [
     id: 3,
     title: '등산엔 어떤 간식을 챙겨갈까? 🍫',
     description:
-      '등산은 멋진 풍경을 즐기면서 건강도 챙길 수 있는 좋은 활동이죠.\n하지만 긴 산행에는 에너지를 유지하기 위한 간식이 필수입니다.\n어떤 간식이 등산에 좋을까요? >',
+      '등산은 멋진 풍경을 즐기면서 건강도 챙길 수 있는 좋은 활동이죠.\n하지만 긴 산행에는 에너지를 유지하기 위한 간식이 필수입니다.\n어떤 간식이 등산에 좋을까요?',
   },
   {
     id: 4,
@@ -57,13 +57,16 @@ const BannerSwiper = ({ className }: { className?: string }) => {
       {banners.map(({ id, title, description }) => (
         <SwiperSlide key={id}>
           <div
-            className={clsx('box-border flex cursor-pointer flex-col justify-center gap-1.5 bg-cover bg-center p-5', {
-              'bg-home-banner': id === 1,
-              'bg-green-100': id === 2,
-              'bg-green-600': id === 3,
-              'bg-green-800': id === 4,
-              'bg-green-200': id === 5,
-            })}
+            className={clsx(
+              'box-border flex cursor-pointer flex-col justify-center gap-1.5 bg-right bg-no-repeat p-5',
+              {
+                'bg-home-banner1 bg-green-800': id === 1,
+                'bg-home-banner2 bg-green-100': id === 2,
+                'bg-home-banner3 bg-green-600': id === 3,
+                'bg-home-banner4 bg-green-800': id === 4,
+                'bg-home-banner5 bg-green-200': id === 5,
+              },
+            )}
             onClick={() => navigate(`/contents/${id}`)}
           >
             <div
