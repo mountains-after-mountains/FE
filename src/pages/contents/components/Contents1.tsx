@@ -46,7 +46,7 @@ const Contents1 = () => {
     <>
       <ContentsHeader />
       <main className="whitespace-pre-line px-5 pb-10 pt-2.5">
-        <p className="mb-2.5 text-h3 text-gray-900">{'산너머산과 함께하는\n서울둘레길 21코스'}</p>
+        <p className="mb-2.5 text-h3 text-gray-900">{'산너머산과 함께하는\n서울둘레길 21코스 ⛰️'}</p>
         <p className="mb-10 text-b3 text-gray-700">
           {
             '둘레길 걸으면 인증받고 완주 증명서도 받을 수 있다!?\n서울의 역사, 문화, 자연을 체험할 수 있는 서울둘레길 21코스'

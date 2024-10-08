@@ -73,7 +73,7 @@ const Contents5 = () => {
     <div className="flex flex-col">
       <ContentsHeader />
       <main className="whitespace-pre-line px-5 pb-10 pt-2.5">
-        <p className="mb-2.5 text-h3 text-gray-900">{'등린이가 오르기 좋은\n서울 산은 어디?'}</p>
+        <p className="mb-2.5 text-h3 text-gray-900">{'등린이가 오르기 좋은\n서울 산은 어디? 🏃🏻‍♀‍'}</p>
         <p className="mb-10 text-b3 text-gray-700">
           {
             '등산을 처음 시작하는 "등린이"라면, 서울에는 다양한 난이도의\n산들이 있어 쉽게 도전할 수 있습니다.\n이번 글에서는 초보자가 오르기 좋은 서울의 산 5곳을 소개합니다.'
