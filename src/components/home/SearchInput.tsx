@@ -22,7 +22,7 @@ const SearchInput = ({ mntiNameList, defaultValue }: { mntiNameList: string[]; d
       } else {
         setFilteredData([])
       }
-    }, 500)
+    }, 200)
 
     debouncedFilter(value)
     setShowCommand(true)

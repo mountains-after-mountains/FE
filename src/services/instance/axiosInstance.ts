@@ -1,4 +1,5 @@
 import axios from 'axios'
+import useAuthStore from '@/store/useAuthStore.ts'
 
 const API_URL = `${import.meta.env.VITE_APP_API_URL}`
 
@@ -43,9 +44,7 @@ const handleErrorResponse = (error: any) => {
     alert(message)
 
     if (status === 401) {
-      window.dispatchEvent(new CustomEvent('unauthorized'))
-      localStorage.removeItem('token')
-      localStorage.removeItem('nickName')
+      useAuthStore.getState().logout()
     }
   } else if (error.request) {
     console.error('No response received from server')

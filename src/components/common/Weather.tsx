@@ -210,7 +210,7 @@ const WeatherGroup = ({ weathers, className }: { weathers?: WeatherResponse[]; c
         })}
       </div>
       <div className="mt-[10px] flex items-center justify-end gap-[10px] text-c2 text-gray-300">
-        <span>데이터 출처 : Openweather</span>
+        <span>데이터 출처 : OpenWeather</span>
         <span>지역 : 서울</span>
       </div>
     </>
