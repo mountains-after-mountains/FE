@@ -9,6 +9,7 @@ export interface MountainListResponse {
   height: number
   famous100: boolean
   seoulTrail: boolean
+  photoSource: string | null
 }
 export interface courseListType {
   courseNo: string

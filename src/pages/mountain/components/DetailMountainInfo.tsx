@@ -22,6 +22,9 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
           src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
           className="mb-5 h-[246px] w-full object-cover"
         />
+        {mountain?.photoSource && (
+          <div className="absolute bottom-2 right-3 text-c2 text-white">사진 출처 : {mountain?.photoSource}</div>
+        )}
       </div>
       <div className="px-5">
         <div className="flex gap-1">

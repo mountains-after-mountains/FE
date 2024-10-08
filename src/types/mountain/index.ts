@@ -28,6 +28,7 @@ export interface MountainResponse {
   course: CourseType[]
   seoulTrail: boolean
   website: string
+  photoSource: string | null
 }
 
 export interface MountainListHomeResponse {
