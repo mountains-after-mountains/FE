@@ -19,7 +19,7 @@ const MountainClassification = ({ onClick }: { onClick: () => void }) => {
               <span className="mr-1.5 text-b3 font-bold text-green-700">산 아래 산</span>
             </td>
             <td className="text-b3 text-gray-900">500m 이상</td>
-            <td className="text-b3 text-gray-900">15</td>
+            <td className="text-b3 text-gray-900">25</td>
           </tr>
           <tr>
             <td className="bg-gray-100 px-2.5 py-1.5">

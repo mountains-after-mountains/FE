@@ -4,8 +4,8 @@ import HomeToggleList from '@/components/home/HomeToggleList'
 import MountainCard from '@/components/home/MountainCard'
 import SearchInput from '@/components/home/SearchInput'
 import useMountainsListHome from '@/hooks/useMountainsListHome'
-import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useMemo } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import Add from '@/assets/icons/add.svg?react'
 import BannerSwiper from '@/components/home/BannerSwiper'
 import useScrollStore from '@/store/useScrollStore'
@@ -14,16 +14,15 @@ import LoadingSpinner from '@/components/common/Spinner.tsx'
 
 const Home = () => {
   const { data, isLoading } = useMountainsListHome()
-  const [mntiLevel, setMntiLevel] = useState<'1' | '2' | '3'>()
   const navigate = useNavigate()
+  const params = useParams()
 
   const { scrollToTop, scrollY } = useScrollStore()
 
   const currentData = useMemo(
-    () => data?.filter(mountain => (mntiLevel ? mountain.mntiLevel === mntiLevel : true)),
-    [mntiLevel, data],
+    () => data?.filter(mountain => (params.id ? mountain.mntiLevel == params.id : true)),
+    [params?.id, data],
   )
-
   const mntiNameList = useMemo(() => data?.map(mountain => mountain.mntiName), [data])
 
   return (
@@ -40,12 +39,7 @@ const Home = () => {
                 scrollY > 0 ? 'max-h-0 opacity-0' : 'max-h-[500px] opacity-100',
               )}
             />
-            <HomeToggleList
-              onClickOuter={(level: '1' | '2' | '3' | undefined) => {
-                setMntiLevel(level)
-                scrollToTop()
-              }}
-            />
+            <HomeToggleList scrollToTop={scrollToTop} id={params.id} />
           </div>
           <div className="relative pb-[100px]">
             {(currentData?.length ?? 0) > 0 ? (

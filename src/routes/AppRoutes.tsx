@@ -40,7 +40,7 @@ const AppRoutesWithLocation = ({ isAuthenticated }: { isAuthenticated: boolean }
       {shouldShowLoginModal && <Login />}
       <Routes>
         <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/:id?" element={<Home />} />
         <Route path="mountain/:mountainId" element={<Mountain />} />
         <Route path="contents/:contentsId" element={<Contents />} />
         <Route path="test" element={<Test />} />
