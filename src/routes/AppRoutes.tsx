@@ -16,6 +16,7 @@ import WelcomePage from '@/pages/login/WelcomePage.tsx'
 import Search from '@/pages/search'
 import Contents from '@/pages/contents'
 import Layout from '@/components/layouts/Layout'
+import Withdrawal from '@/pages/withdrawal'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -54,6 +55,7 @@ const AppRoutesWithLocation = ({ isAuthenticated }: { isAuthenticated: boolean }
         <Route path="invitation/:invitationId" element={<Invitation />} />
         <Route path="/invitation/make/:scheduleId" element={<MakeInvitation />} />
         <Route path="/invitation/accept/:invitationId" element={<AcceptInvitation />} />
+        <Route path="/withdrawal" element={<Withdrawal />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>

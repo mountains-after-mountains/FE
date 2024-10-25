@@ -49,7 +49,7 @@ const Header = ({ selected }: Props) => {
                 <button>개선의견 남기기</button>
               </a>
               <PopoverClose onClick={handleSignOut}>로그아웃</PopoverClose>
-              {/*<button>회원탈퇴</button>*/}
+              <button onClick={() => navigate('/withdrawal')}>회원탈퇴</button>
             </PopoverContent>
           </Popover>
         ) : (
