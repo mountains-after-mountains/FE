@@ -3,10 +3,24 @@ import { useNavigate } from 'react-router-dom'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 
-const Withdrawal = () => {
+const Withdraw = () => {
   const navigate = useNavigate()
   const [withdrawal, setWithdrawal] = useState(false)
   const [text, setText] = useState('')
+
+  // const mutation = useMutation({
+  //   mutationFn: () => deleteSchedule(scheduleId),
+  //   onSuccess: () => {
+  //     navigate('/schedule')
+  //   },
+  //   onError: (error: AxiosError) => {
+  //     console.error('Error deleting schedule:', error)
+  //   },
+  // })
+  //
+  // const handleWithdraw = () => {
+  //   mutation.mutate()
+  // }
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
@@ -63,4 +77,4 @@ const Withdrawal = () => {
   )
 }
 
-export default Withdrawal
+export default Withdraw
