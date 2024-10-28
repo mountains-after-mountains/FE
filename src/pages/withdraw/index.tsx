@@ -2,29 +2,39 @@ import Header from '@/components/layouts/header'
 import { useNavigate } from 'react-router-dom'
 import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { userWithdraw } from '@/services/api/withdraw'
 
 const Withdraw = () => {
   const navigate = useNavigate()
   const [withdrawal, setWithdrawal] = useState(false)
   const [text, setText] = useState('')
 
-  // const mutation = useMutation({
-  //   mutationFn: () => deleteSchedule(scheduleId),
-  //   onSuccess: () => {
-  //     navigate('/schedule')
-  //   },
-  //   onError: (error: AxiosError) => {
-  //     console.error('Error deleting schedule:', error)
-  //   },
-  // })
-  //
-  // const handleWithdraw = () => {
-  //   mutation.mutate()
-  // }
+  const kakaoRefreshToken = localStorage.getItem('kakaoRefreshToken')
 
+  const userWithdrawMutation = useMutation({
+    mutationFn: () => userWithdraw(kakaoRefreshToken!),
+    onSuccess: () => {
+      localStorage.removeItem('token')
+      localStorage.removeItem('nickName')
+      localStorage.removeItem('scheduleId')
+      localStorage.removeItem('kakaoRefreshToken')
+      navigate('/')
+      alert('회원 탈퇴가 완료되었습니다.')
+    },
+    onError: error => {
+      console.error('회원 탈퇴 실패:', error)
+      alert('회원 탈퇴에 실패했습니다. 다시 시도해주세요.')
+    },
+  })
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
   }
+
+  const handleWithdraw = () => {
+    userWithdrawMutation.mutate()
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header title="회원탈퇴" onBackClick={() => navigate('/')} />
@@ -46,7 +56,9 @@ const Withdraw = () => {
           />
           <div className="text-end text-b2 text-main">{text.length}/500</div>
           <div className="mt-auto flex gap-2">
-            <FooterButton variant="bright">탈퇴하기</FooterButton>
+            <FooterButton variant="bright" onClick={handleWithdraw}>
+              탈퇴하기
+            </FooterButton>
           </div>
         </div>
       ) : (
