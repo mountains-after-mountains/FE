@@ -17,7 +17,7 @@ const useLogin = (code: string | null) => {
       try {
         const scheduleId = localStorage.getItem('scheduleId')
         const data = await login(code, scheduleId || '')
-        setLogin(data.token, data.nickname)
+        setLogin(data.token, data.nickname, data.kakaoRefreshToken)
         navigate('/welcome')
       } catch (error) {
         console.error('Error during sign-in:', error)

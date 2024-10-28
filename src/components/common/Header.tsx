@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import ProfileImg from '@/assets/image/profile.png'
 import useAuthStore from '@/store/useAuthStore'
+import WithdrawDrawer from '@/components/common/WithdrawDrawer.tsx'
 
 type Props = {
   selected: 'home' | 'schedule'
@@ -49,7 +50,7 @@ const Header = ({ selected }: Props) => {
                 <button>개선의견 남기기</button>
               </a>
               <PopoverClose onClick={handleSignOut}>로그아웃</PopoverClose>
-              {/*<button>회원탈퇴</button>*/}
+              <WithdrawDrawer />
             </PopoverContent>
           </Popover>
         ) : (
