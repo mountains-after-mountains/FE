@@ -4,23 +4,21 @@ import FooterButton from '@/components/common/button/FooterButton.tsx'
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { userWithdraw } from '@/services/api/withdraw'
+import useAuthStore from '@/store/useAuthStore.ts'
 
 const Withdraw = () => {
   const navigate = useNavigate()
   const [withdrawal, setWithdrawal] = useState(false)
   const [text, setText] = useState('')
+  const { logout } = useAuthStore()
 
   const kakaoRefreshToken = localStorage.getItem('kakaoRefreshToken')
 
   const userWithdrawMutation = useMutation({
-    mutationFn: () => userWithdraw(kakaoRefreshToken!),
+    mutationFn: () => userWithdraw(kakaoRefreshToken!, text),
     onSuccess: () => {
-      localStorage.removeItem('token')
-      localStorage.removeItem('nickName')
-      localStorage.removeItem('scheduleId')
-      localStorage.removeItem('kakaoRefreshToken')
+      logout()
       navigate('/')
-      alert('회원 탈퇴가 완료되었습니다.')
     },
     onError: error => {
       console.error('회원 탈퇴 실패:', error)

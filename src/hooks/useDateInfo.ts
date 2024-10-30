@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { format, parseISO } from 'date-fns'
+import { differenceInCalendarDays, format, parseISO } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
 const useDateInfo = (dateString: string) => {
@@ -15,8 +15,7 @@ const useDateInfo = (dateString: string) => {
       const formattedDate = format(targetDate, 'M월 d일(E)', { locale: ko })
       const formattedTime = format(targetDate, 'a h시 mm분', { locale: ko })
 
-      const differenceInMs = targetDate.getTime() - now.getTime()
-      const dDay = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24))
+      const dDay = differenceInCalendarDays(targetDate, now)
 
       const dDayText = dDay > 0 ? `D-${dDay}` : dDay === 0 ? 'D-day' : `D+${Math.abs(dDay)}`
 
