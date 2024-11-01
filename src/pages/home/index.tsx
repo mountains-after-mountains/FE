@@ -11,9 +11,10 @@ import BannerSwiper from '@/components/home/BannerSwiper'
 import useScrollStore from '@/store/useScrollStore'
 import clsx from 'clsx'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import ErrorPage from '@/components/common/ErrorPage.tsx'
 
 const Home = () => {
-  const { data, isLoading } = useMountainsListHome()
+  const { data, isLoading, isError, refetch } = useMountainsListHome()
   const navigate = useNavigate()
   const params = useParams()
 
@@ -42,7 +43,9 @@ const Home = () => {
             <HomeToggleList scrollToTop={scrollToTop} id={params.id} />
           </div>
           <div className="relative pb-[100px]">
-            {(currentData?.length ?? 0) > 0 ? (
+            {isError ? (
+              <ErrorPage refetch={refetch} />
+            ) : (currentData?.length ?? 0) > 0 ? (
               currentData?.map(mountain => <MountainCard key={mountain.mntiName} mountain={mountain} />)
             ) : (
               <EmptyMntiList />
