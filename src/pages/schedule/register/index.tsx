@@ -8,6 +8,7 @@ import HeaderWithDrawer from '@/pages/schedule/modify/components/HeaderWithDrawe
 import { useQuery } from '@tanstack/react-query'
 import { getMountainsList } from '@/services/api/schedule'
 import LoadingSpinner from '@/components/common/Spinner.tsx'
+import ErrorPage from '@/components/common/ErrorPage.tsx'
 
 const RegisterSchedule = () => {
   const { mountainId } = useParams()
@@ -20,9 +21,16 @@ const RegisterSchedule = () => {
   const [searchValue, setSearchValue] = useState('')
   const [hasSelectedMountain, setHasSelectedMountain] = useState(false)
 
-  const { data: mountainsList } = useQuery({
-    queryKey: ['getMountainsList', searchValue],
-    queryFn: () => getMountainsList(searchValue),
+  const {
+    data: mountainsList,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ['getMountainsList'],
+    queryFn: () => getMountainsList(),
+    refetchOnWindowFocus: false,
+    retry: 0,
   })
 
   const { data: mountainCourseOption, isError: mountainCourseError } = useMountainCourse(
@@ -57,39 +65,47 @@ const RegisterSchedule = () => {
 
   return (
     <div className="flex h-full flex-col">
-      {!hasSelectedMountain && <LoadingSpinner />}
+      {(isLoading || !hasSelectedMountain) && <LoadingSpinner />}
       <HeaderWithDrawer
         title="등산일정 등록"
         backDrawerTitle="등록하지 않고 나가시겠어요?"
         message="아직 등록되지 않았어요."
         continueButtonLabel="이어서 등록하기"
       />
-      <div className="flex h-full flex-col p-5">
-        <ScheduleFormSection
-          date={date}
-          setDate={setDate}
-          setMountainsValue={setMountainsValue}
-          mountainCourseOption={mountainCourseOption}
-          mountainCourseError={mountainCourseError}
-          mountainCourseValue={mountainCourseValue}
-          setMountainCourseValue={setMountainCourseValue}
-          PersonnelValue={PersonnelValue}
-          setPersonnelValue={setPersonnelValue}
-          setHour={setHour}
-          setMinute={setMinute}
-          hour={hour}
-          minute={minute}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          mountainsList={mountainsList || []}
-        />
-      </div>
-      <div className="fixed bottom-5 w-[calc(100%-40px)] max-w-[460px] px-5">
-        <div className="flex justify-center pb-[10px] text-b2 text-subtext">일정은 나중에 수정할 수 있어요.</div>
-        <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
-          일정 등록하기
-        </FooterButton>
-      </div>
+      {isError ? (
+        <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
+          <ErrorPage refetch={refetch} />
+        </div>
+      ) : (
+        <>
+          <div className="flex h-full flex-col p-5">
+            <ScheduleFormSection
+              date={date}
+              setDate={setDate}
+              setMountainsValue={setMountainsValue}
+              mountainCourseOption={mountainCourseOption}
+              mountainCourseError={mountainCourseError}
+              mountainCourseValue={mountainCourseValue}
+              setMountainCourseValue={setMountainCourseValue}
+              PersonnelValue={PersonnelValue}
+              setPersonnelValue={setPersonnelValue}
+              setHour={setHour}
+              setMinute={setMinute}
+              hour={hour}
+              minute={minute}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              mountainsList={mountainsList || []}
+            />
+          </div>
+          <div className="fixed bottom-5 w-[calc(100%-40px)] max-w-[460px] px-5">
+            <div className="flex justify-center pb-[10px] text-b2 text-subtext">일정은 나중에 수정할 수 있어요.</div>
+            <FooterButton onClick={handleSubmit} disabled={isSubmitDisabled}>
+              일정 등록하기
+            </FooterButton>
+          </div>
+        </>
+      )}
     </div>
   )
 }
