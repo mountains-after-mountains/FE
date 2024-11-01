@@ -50,6 +50,11 @@ const ScheduleFormSection = ({
     setSearchValue(mntiName)
     setShowDropdown(false)
   }
+
+  const filteredMountainsList = mountainsList.filter(mountain =>
+    mountain.mntiName.toLowerCase().includes(searchValue.toLowerCase()),
+  )
+
   return (
     <div className="flex flex-col gap-[30px]">
       <TextWithSubtext title="어떤 산에 가시나요?" asteriskIcon={true}>
@@ -65,8 +70,8 @@ const ScheduleFormSection = ({
           />
           {showDropdown && mountainsList && (
             <ul className="mt-1 max-h-52 overflow-y-auto rounded-md border border-input bg-popover bg-white text-popover-foreground shadow-md">
-              {mountainsList.length > 0 ? (
-                mountainsList.map((mountain: { mntiListNo: string; mntiName: string }) => (
+              {filteredMountainsList.length > 0 ? (
+                filteredMountainsList.map((mountain: { mntiListNo: string; mntiName: string }) => (
                   <li
                     key={mountain.mntiListNo}
                     className="cursor-pointer px-4 py-2 text-sm text-popover-foreground hover:bg-accent"

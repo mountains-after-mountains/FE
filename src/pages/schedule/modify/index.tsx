@@ -22,8 +22,8 @@ const ModifySchedule = () => {
   const [skipMountainsEffect, setSkipMountainsEffect] = useState(true)
 
   const { data: mountainsList } = useQuery({
-    queryKey: ['getMountainsList', searchValue],
-    queryFn: () => getMountainsList(searchValue),
+    queryKey: ['getMountainsList'],
+    queryFn: () => getMountainsList(),
     refetchOnWindowFocus: false,
   })
 

@@ -6,7 +6,6 @@ import RegisterSchedule from '@/pages/schedule/register'
 import KakaoRedirect from '@/pages/login/components/KakaoRedirect'
 import ModifySchedule from '@/pages/schedule/modify'
 import ListSchedule from '@/pages/schedule/list'
-import Login from '@/pages/login'
 import Invitation from '@/pages/invitation'
 import useAuthStore from '@/store/useAuthStore.ts'
 import MakeInvitation from '@/pages/invitation/make'
@@ -17,6 +16,7 @@ import Search from '@/pages/search'
 import Contents from '@/pages/contents'
 import Layout from '@/components/layouts/Layout'
 import Withdraw from '@/pages/withdraw'
+import Login from '@/pages/login'
 
 const AppRoutes = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
