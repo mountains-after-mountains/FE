@@ -13,9 +13,10 @@ const Withdraw = () => {
   const { logout } = useAuthStore()
 
   const kakaoRefreshToken = localStorage.getItem('kakaoRefreshToken')
+  const userId = localStorage.getItem('userId')
 
   const userWithdrawMutation = useMutation({
-    mutationFn: () => userWithdraw(kakaoRefreshToken!, text),
+    mutationFn: () => userWithdraw(kakaoRefreshToken!, text, userId!),
     onSuccess: () => {
       logout()
       navigate('/')
