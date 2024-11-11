@@ -17,7 +17,7 @@ const MountainCard = ({ mountain }: { mountain?: MountainListResponse }) => {
           {mountain?.famous100 && <Top100Badge />}
         </div>
         <img
-          src={mountain?.potoFile ? `data:image/jpeg;base64,${mountain?.potoFile}` : EmptyImg}
+          src={mountain?.potoFile ? `${mountain?.potoFile}` : EmptyImg}
           className="h-full w-full rounded-[20px] object-cover"
         />
         {mountain?.photoSource && (
