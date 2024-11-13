@@ -21,11 +21,7 @@ const Invitation = () => {
       <Header title="초대장" onBackClick={() => navigate('/schedule')} />
       <div className="px-5 py-14">
         <div className="rounded-t-2xl">
-          <img
-            src={data?.img ? `data:image/jpeg;base64,${data?.img}` : EmptyImg}
-            alt="Onboarding image"
-            className="rounded-t-2xl"
-          />
+          <img src={data?.imgUrl ? data?.imgUrl : EmptyImg} alt="Onboarding image" className="rounded-t-2xl" />
         </div>
         <div className="rounded-b-2xl px-5 py-4 shadow-md">
           {/*초대장 수정은 나중에*/}

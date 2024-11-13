@@ -32,11 +32,7 @@ const AcceptInvitation = () => {
       </div>
       <div className="px-5 py-8">
         <div className="flex-grow-[7] rounded-t-2xl">
-          <img
-            src={data?.img ? `data:image/jpeg;base64,${data?.img}` : EmptyImg}
-            alt="Onboarding image"
-            className="rounded-t-2xl"
-          />
+          <img src={data?.img ? data?.img : EmptyImg} alt="Onboarding image" className="rounded-t-2xl" />
         </div>
         <div className="rounded-b-2xl px-5 py-4 shadow-md">
           <DayBadgeWithTitle text={dDayText} title={formattedDate} />

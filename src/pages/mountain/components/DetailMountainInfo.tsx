@@ -19,7 +19,7 @@ const DetailMountainInfo = ({ mountain, className }: { mountain?: MountainRespon
           <Arrow color={mountain?.photoFile ? 'white' : 'black'} />
         </div>
         <img
-          src={mountain?.photoFile ? `data:image/jpeg;base64,${mountain?.photoFile}` : EmptyImg}
+          src={mountain?.photoFile ? `${mountain?.photoFile}` : EmptyImg}
           className="mb-5 h-[246px] w-full object-cover"
         />
         {mountain?.photoSource && (

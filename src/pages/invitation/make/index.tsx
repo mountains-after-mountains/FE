@@ -35,7 +35,7 @@ const MakeInvitation = () => {
       />
       <div className="px-5 py-4">
         <img
-          src={selectedImage?.img ? `data:image/jpeg;base64,${selectedImage.img}` : EmptyImg}
+          src={selectedImage?.img ? selectedImage.img : EmptyImg}
           className="mb-4 aspect-square rounded-xl"
           alt="Selected"
         />
@@ -44,7 +44,7 @@ const MakeInvitation = () => {
             {invitationImgList?.map((item: InvitationImage) => (
               <img
                 key={item.imgNumber}
-                src={`data:image/jpeg;base64,${item.img}`}
+                src={item.img}
                 className={`w-14 cursor-pointer rounded ${
                   selectedImage?.img === item.img ? 'border-2 border-black' : 'border-2 border-border'
                 }`}

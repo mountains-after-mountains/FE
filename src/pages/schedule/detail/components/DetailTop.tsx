@@ -24,7 +24,7 @@ const DetailTop = ({ data, isAuthenticated }: DetailTopProps) => {
 }
 
 const useDetailTopLogic = (data: Schedule) => {
-  const imageSrc = data?.mountainImg ? `data:image/jpeg;base64,${data.mountainImg}` : EmptyImg
+  const imageSrc = data?.mountainImg ? data.mountainImg : EmptyImg
   const scheduleDate = data?.scheduleDate ?? ''
   const dateInfo = useDateInfo(scheduleDate)
   return { imageSrc, dateInfo }
