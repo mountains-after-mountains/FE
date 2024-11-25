@@ -96,3 +96,45 @@ export const SpeechBubble = () => (
     />
   </svg>
 )
+export const LevelOneGr = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="#10854D" />
+    <rect y="7" width="4" height="6" fill="#10854D" />
+    <rect x="10" width="4" height="13" fill="#10854D" />
+  </svg>
+)
+export const LevelTwoGr = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="#10854D" />
+    <rect y="7" width="4" height="6" fill="#10854D" />
+    <rect x="10" width="4" height="13" fill="#10854D" fill-opacity="0.4" />
+  </svg>
+)
+export const LevelThreeGr = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="#10854D" fill-opacity="0.4" />
+    <rect y="7" width="4" height="6" fill="#10854D" />
+    <rect x="10" width="4" height="13" fill="#10854D" fill-opacity="0.4" />
+  </svg>
+)
+export const LevelOneWh = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="white" />
+    <rect y="7" width="4" height="6" fill="white" />
+    <rect x="10" width="4" height="13" fill="white" />
+  </svg>
+)
+export const LevelTwoWh = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="white" />
+    <rect y="7" width="4" height="6" fill="white" />
+    <rect x="10" width="4" height="13" fill="white" fill-opacity="0.4" />
+  </svg>
+)
+export const LevelThreeWh = () => (
+  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="4" width="4" height="9" fill="white" fill-opacity="0.4" />
+    <rect y="7" width="4" height="6" fill="white" />
+    <rect x="10" width="4" height="13" fill="white" fill-opacity="0.4" />
+  </svg>
+)

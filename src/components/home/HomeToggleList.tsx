@@ -31,9 +31,9 @@ const HomeToggleList = ({ scrollToTop, id }: HomeToggleListProps) => {
   return (
     <div className="flex items-center justify-between px-5 py-[21px]">
       <div className="flex gap-[10px]">
-        <ToggleButton toggleOn={id === '1'} onClick={() => onClick('1')} text="산 아래 산" />
-        <ToggleButton toggleOn={id === '2'} onClick={() => onClick('2')} text="산 중의 산" />
-        <ToggleButton toggleOn={id === '3'} onClick={() => onClick('3')} text="산 너머 산" />
+        <ToggleButton id={1} toggleOn={id === '1'} onClick={() => onClick('1')} text="산 아래 산" />
+        <ToggleButton id={2} toggleOn={id === '2'} onClick={() => onClick('2')} text="산 중의 산" />
+        <ToggleButton id={3} toggleOn={id === '3'} onClick={() => onClick('3')} text="산 너머 산" />
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
