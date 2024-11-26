@@ -8,10 +8,11 @@ interface Props {
   courseName: string
   distance: number
   time: number
+  onlyFreeCourse?: boolean
   level: '쉬움' | '중간' | '어려움'
 }
 
-const CourseCard = ({ courseName, distance, time, level }: Props) => {
+const CourseCard = ({ courseName, distance, time, level, onlyFreeCourse }: Props) => {
   const params = useParams()
   const difficulty = useMemo(() => {
     switch (level) {
@@ -29,7 +30,17 @@ const CourseCard = ({ courseName, distance, time, level }: Props) => {
   return (
     <div className="mb-[10px] rounded-[20px] bg-gray-100 p-[14px]">
       {courseName === '자유코스' ? (
-        !params.scheduleId ? (
+        params.scheduleId ? (
+          <>
+            <div className="mb-[10px] flex gap-1">
+              <div className="text-b1">{courseName}</div>
+            </div>
+            <div className="text-b2">
+              <p>발길 닿는 대로 가보는 것도 등산의 묘미!</p>
+              <p>안전에 유의하며 자유롭게 올라보세요!</p>
+            </div>
+          </>
+        ) : onlyFreeCourse ? (
           <>
             <div className="mb-[10px] flex gap-1">
               <div className="text-b1">{courseName}</div>

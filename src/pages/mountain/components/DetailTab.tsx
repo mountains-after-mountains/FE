@@ -16,6 +16,7 @@ const DetailTab = ({ courseList }: { courseList?: CourseType[] }) => {
       </div>
       {courseList?.map(course => (
         <CourseCard
+          onlyFreeCourse={courseList?.length === 1}
           key={course.courseName}
           courseName={course.courseName}
           distance={Number(course.mntiDist)}
