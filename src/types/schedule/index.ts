@@ -43,7 +43,7 @@ export interface Schedule {
   mountainHigh: number
   mountainLevel: string
   mountainAddress: string
-  mountainImg: string | null
+  mountainImg: string
   course: CourseType
   weatherList: Weather[]
   famous100: boolean
