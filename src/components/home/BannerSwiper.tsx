@@ -60,11 +60,11 @@ const BannerSwiper = ({ className }: { className?: string }) => {
             className={clsx(
               'box-border flex cursor-pointer flex-col justify-center gap-1.5 bg-right bg-no-repeat p-5',
               {
-                'bg-home-banner1 bg-green-800': id === 1,
-                'bg-home-banner2 bg-green-100': id === 2,
-                'bg-home-banner3 bg-green-600': id === 3,
-                'bg-home-banner4 bg-green-800': id === 4,
-                'bg-home-banner5 bg-green-200': id === 5,
+                'bg-green-800 bg-home-banner1': id === 1,
+                'bg-green-100 bg-home-banner2': id === 2,
+                'bg-green-600 bg-home-banner3': id === 3,
+                'bg-green-800 bg-home-banner4': id === 4,
+                'bg-green-200 bg-home-banner5': id === 5,
               },
             )}
             onClick={() => navigate(`/contents/${id}`)}

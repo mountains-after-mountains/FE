@@ -1,3 +1,5 @@
+const { Phone } = require('lucide-react')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
@@ -5,9 +7,10 @@ module.exports = {
   prefix: '',
   theme: {
     screens: {
-      tablet: '480px',
-      laptop: '768px',
-      desktop: '1024px',
+      phone: '375px', // 일반적인 모바일 최소 사이즈
+      tablet: '768px', // 태블릿
+      laptop: '1024px', // 노트북
+      desktop: '1280px', // 데스크톱
     },
     container: {
       center: true,

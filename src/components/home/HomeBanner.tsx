@@ -10,7 +10,7 @@ const HomeBanner = () => {
 
   return (
     <div
-      className="bg-home-banner1 box-border flex cursor-pointer flex-col justify-center gap-1.5 bg-cover bg-center p-5"
+      className="box-border flex cursor-pointer flex-col justify-center gap-1.5 bg-home-banner1 bg-cover bg-center p-5"
       onClick={onClick}
     >
       <div className="text-b1 text-white">{title}</div>
